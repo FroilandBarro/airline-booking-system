@@ -25,5 +25,4 @@ const auth = require("./auth");
 
 app.use('/api/flights', flights);
 
-
 app.listen(7000); 
