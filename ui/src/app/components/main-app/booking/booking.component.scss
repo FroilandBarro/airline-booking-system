@@ -1,0 +1,144 @@
+.app-booking {
+    .content {
+        padding: 0 30px 30px;
+        min-height: calc(100vh - 123px);
+        margin-top: -30px;
+    }
+
+    .separator-line {
+        width: 100%;
+        border-bottom: 1px solid rgba(130, 124, 124, 0.5);
+        margin-bottom: 10px;
+    }
+
+    .empty-label {
+        width: 100%;
+    }
+
+    .btn {
+        &.btn-xs {
+            line-height: 0.9em;
+            margin-top: 0;
+        }
+    }
+
+    .trip-select {
+        display: flex;
+        justify-content: space-evenly;
+    }
+
+    .form-control-container {
+        label {
+            font-weight: 700;
+        }
+    }
+
+    .form-control {
+        min-width: 250px;
+    }
+    .radio-container {
+        display: inline-block;
+        position: relative;
+        padding-left: 35px;
+        margin-bottom: 12px;
+        cursor: pointer;
+        font-size: 22px;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+
+        input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            &:checked ~ .checkmark {
+                background-color: #2196F3;
+                &:after {
+                    display: block;
+                }
+            }
+        }
+
+        &:hover input ~ .checkmark {
+            background-color: #ccc;
+        }
+
+        .checkmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 25px;
+            width: 25px;
+            background-color: #eee;
+            border-radius: 50%;
+    
+            &:after {
+                content: "";
+                position: absolute;
+                display: none;
+            }
+            &:after {
+                top: 9px;
+               left: 9px;
+               width: 8px;
+               height: 8px;
+               border-radius: 50%;
+               background: white;
+           }   
+        }
+    }
+    
+  
+    .custom-select {
+        position: relative;
+        font-family: Arial;
+      }
+      .custom-select select {
+        display: none; /*hide original SELECT element:*/
+      }
+      .select-selected {
+        background-color: DodgerBlue;
+      }
+      /*style the arrow inside the select element:*/
+      .select-selected:after {
+        position: absolute;
+        content: "";
+        top: 14px;
+        right: 10px;
+        width: 0;
+        height: 0;
+        border: 6px solid transparent;
+        border-color: #fff transparent transparent transparent;
+      }
+      /*point the arrow upwards when the select box is open (active):*/
+      .select-selected.select-arrow-active:after {
+        border-color: transparent transparent #fff transparent;
+        top: 7px;
+      }
+      /*style the items (options), including the selected item:*/
+      .select-items div,.select-selected {
+        color: #ffffff;
+        padding: 8px 16px;
+        border: 1px solid transparent;
+        border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+        cursor: pointer;
+        user-select: none;
+      }
+      /*style items (options):*/
+      .select-items {
+        position: absolute;
+        background-color: DodgerBlue;
+        top: 100%;
+        left: 0;
+        right: 0;
+        z-index: 99;
+      }
+      /*hide the items when the select box is closed:*/
+      .select-hide {
+        display: none;
+      }
+      .select-items div:hover, .same-as-selected {
+        background-color: rgba(0, 0, 0, 0.1);
+      }
+}

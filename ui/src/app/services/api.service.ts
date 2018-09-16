@@ -14,7 +14,7 @@ export class ApiService {
     }
 
     getAvailableFlights(query) {
-        const { orig, dest } = query;
-        return this.http.get(`${this.baseUrl}/flights?orig=${orig}&dest=${dest}`);
+        const { origin, destination } = query;
+        return this.http.get(`${this.baseUrl}/flights?orig=${origin}&dest=${destination}`);
     }
 }

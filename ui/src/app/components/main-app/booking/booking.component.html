@@ -1,3 +1,95 @@
-<p>
-  booking works!
-</p>
+<div class="app-booking">
+  <div class="content">
+    <div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header">
+            <h5 class="title">Book A Flight</h5>
+          </div>
+          <div class="card-body">
+            <form name="selectFlights" ngForm #selectFlights="ngForm" novalidate (ngSubmit)="onSubmit(selectFlights.value)">
+              <div class="trip-select">
+                <label class="radio-container">One Way
+                  <input class="form-control" type="radio" [checked]="trip === 0" name="trip" (change)="selectTrip(0)">
+                  <span class="checkmark"></span>
+                </label>
+                <label class="radio-container">Round Trip
+                  <input class="form-control" type="radio" [checked]="trip === 1" name="trip" (change)="selectTrip(1)">
+                  <span class="checkmark"></span>
+                </label>
+              </div>
+              <div class="separator-line"></div>
+              <div class="trip-select">
+                <div class="form-control-container">
+                  <label for="origin">Origin</label>
+                  <select class="form-control" ngModel required name="origin" #origin="ngModel" ngModel="formModel.origin" (change)="originChange(origin.value, 0)">
+                    <option *ngFor="let origin of origins; let i = index;" value="{{origin.value}}">{{origin.label}}</option>
+                  </select>
+                </div>
+                <div class="form-control-container">
+                  <label for="destination">Desitination</label>
+                  <select class="form-control" name="destination" #destination="ngModel" ngModel ngModel="formModel.destination" (change)="originChange(destination.value, 1)"
+                    required>
+                    <option *ngFor="let dest of destinations; let j = index;" value="{{dest.value}}">{{dest.label}}</option>
+                  </select>
+                </div>
+                <div class="form-control-container">
+                  <label for="departDate">Departure Date</label>
+                  <input type="date" class="form-control" name="departDate">
+                </div>
+                <div class="form-control-container">
+                  <label for="returnDate">Return Date</label>
+                  <input type="date" class="form-control" name="returnDate" [disabled]="trip !== 1">
+                </div>
+                <div class="form-control-container">
+                  <label class="empty-label"></label>
+                  <button type="submit" class="btn btn-success btn-xs" [disabled]="selectFlights.invalid">Search</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+
+
+      <!-- second card -->
+      <!--<div class="col-md-8">
+    <div class="card card-user">
+      <div class="image">
+       
+      </div>
+      <div class="card-body">
+        <div class="author">
+          <a href="#">
+       
+            <h5 class="title">Mike Andrew</h5>
+          </a>
+          <p class="description">
+            michael24
+          </p>
+        </div>
+        <p class="description text-center">
+          "Lamborghini Mercy
+          <br> Your chick she so thirsty
+          <br> I'm in that two seat Lambo"
+        </p>
+      </div>
+      <hr>
+      <div class="button-container">
+        <button href="#" class="btn btn-neutral btn-icon btn-round btn-lg">
+          <i class="fab fa-facebook-f"></i>
+        </button>
+        <button href="#" class="btn btn-neutral btn-icon btn-round btn-lg">
+          <i class="fab fa-twitter"></i>
+        </button>
+        <button href="#" class="btn btn-neutral btn-icon btn-round btn-lg">
+          <i class="fab fa-google-plus-g"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>-->
