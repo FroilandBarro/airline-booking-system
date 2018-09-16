@@ -8,6 +8,7 @@ import { ApiService } from '../../../services/api.service';
 })
 export class BookingComponent implements OnInit {
 
+  availableFlights: any = [];
   trip: any = 0;
   origins: any = [ {value: null, label: 'Select origin:'}, ...this.getPorts() ];
   destinations: any = [ {value: null, label: 'Select destination:'}, ...this.getPorts() ];
@@ -52,7 +53,9 @@ export class BookingComponent implements OnInit {
   onSubmit(form) {
     this.api.getAvailableFlights(form)
       .subscribe((response: any) => {
-        console.log(response);
+        if (response && response.data) {
+          this.availableFlights = response.data;
+        }
       }, (err) => {
         console.log(err);
       });

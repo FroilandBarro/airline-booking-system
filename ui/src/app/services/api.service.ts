@@ -7,7 +7,7 @@ export class ApiService {
         private http: HttpClient,
     ) { }
 
-    private baseUrl = 'localhost:7000/api';
+    private baseUrl = 'http://localhost:8080/api';
 
     getAllFlights() {
         return this.http.get(`${this.baseUrl}/flights`);

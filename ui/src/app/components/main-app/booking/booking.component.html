@@ -48,14 +48,60 @@
                 </div>
               </div>
             </form>
+
+            <div class="flight-table" *ngIf="availableFlights && availableFlights.length">
+              <table class="table table-hover table-stripped table-bordered">
+                <thead class=" text-primary thead-light">
+                  <th>Date</th>
+                  <th>Departure</th>
+                  <th>Arrival</th>
+                  <th>Economy</th>
+                  <th>Business</th>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let flight of availableFlights; let k = index;">
+                    <td>{{flight.date}}</td>
+                    <td>{{flight.dep}}</td>
+                    <td>{{flight.arr}}</td>
+                    <td>
+                      <div class="spread">
+                        <div class="circle-corners">
+                          <i class="now-ui-icons users_single-02"></i>{{flight.economySeats}}
+                        </div>
+                        <div class="circle-corners">
+                          <i class="now-ui-icons business_money-coins"></i> P {{flight.ecoPrice | number}}
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="spread">
+                        <div class="circle-corners">
+                          <i class="now-ui-icons users_single-02"></i>{{flight.businessSeats}}
+                        </div>
+                        <div class="circle-corners">
+                          <i class="now-ui-icons business_money-coins"></i> P {{flight.busPrice | number}}
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="card-footer">
           </div>
         </div>
       </div>
+      <div class="col-md-2"></div>
+    </div>
+
+  </div>
+</div>
 
 
 
-      <!-- second card -->
-      <!--<div class="col-md-8">
+<!-- second card -->
+<!--<div class="col-md-8">
     <div class="card card-user">
       <div class="image">
        
