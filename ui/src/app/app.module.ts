@@ -13,6 +13,8 @@ import { LoginComponent } from './components/client/login/login.component';
 import { MainAppComponent } from './components/main-app/main-app.component';
 import { DashboardComponent } from './components/main-app/dashboard/dashboard.component';
 import { BookingComponent } from './components/main-app/booking/booking.component';
+import { AdminComponent } from './components/admin/admin.component';
+
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { BookingComponent } from './components/main-app/booking/booking.componen
     LoginComponent,
     MainAppComponent,
     DashboardComponent,
-    BookingComponent
+    BookingComponent,
+    AdminComponent,
+   
   ],
   imports: [
     BrowserModule,

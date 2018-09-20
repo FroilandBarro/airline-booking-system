@@ -1,8 +1,8 @@
 <div class="app-booking">
   <div class="content">
     <div class="row">
-      <div class="col-md-2"></div>
-      <div class="col-md-8">
+      <div class="col-md-1"></div>
+      <div class="col-md-10" >
         <div class="card">
           <div class="card-header">
             <h5 class="title">Book A Flight</h5>
@@ -52,15 +52,15 @@
             <div class="flight-table" *ngIf="availableFlights && availableFlights.length">
               <table class="table table-hover table-stripped table-bordered">
                 <thead class=" text-primary thead-light">
-                  <th>Date</th>
+                  <th>Airline</th>
                   <th>Departure</th>
                   <th>Arrival</th>
                   <th>Economy</th>
                   <th>Business</th>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let flight of availableFlights; let k = index;">
-                    <td>{{flight.date}}</td>
+                  <tr *ngFor="let flight of availableFlights; let k = index;" routerLink="/clientregister" >
+                    <td>{{flight.airline}}</td>
                     <td>{{flight.dep}}</td>
                     <td>{{flight.arr}}</td>
                     <td>
@@ -92,9 +92,8 @@
           </div>
         </div>
       </div>
-      <div class="col-md-2"></div>
+      <div class="col-md-1"></div>
     </div>
-
   </div>
 </div>
 

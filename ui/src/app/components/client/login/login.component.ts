@@ -7,9 +7,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
+  classes: any = [ {value: 0, label: 'Select Class'}, ...this.getPorts() ];
+
   constructor() { }
+  
 
   ngOnInit() {
+  }
+  getPorts() {
+    return [
+      { value: 'DVO', label: 'ECO - Economy' },
+      { value: 'CEB', label: 'BUS - Business' },
+     
+    ];
   }
 
 }

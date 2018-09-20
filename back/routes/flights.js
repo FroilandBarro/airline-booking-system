@@ -1,11 +1,15 @@
 const ObjectId = require('mongodb').ObjectId;
 const router = require('express').Router();
 const moment= require ('moment');
+const bcrypt = require('bcrypt')
+const jwt = require('jwt-simple')
 
 const Book = require('../models/book');
+const Admin = require('../models/admin');
 
 const availableFligths = [
-    {
+    {   
+        airline: 'PAL',
         orig: 'DVO',
         dest: 'MNL',
         flight: 'PAL316A',
@@ -18,6 +22,7 @@ const availableFligths = [
 
     },
     {
+        airline: 'PAL',
         orig: 'DVO',
         dest: 'MNL',
         flight: 'PAL316A',
@@ -30,6 +35,7 @@ const availableFligths = [
 
     },
     {
+        airline: 'PAL',
         orig: 'MNL',
         dest: 'DVO',
         flight: 'PAL316B',
@@ -42,6 +48,7 @@ const availableFligths = [
 
     },
     {
+        airline: 'PAL',
         orig: 'MNL',
         dest: 'DVO',
         flight: 'PAL316B',
@@ -54,6 +61,7 @@ const availableFligths = [
 
     },
     {
+        airline: 'CPAC',
         orig: 'DVO',
         dest: 'CEB',
         flight: 'CPAC423A',
@@ -64,7 +72,8 @@ const availableFligths = [
         ecoPrice: 1675.00,
         busPrice: 4375.00,
     },
-    {
+    {   
+        airline: 'CPAC',
         orig: 'CEB',
         dest: 'DVO',
         flight: 'CPAC423A',
@@ -76,6 +85,7 @@ const availableFligths = [
         busPrice: 4375.00,
     },
     {
+        airline: 'CPAC',
         orig: 'DVO',
         dest: 'CEB',
         flight: 'CPAC423A',
@@ -87,6 +97,7 @@ const availableFligths = [
         busPrice: 4375.00,
     },
     {
+        airline: 'CPAC',
         orig: 'CEB',
         dest: 'DVO',
         flight: 'CPAC423A',
@@ -98,6 +109,7 @@ const availableFligths = [
         busPrice: 4375.00,
     },
     {
+        airline: 'Air-A',
         orig: 'DVO',
         dest: 'CLK',
         flight: 'AAS645A',
@@ -109,6 +121,7 @@ const availableFligths = [
         busPrice: 4375.00,
     },
     {
+        airline: 'Air-A',
         orig: 'CLK',
         dest: 'DVO',
         flight: 'AAS645A',
@@ -120,6 +133,7 @@ const availableFligths = [
         busPrice: 4375.00,
     },
     {
+        airline: 'Air-A',
         orig: 'DVO',
         dest: 'CLK',
         flight: 'AAS645A',
@@ -131,6 +145,7 @@ const availableFligths = [
         busPrice: 4375.00,
     },
     {
+        airline: 'Air-A',
         orig: 'CLK',
         dest: 'DVO',
         flight: 'AAS645A',
@@ -143,6 +158,7 @@ const availableFligths = [
     },
 ];
 
+//getflights function
 const getFlights = (query, res) => {
     const { orig, dest } = query;
     if (orig && dest) {
@@ -161,6 +177,7 @@ const getFlights = (query, res) => {
     return;
 };
 
+// save booking function
 const saveBooking = (body, res) => {
     if (body._id) {
         res.status(200).send({status: 200, message: 'Updated!', data: body});
@@ -181,6 +198,7 @@ const saveBooking = (body, res) => {
     
 };
 
+// get booking function
 const getBookings = async (query, res) => {
     await Book
         .find(query)
@@ -193,14 +211,65 @@ const getBookings = async (query, res) => {
             return;
         });
 };
+const login= async (body, res) => {
+   
+   
+    const adminLog = await Admin.findOne({ adminId: body.adminId })
+    .exec((err, adminlog)=>{
+        
+        if (!adminLog) {return res.status(401).send({ message: 'invalid email or password' })}
 
+        bcrypt.compare(body.password, Admin.password, (err, isMatch) => {
+            if (!isMatch)
+            {
+            res.status(401).send({ message: 'pataka!' })
+            console.log("na wrong!");
+            return;
+            }
+    
+    
+            var payload = user._id
+            var token = jwt.encode(payload, '1234')
+    
+            const response = {
+                id: user._id,
+                adminId: admin.adminId,
+                token
+            }
+    
+            res.status(200).send({ message: 'Login successful.', data: response })
+        });
+    });
+
+    // 
+
+    console.log(adminLog);
+} 
+
+const register= (body, res) => {
+    
+    const user = new Admin(body)
+  
+    user.save((err, result) => {
+
+        if (user === null) {
+            res.status(500).send({status: 500, message: 'Error occured during save.', err});
+            return
+        }else{
+        res.status(201).send({status: 201, message: 'Saved!', data: user});
+        return;}
+    })
+}
+
+
+//routers
 router.get('/', (req, res) => {
     const { query, query: { orig, dest } } = req;
     getFlights(query, res);
 });
 
 router.post('/book', (req, res) => {
-    const { body} = req;
+    const { body } = req;
     if (body) {
         saveBooking(body, res);
         return;
@@ -213,6 +282,28 @@ router.post('/book', (req, res) => {
 router.get('/book', (req, res) => {
     const { query } = req;
     getBookings(query, res);
+});
+
+router.post('/adminregister', (req, res) => {
+    const { body } = req;
+    if (body) {
+        register(body, res);
+        return;
+    }  
+    res.status(403).send({status: 403, message: 'Invalid request!', data: 0 });
+    return;
+});
+
+router.post('/adminlog', (req,res)=> {
+
+    const { body } = req;
+    if (body) {
+      login(body, res);
+        return;
+    }  
+    res.status(403).send({status: 403, message: 'Invalid request!', data: 0 });
+    return;
+
 });
 
 module.exports = router;

@@ -12,7 +12,7 @@ const bookSchema = new mongoose.Schema({
     clientName: {
         type: String,
     },
-    contaceNo: {
+    contactNo: {
         type: String,
     },
     email: {
