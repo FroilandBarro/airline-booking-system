@@ -3,6 +3,12 @@ var mongoose= require('mongoose');
 var moment= require ('moment');
 
 const bookSchema = new mongoose.Schema({
+    departdate: {
+        type: Date
+    },
+    returdate: {
+        type: Date
+    },
     bookDate: {
         type: Date
     },

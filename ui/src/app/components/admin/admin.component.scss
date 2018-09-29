@@ -4,11 +4,18 @@
     position: relative;
     padding-top: 100px;
 
-  
+    .card{
+        background-color: rgba(73, 125, 247, 0.599);
+    }
+    label{
+        color: rgb(255, 255, 255);
+    }
+    .form-control{
+        background-color: white;
+    }
+    .btn{
+        width: 100%;
+        height: 50px;
+    }
 }
-.card{
-    background-color: rgba(73, 125, 247, 0.599);
-}
-label{
-    color: rgb(255, 255, 255);
-}
+

@@ -1,6 +1,7 @@
 var restful= require ('node-restful');
 var mongoose= require('mongoose');
 var moment= require ('moment');
+var bcrypt= require ('bcrypt');
 
 const adminSchema= new mongoose.Schema ({
     adminId:{
@@ -12,4 +13,5 @@ const adminSchema= new mongoose.Schema ({
         required: true,
     }
 });
+
 module.exports = restful.model('Admin', adminSchema);

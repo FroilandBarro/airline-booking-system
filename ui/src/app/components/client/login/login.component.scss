@@ -1,8 +1,23 @@
+.card-login{
+    width: 35%;
+}
+.btn{
+    width: 98%;  
+    padding-left:1px;
+}
+.row-container{
+    display: flex;
+    justify-content: center;
+}
 .content {
     padding: 0 30px 30px;
     min-height: calc(100vh - 123px);
     position: relative;
-    padding-top: 100px;
+    padding-top: 205px;
+    padding-bottom: 205px;
+    background: url("../../../../assets/images/bg/booking-bg.jpg");
+    background-size: cover;
+    
 }
 .trip-select {
     display: flex;
@@ -61,6 +76,17 @@
            background: white;
        }  
     }
+    
+    
+}
+a.clickable {
+    color: #046545f5;
+    font-weight: 700;
+    cursor: pointer;
+}
+.margined{
+    display: flex;
+    justify-content: center;
 }
 
     
