@@ -1,8 +1,8 @@
 const ObjectId = require('mongodb').ObjectId;
 const router = require('express').Router();
 const moment= require ('moment');
-const bcrypt = require('bcrypt')
-const jwt = require('jwt-simple')
+// const bcrypt = require('bcrypt')
+// const jwt = require('jwt-simple')
 
 const Book = require('../models/book');
 const Admin = require('../models/admin');
