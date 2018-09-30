@@ -1,7 +1,6 @@
 var restful= require ('node-restful');
 var mongoose= require('mongoose');
-var moment= require ('moment');
-var bcrypt= require ('bcrypt');
+// var bcrypt= require ('bcrypt');
 
 const adminSchema= new mongoose.Schema ({
     adminId:{
