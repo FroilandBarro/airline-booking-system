@@ -402,7 +402,7 @@ const getBookings = async (query, res) => {
         });
 };
 const login = async (body, res) => {
-    await Client.findOne({ email: body.email })
+    await Client.findOne({ email: body.email, password: body.password })
         .exec((err, clientlog) => {
             if (err) {
                 res.status(500).send({ message: 'Internal server error' });
@@ -411,6 +411,7 @@ const login = async (body, res) => {
 
             if (!clientlog) {
                 res.status(401).send({ message: 'invalid email or password' });
+                console.log("wrong");
                 return;
             }
             else{

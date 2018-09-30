@@ -246,25 +246,30 @@
                       <div>
                         <div class="form-control-container">
                           <label for="clientemail">Email</label>
-                          <input type="text" name="clientemail" #clientemail="ngModel" ngModel [(ngModel)]="clientModel.email" class="form-control"
-                            placeholder="Email">
+                          <input type="text" name="clientemail" #clientemail="ngModel" ngModel [(ngModel)]="clientModel.email"
+                            class="form-control" placeholder="Email">
                         </div>
                       </div>
                       <div>
                         <div class="form-control-container">
                           <div class="form-group">
                             <label for="clientpassword">Password</label>
-                            <input type="password" name="clientpassword" #clientpassword="ngModel" ngModel [(ngModel)]="clientModel.password" class="form-control"
-                              placeholder="password">
+                            <input type="password" name="clientpassword" #clientpassword="ngModel" ngModel [(ngModel)]="clientModel.password"
+                              class="form-control" placeholder="password">
                           </div>
                         </div>
+                      </div>
+                      <div class="form-control-container">
+                        <label for="birthdate">Birthdate</label>
+                        <input type="date" class="form-control" #birthdate="ngModel" ngModel [(ngModel)]="clientModel.birthdate"
+                          name="birthdate">
                       </div>
                     </div>
                     <div class="login-fields" *ngIf="isLoggingIn">
                       <div>
                         <div class="form-control-container">
-                          <label>User Name</label>
-                          <input type="text" class="form-control" placeholder="user name">
+                          <label>Email</label>
+                          <input type="text" class="form-control" name="loginemail" #loginemail="ngModel" ngModel [(ngModel)]="clientModel.email" placeholder="user name">
                         </div>
                       </div>
                       <div>
@@ -279,8 +284,8 @@
                   </div>
                   <div class="card-footer">
                     <button type="submit" class="btn btn-success btn-reg" [disabled]="passengerDetails.invalid" (click)="hasLoggedIn = true">
-                      <span *ngIf="!isLoggingIn" (click)="register()">Register </span>
-                      <span *ngIf="isLoggingIn">Login </span>
+                      <span *ngIf="!isLoggingIn" (click)="register()">Register</span>
+                      <span *ngIf="isLoggingIn" (click)="login()">Login</span>
                     </button>
                     <p *ngIf="!isLoggingIn">Already have an account? <a class="clickable" (click)="isLoggingIn = true">Login</a></p>
                     <p *ngIf="isLoggingIn">No account yet? <a class="clickable" (click)="isLoggingIn = false">Register</a></p>

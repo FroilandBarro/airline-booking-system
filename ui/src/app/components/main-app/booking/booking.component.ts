@@ -31,6 +31,7 @@ export class BookingComponent implements OnInit {
   clientModel: any = {
     email: null,
     password: null,
+    birthdate: null,
   };
   tripModel: any = {
     type: null,
@@ -128,6 +129,10 @@ export class BookingComponent implements OnInit {
   register(){
     console.log(this.clientModel);
     this.api.registerClient(this.clientModel);
+  }
+  login(){
+    console.log(this.clientModel);
+    this.api.clientLogin(this.clientModel);
   }
   onSubmitDetails(form){
 
