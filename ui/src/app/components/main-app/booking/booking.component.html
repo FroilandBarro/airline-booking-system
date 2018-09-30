@@ -1,8 +1,9 @@
+<app-main-nav></app-main-nav>
 <div class="app-booking">
   <div class="content">
     <div class="row">
       <div class="col-md-1"></div>
-      <div class="col-md-10" >
+      <div class="col-md-10">
         <div class="card">
           <div class="card-header">
             <h5 class="title">Book A Flight</h5>
@@ -23,24 +24,27 @@
               <div class="trip-select">
                 <div class="form-control-container">
                   <label for="origin">Origin</label>
-                  <select class="form-control" ngModel required name="origin" #origin="ngModel" ngModel="formModel.origin" (change)="originChange(origin.value, 0)">
+                  <select class="app-select form-control" ngModel required name="origin" #origin="ngModel" [(ngModel)]="formModel.origin"
+                    (change)="originChange(origin.value, 0)">
                     <option *ngFor="let origin of origins; let i = index;" value="{{origin.value}}">{{origin.label}}</option>
                   </select>
                 </div>
                 <div class="form-control-container">
                   <label for="destination">Desitination</label>
-                  <select class="form-control" name="destination" #destination="ngModel" ngModel ngModel="formModel.destination" (change)="originChange(destination.value, 1)"
-                    required>
+                  <select class="app-select form-control" name="destination" #destination="ngModel" ngModel [(ngModel)]="formModel.destination"
+                    (change)="originChange(destination.value, 1)" required>
                     <option *ngFor="let dest of destinations; let j = index;" value="{{dest.value}}">{{dest.label}}</option>
                   </select>
                 </div>
                 <div class="form-control-container">
                   <label for="departDate">Departure Date</label>
-                  <input type="date" class="form-control" name="departDate">
+                  <input type="date" class="form-control" name="departdate" #departdate="ngModel" ngModel [(ngModel)]="formModel.departdate"
+                    name="departdate">
                 </div>
                 <div class="form-control-container">
                   <label for="returnDate">Return Date</label>
-                  <input type="date" class="form-control" name="returnDate" [disabled]="trip !== 1">
+                  <input type="date" class="form-control" #returndate="ngModel" ngModel [(ngModel)]="formModel.returndate"
+                    name="returnDate" [disabled]="trip !== 1">
                 </div>
                 <div class="form-control-container">
                   <label class="empty-label"></label>
@@ -59,7 +63,7 @@
                   <th>Business</th>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let flight of availableFlights; let k = index;" routerLink="/clientregister" >
+                  <tr *ngFor="let flight of availableFlights; let k = index;" (click)="selectflight(flight)">
                     <td>{{flight.airline}}</td>
                     <td>{{flight.dep}}</td>
                     <td>{{flight.arr}}</td>
@@ -87,20 +91,216 @@
                 </tbody>
               </table>
             </div>
-          </div>
-          <div class="card-footer">
+            <!--this is for the passenger-->
+            <form *ngIf="hasFlightSelected" name="passengerDetails" ngForm #passengerDetails="ngForm" novalidate
+              (ngSubmit)="onSubmitDetails(passengerDetails.value)">
+              <div class="passenger">
+                <div class="form-control-container">
+                  <label for="adult">Adult</label>
+                  <input type="number" class="form-control" placeholder="adults" ngModel name="noOfAdults" #noOfAdults="ngModel"
+                    [(ngModel)]="flightModel.noOfAdults" (change)="countChange()" required>
+                </div>
+                <div class="form-control-container">
+                  <label for="child">Child</label>
+                  <input type="number" class="form-control" placeholder="child" ngModel name="noOfChildren"
+                    #noOfChildren="ngModel" [(ngModel)]="flightModel.noOfChildren" (change)="countChange()">
+                </div>
+                <div class="form-control-container">
+                  <label for="class">Class</label>
+                  <select class="app-select form-control" name="fligtClass" #flightClass="ngModel" ngModel ngModel="flight.flightClass"
+                    (change)="classChanged(flightClass.value)" required>
+                    <option *ngFor="let class of classes; let x = index" value="{{class.value}}">{{class.label}}</option>
+                  </select>
+                </div>
+                <div class="card-footer">
+                </div>
+              </div>
+
+              <div class="separator-line"></div>
+              <div class="row-inline">
+                <div class="card">
+                  <div class="card-header">
+                    <h6 class="title">Flight Details</h6>
+                  </div>
+                  <div class="card-body" *ngIf="flightSelected">
+                    <div class="fees-summary">
+                      <div class="col-md-6">
+                        <span>Airline:</span>
+                      </div>
+                      <div class="col-md-6">
+                        <span class="right">{{flightSelected.airline}}</span>
+                      </div>
+                    </div>
+                    <div class="fees-summary">
+                      <div class="col-md-6">
+                        <span>Date:</span>
+                      </div>
+                      <div class="col-md-6">
+                        <span class="right">{{flightSelected.departdate}}</span>
+                      </div>
+                    </div>
+                    <div class="fees-summary">
+                      <div class="col-md-6">
+                        <span>Origin:</span>
+                      </div>
+                      <div class="col-md-6">
+                        <span class="right">{{flightSelected.orig}}</span>
+                      </div>
+                    </div>
+                    <div class="fees-summary">
+                      <div class="col-md-6">
+                        <span>Destination:</span>
+                      </div>
+                      <div class="col-md-6">
+                        <span class="right">{{flightSelected.dest}}</span>
+                      </div>
+                    </div>
+                    <div class="fees-summary">
+                      <div class="col-md-6">
+                        <span>Departure:</span>
+                      </div>
+                      <div class="col-md-6">
+                        <span class="right">{{flightSelected.dep}}</span>
+                      </div>
+                    </div>
+                    <div class="fees-summary">
+                      <div class="col-md-6">
+                        <span>Arrival:</span>
+                      </div>
+                      <div class="col-md-6">
+                        <span class="right">{{flightSelected.arr}}</span>
+                      </div>
+                    </div>
+                    <div class="fees-summary">
+                      <div class="col-md-6">
+                        <span>Adults:</span>
+                      </div>
+                      <div class="col-md-6">
+                        <span class="right">{{flightModel.noOfAdults | number}}</span>
+                      </div>
+                    </div>
+                    <div class="fees-summary" *ngIf="flightModel.noOfChildren">
+                      <div class="col-md-6">
+                        <span>Child:</span>
+                      </div>
+                      <div class="col-md-6">
+                        <span class="right">{{flightModel.noOfChildren | number}}</span>
+                      </div>
+                    </div>
+                    <div class="fees-summary">
+                      <div class="col-md-6">
+                        <span>Price:</span>
+                      </div>
+                      <div class="col-md-6">
+                        <span class="right">{{flightModel.price | number}}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card">
+                  <div class="card-header">
+                    <h6>Fees</h6>
+                  </div>
+                  <div class="card-body">
+                    <div class="fees-summary">
+                      <div class="col-md-6">
+                        <span>Adult:</span>
+                      </div>
+                      <div class="col-md-6">
+                        <span class="right">{{flightModel.adultsCost | number}}</span>
+                      </div>
+                    </div>
+                    <div class="fees-summary" *ngIf="flightModel.noOfChildren">
+                      <div class="col-md-6">
+                        <span>Child:</span>
+                      </div>
+                      <div class="col-md-6">
+                        <span class="right">{{flightModel.childrenCost | number}}</span>
+                      </div>
+                    </div>
+                    <div class="separator-line"></div>
+                    <div class="fees-summary">
+                      <div class="col-md-6">
+                        <span>Total:</span>
+                      </div>
+                      <div class="col-md-6">
+                        <span class="right">{{flightModel.totalCost | number}}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-footer">
+                    <button type="submit" class="btn btn-success btn-reg" *ngIf="hasLoggedIn">
+                      <span>Confirm</span>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="card" *ngIf="!hasLoggedIn">
+                  <div class="card-header">
+                    <h6 class="title" *ngIf="isLoggingIn">Client Login</h6>
+                    <h6 class="title" *ngIf="!isLoggingIn">Client Register</h6>
+                  </div>
+                  <div class="card-body">
+                    <div class="reg-fields" *ngIf="!isLoggingIn">
+                      <div>
+                        <div class="form-control-container">
+                          <label for="clientemail">Email</label>
+                          <input type="text" name="clientemail" #clientemail="ngModel" ngModel [(ngModel)]="clientModel.email"
+                            class="form-control" placeholder="Email">
+                        </div>
+                      </div>
+                      <div>
+                        <div class="form-control-container">
+                          <div class="form-group">
+                            <label for="clientpassword">Password</label>
+                            <input type="password" name="clientpassword" #clientpassword="ngModel" ngModel [(ngModel)]="clientModel.password"
+                              class="form-control" placeholder="password">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-control-container">
+                        <label for="birthdate">Birthdate</label>
+                        <input type="date" class="form-control" #birthdate="ngModel" ngModel [(ngModel)]="clientModel.birthdate"
+                          name="birthdate">
+                      </div>
+                    </div>
+                    <div class="login-fields" *ngIf="isLoggingIn">
+                      <div>
+                        <div class="form-control-container">
+                          <label>Email</label>
+                          <input type="text" class="form-control" name="loginemail" #loginemail="ngModel" ngModel [(ngModel)]="clientModel.email" placeholder="user name">
+                        </div>
+                      </div>
+                      <div>
+                        <div class="form-control-container">
+                          <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" class="form-control" placeholder="password">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-footer">
+                    <button type="submit" class="btn btn-success btn-reg" [disabled]="passengerDetails.invalid" (click)="hasLoggedIn = true">
+                      <span *ngIf="!isLoggingIn" (click)="register()">Register</span>
+                      <span *ngIf="isLoggingIn" (click)="login()">Login</span>
+                    </button>
+                    <p *ngIf="!isLoggingIn">Already have an account? <a class="clickable" (click)="isLoggingIn = true">Login</a></p>
+                    <p *ngIf="isLoggingIn">No account yet? <a class="clickable" (click)="isLoggingIn = false">Register</a></p>
+                  </div>
+                </div>
+              </div>
+            </form>
           </div>
         </div>
       </div>
-      <div class="col-md-1"></div>
-    </div>
-  </div>
-</div>
 
 
 
-<!-- second card -->
-<!--<div class="col-md-8">
+      <!-- second card -->
+      <!--<div class="col-md-8">
     <div class="card card-user">
       <div class="image">
        

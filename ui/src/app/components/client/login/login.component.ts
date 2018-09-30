@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from '../../../services/api.service';
 
 @Component({
   selector: 'app-login',
@@ -6,20 +7,24 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+  adminData: any = {
+  }
 
-  classes: any = [ {value: 0, label: 'Select Class'}, ...this.getPorts() ];
-
-  constructor() { }
+  constructor(
+    private api: ApiService,
+  ) { }
   
 
   ngOnInit() {
   }
-  getPorts() {
-    return [
-      { value: 'DVO', label: 'ECO - Economy' },
-      { value: 'CEB', label: 'BUS - Business' },
-     
-    ];
+  login(){
+    this.api.adminLogin(this.adminData).subscribe((res: any)=> {
+      if(res){
+        console.log(res.json());
+        localStorage.setItem('admindata', JSON.stringify(res.json()))
+      }
+    })
+  
   }
 
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../../services/api.service';
+import { isDate } from '@angular/common/src/i18n/format_date';
 
 @Component({
   selector: 'app-booking',
@@ -8,14 +9,33 @@ import { ApiService } from '../../../services/api.service';
 })
 export class BookingComponent implements OnInit {
 
+  flightSelected: any;
+  hasFlightSelected: boolean = false;
   availableFlights: any = [];
-  trip: any = 0;
+  trip: null;
+  registerData: any = [];
   origins: any = [ {value: null, label: 'Select origin:'}, ...this.getPorts() ];
   destinations: any = [ {value: null, label: 'Select destination:'}, ...this.getPorts() ];
+  classes: any = [ {value: null, label: 'Select class'}, ...this.getClass() ];
   formModel: any = {
     origin: null,
     destination: null,
+    classes: null,
+    departdate: null,
+    returndate: null,
   };
+  flightModel: any = {
+    noOfAdults: 1,
+    noOfChildren: 0,
+  };
+  clientModel: any = {
+    email: null,
+    password: null,
+    birthdate: null,
+  };
+  tripModel: any = {
+    type: null,
+  }
 
   constructor(
     private api: ApiService,
@@ -23,10 +43,23 @@ export class BookingComponent implements OnInit {
 
   ngOnInit() {
   }
+  
+  tripDate(){
+   
+  }
 
   selectTrip(value) {
     this.trip = value;
+    switch(value){
+      case 0 : 
+        this.tripModel.type = "ONE WAY";
+        break;
+      case 1:
+        this.tripModel.type = "ROUND";
+        break;
+    }
   }
+  
 
   originChange(value, type) {
     switch (type) {
@@ -49,8 +82,41 @@ export class BookingComponent implements OnInit {
       { value: 'MNL', label: 'MNL - Manila' },
     ];
   }
+  getClass() {
+    return [
+      { value: 'ECO', label: 'ECO - Economy' },
+      { value: 'BUS', label: 'BUS - Business' },
+      ];
+    }
+
+  selectflight(flight){
+    this.flightSelected = flight;
+    this.flightSelected.departdate = this.formModel.departdate;
+    this.hasFlightSelected = true;
+    console.log(this.formModel, this.flightSelected);
+  }
+
+  countChange() {
+    this.flightModel.adultsCost = this.flightModel.noOfAdults * this.flightModel.price;
+    const rawCostChild = (this.flightModel.noOfChildren * this.flightModel.price);
+    this.flightModel.childrenCost = rawCostChild - (rawCostChild * .25);
+    this.flightModel.totalCost = this.flightModel.adultsCost + this.flightModel.childrenCost;
+  }
+
+  classChanged(flightClass) {
+    switch(flightClass) {
+      case 'ECO':
+        this.flightModel.price = this.flightSelected.ecoPrice;
+        break;
+      case 'BUS':
+        this.flightModel.price = this.flightSelected.busPrice;
+        break;
+    }
+    this.countChange();
+  }
 
   onSubmit(form) {
+    console.log(form);
     this.api.getAvailableFlights(form)
       .subscribe((response: any) => {
         if (response && response.data) {
@@ -60,5 +126,15 @@ export class BookingComponent implements OnInit {
         console.log(err);
       });
   }
+  register(){
+    console.log(this.clientModel);
+    this.api.registerClient(this.clientModel);
+  }
+  login(){
+    console.log(this.clientModel);
+    this.api.clientLogin(this.clientModel);
+  }
+  onSubmitDetails(form){
 
+  }
 }

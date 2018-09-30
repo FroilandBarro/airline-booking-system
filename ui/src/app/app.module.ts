@@ -7,6 +7,8 @@ import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './config/routes.config';
 
 import { ApiService } from './services/api.service';
+import { SystemUtils } from './services/system.utils.service';
+import { SharedDataService } from './services/sharedData.service';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/client/login/login.component';
@@ -14,6 +16,7 @@ import { MainAppComponent } from './components/main-app/main-app.component';
 import { DashboardComponent } from './components/main-app/dashboard/dashboard.component';
 import { BookingComponent } from './components/main-app/booking/booking.component';
 import { AdminComponent } from './components/admin/admin.component';
+import { MainNavComponent } from './components/shared/main-nav/main-nav.component';
 
 
 @NgModule({
@@ -24,6 +27,7 @@ import { AdminComponent } from './components/admin/admin.component';
     DashboardComponent,
     BookingComponent,
     AdminComponent,
+    MainNavComponent,
    
   ],
   imports: [
@@ -35,6 +39,8 @@ import { AdminComponent } from './components/admin/admin.component';
   ],
   providers: [
     ApiService,
+    SystemUtils,
+    SharedDataService,
   ],
   bootstrap: [AppComponent]
 })

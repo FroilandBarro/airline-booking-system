@@ -19,7 +19,7 @@ const routes: Routes = [
     },
 
 
-    { path: 'clientregister', component: LoginComponent },
+    { path: 'clientlogin', component: LoginComponent },
     { path: 'adminlogin', component: AdminComponent }
 
 ];

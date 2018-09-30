@@ -1,10 +1,9 @@
 .app-booking {
     .content {
         padding: 0 30px 30px;
-        min-height: calc(100vh - 123px);
+        min-height: stretch;
         margin-top: -30px;
-        background-color: rgba(33, 149, 243, 0.552);
-        
+        background: url("../../../../assets/images/bg/booking-bg.jpg");
     }
 
     .separator-line {
@@ -20,7 +19,13 @@
     .btn {
         &.btn-xs {
             line-height: 0.9em;
-            margin-top: 0;
+            margin-top: 4px;
+           
+        }
+    }
+    .btn {
+        &.btn-reg {
+            width: 100%;   
         }
     }
 
@@ -29,14 +34,43 @@
         justify-content: space-evenly;
     }
 
+    .passenger {
+        
+        display: inline-flex;
+        justify-content: space-evenly;
+
+        .form-control-container {
+            margin-left: 16px;
+            margin-right: 3px;
+            label {
+                font-weight: 700;
+            }
+        }
+    }
+
     .form-control-container {
         label {
             font-weight: 700;
+        }
+        p{
+            margin-left: 20px;
+            a{
+                color: #2196F3;
+            }
+        }
+        select {
+            .app-select {
+                &.form-control {
+                    height: 2.8em;
+                }
+            }
         }
     }
 
     .form-control {
         min-width: 250px;
+        height: 2.5em;
+        margin-bottom: 10px;
     }
     .radio-container {
         display: inline-block;
@@ -90,7 +124,60 @@
            }   
         }
     }
+    .radio-container-reg{
+        padding-top: 5px;
+        display: flex;
+        justify-content: space-evenly;
+        position: relative;
+        padding-left: 35px;
+        margin-bottom: 12px;
+        cursor: pointer;
+        font-size: 14px;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
     
+        input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            &:checked ~ .checkmark {
+                background-color: #2196F3;
+                &:after {
+                    display: block;
+                }
+            }
+        }
+    
+        &:hover input ~ .checkmark {
+            background-color: #ccc;
+        }
+    
+        .checkmark {
+            position: relative;
+            margin-left: 10px;
+            height: 15px;
+            margin-top: 3px;
+            width: 15px;
+            background-color: #eee;
+            border-radius: 50%;
+        
+            &:after {
+                content: "";
+                position: absolute;
+                display: none;
+            }
+            &:after {
+               top: 4.5px;
+               left: 4.5px;
+               width: 6px;
+               height: 6px;
+               border-radius: 50%;
+               background: white;
+           }  
+        }
+    }
   
     .flight-table {
         margin-top: 20px;
@@ -114,5 +201,34 @@
             align-items: center;
             justify-content: center;
         }
+    }
+
+    .row-inline {
+        display: flex;
+
+        .card {
+            &:not(:last-child) {
+                margin-right: 10px;
+            }
+        }
+    }
+    
+    .fees-summary {
+        padding: 7px;
+        display: flex;
+        &:nth-child(odd) {
+            background: #7777;
+        }
+    }
+
+    .right {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .clickable {
+        color: #046520;
+        font-weight: 700;
+        cursor: pointer;
     }
 }

@@ -1,96 +1,48 @@
 <div class="content">
-  <div class="row">
-    <div class="col-md-3"></div>
-    <div class="col-md-6">
-      <div class="card">
-        <div class="card-header">
-          <h5 class="title">Client Register</h5>
+  <div class="container">
+    <div class="margined">
+
+      <div class="card-login">
+        <div class="card" *ngIf="loginClient">
+          <div class="card-header">
+            <h5 class="title">Client Login</h5>
+          </div>
+          <div class="card-body">
+
+            <div class="form-group column">
+              <label>Email</label>
+              <input type="text" class="form-control" placeholder="Email">
+            </div>
+            <div class="form-group column">
+              <label>Password</label>
+              <input type="text" class="form-control" placeholder="Password">
+            </div>
+
+
+          </div>  
         </div>
-        <div class="card-body">
-          <form>
-
-            <div class="row">
-              <div class="col-md-6 pr-1">
-                <div class="form-group">
-                  <label>First Name</label>
-                  <input type="text" class="form-control" placeholder="Company">
-                </div>
-              </div>
-              <div class="col-md-6 pl-1">
-                <div class="form-group">
-                  <label>Last Name</label>
-                  <input type="text" class="form-control" placeholder="Last Name">
-                </div>
-              </div>
+        <div class="card" *ngIf="!loginClient">
+            <div class="card-header">
+              <h5 class="title">Admin Login</h5>
             </div>
-            <div class="row">
-              <div class="col-md-5 pr-1">
-                <div class="form-group">
-                  <label for="exampleInputEmail1">Email address</label>
-                  <input type="email" class="form-control" placeholder="Email">
-                </div>
+            <div class="card-body">
+  
+              <div class="form-group column">
+                <label>Admin ID</label>
+                <input type="text" class="form-control" [(ngModel)]="adminData.adminId" placeholder="ID">
               </div>
-              <div class="col-md-3 pl-1">
-                <div class="form-group">
-                  <label for="exampleInputEmail1">Contact No.</label>
-                  <input type="email" class="form-control" placeholder="Contact No.">
-                </div>
+              <div class="form-group column">
+                <label>Password</label>
+                <input type="text" class="form-control" [(ngModel)]="adminData.password" placeholder="Password">
               </div>
-              <div class="col-md-3 pl-0">
-                <div class="form-group">
-                  <label for="exampleInputEmail1">Gender</label>
-                  <div class="trip-select">
-                    <label class="radio-container">Male
-                      <input class="form-control" type="radio" [checked]="gender === 0" name="gender" (change)="selectGende(0)">
-                      <span class="checkmark"></span>
-                    </label>
-                    <label class="radio-container">Female
-                      <input class="form-control" type="radio" [checked]="gender === 1" name="gender" (change)="selectGender(1)">
-                      <span class="checkmark"></span>
-                    </label>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-12">
-                <div class="form-group">
-                  <label>Address</label>
-                  <input type="text" class="form-control" placeholder="Home Address" >
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-4 pr-1">
-                <div class="form-group">
-                  <label>Adult</label>
-                  <input type="number" class="form-control" placeholder="Adult">
-                </div>
-              </div>
-              <div class="col-md-4 px-1">
-                <div class="form-group">
-                  <label>Child</label>
-                  <input type="number" class="form-control" placeholder=" Child">
-                </div>
-              </div>
-              <div class="col-md-4 pl-1">
-                <div class="form-group">
-                  <label>Class</label>
-                  <select class="form-control" ngModel required name="class" #class="ngModel" ngModel="formModel.class">
-                    <option *ngFor="let class of classes; let i = index;" value="{{class.value}}">{{class.label}}</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-12">
-              <div class="col-md-12">
-                <button type="submit" class="btn btn-info btn-fill pull-center">Update Profile</button>
-              </div>
-              </div>
-            </div>
-          </form>
+  
+  
+            </div>  
+          </div>
+        <div class="form-group column">
+          <button type="submit" class="btn btn-success" (click)="login()">Login</button>
+          <p *ngIf="!loginClient">Login for  <a class="clickable" (click)="loginClient = true">Client</a></p>
+          <p *ngIf="loginClient">Login for  <a class="clickable" (click)="loginClient = false">Admin</a></p>
         </div>
       </div>
     </div>

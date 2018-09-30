@@ -6,6 +6,7 @@ const jwt = require('jwt-simple')
 
 const Book = require('../models/book');
 const Admin = require('../models/admin');
+const Client = require('../models/client');
 
 const availableFligths = [
     {   
@@ -19,20 +20,8 @@ const availableFligths = [
         businessSeats: 5,
         ecoPrice: 1675.00,
         busPrice: 4375.00,
-
-    },
-    {
-        airline: 'PAL',
-        orig: 'DVO',
-        dest: 'MNL',
-        flight: 'PAL316A',
-        dep: '17:15',
-        arr: '18:45',
-        economySeats: 10,
-        businessSeats: 5,
-        ecoPrice: 1675.00,
-        busPrice: 4375.00,
-
+        departdate: Date,
+        returndate: Date,
     },
     {
         airline: 'PAL',
@@ -45,21 +34,94 @@ const availableFligths = [
         businessSeats: 5,
         ecoPrice: 1675.00,
         busPrice: 4375.00,
-
+        departdate: Date,
+        returndate: Date,
     },
     {
-        airline: 'PAL',
+        airline: 'CPAC',
+        orig: 'DVO',
+        dest: 'MNL',
+        flight: 'CPAC416A',
+        dep: '17:15',
+        arr: '18:45',
+        economySeats: 10,
+        businessSeats: 5,
+        ecoPrice: 1675.00,
+        busPrice: 4375.00,
+        departdate: Date,
+        returndate: Date,
+    },
+    {
+        airline: 'CPAC',
         orig: 'MNL',
         dest: 'DVO',
-        flight: 'PAL316B',
+        flight: 'PAL416B',
         dep: '08:15',
         arr: '09:45',
         economySeats: 10,
         businessSeats: 5,
         ecoPrice: 1675.00,
         busPrice: 4375.00,
-
+        departdate: Date,
+        returndate: Date,
     },
+    {
+        airline: 'CPAC',
+        orig: 'MNL',
+        dest: 'CEB',
+        flight: 'PAL516B',
+        dep: '09:15',
+        arr: '10:45',
+        economySeats: 10,
+        businessSeats: 5,
+        ecoPrice: 1675.00,
+        busPrice: 4375.00,
+        departdate: Date,
+        returndate: Date,
+    },
+    {
+        airline: 'CPAC',
+        orig: 'CEB',
+        dest: 'MNL',
+        flight: 'PAL516B',
+        dep: '11:15',
+        arr: '12:45',
+        economySeats: 10,
+        businessSeats: 5,
+        ecoPrice: 1675.00,
+        busPrice: 4375.00,
+        departdate: Date,
+        returndate: Date,
+    },
+    {
+        airline: 'CPAC',
+        orig: 'MNL',
+        dest: 'CEB',
+        flight: 'PAL516B',
+        dep: '01:15',
+        arr: '02:45',
+        economySeats: 10,
+        businessSeats: 5,
+        ecoPrice: 1675.00,
+        busPrice: 4375.00,
+        departdate: Date,
+        returndate: Date,
+    },
+    {
+        airline: 'CPAC',
+        orig: 'CEB',
+        dest: 'MNL',
+        flight: 'PAL516B',
+        dep: '03:15',
+        arr: '04:45',
+        economySeats: 10,
+        businessSeats: 5,
+        ecoPrice: 1675.00,
+        busPrice: 4375.00,
+        departdate: Date,
+        returndate: Date,
+    },
+
     {
         airline: 'CPAC',
         orig: 'DVO',
@@ -71,6 +133,8 @@ const availableFligths = [
         businessSeats: 5,
         ecoPrice: 1675.00,
         busPrice: 4375.00,
+        departdate: Date,
+        returndate: Date,
     },
     {   
         airline: 'CPAC',
@@ -83,6 +147,8 @@ const availableFligths = [
         businessSeats: 5,
         ecoPrice: 1675.00,
         busPrice: 4375.00,
+        departdate: Date,
+        returndate: Date,
     },
     {
         airline: 'CPAC',
@@ -95,6 +161,8 @@ const availableFligths = [
         businessSeats: 5,
         ecoPrice: 1675.00,
         busPrice: 4375.00,
+        departdate: Date,
+        returndate: Date,
     },
     {
         airline: 'CPAC',
@@ -107,6 +175,8 @@ const availableFligths = [
         businessSeats: 5,
         ecoPrice: 1675.00,
         busPrice: 4375.00,
+        departdate: Date,
+        returndate: Date,
     },
     {
         airline: 'Air-A',
@@ -119,6 +189,8 @@ const availableFligths = [
         businessSeats: 5,
         ecoPrice: 1675.00,
         busPrice: 4375.00,
+        departdate: Date,
+        returndate: Date,
     },
     {
         airline: 'Air-A',
@@ -131,6 +203,8 @@ const availableFligths = [
         businessSeats: 5,
         ecoPrice: 1675.00,
         busPrice: 4375.00,
+        departdate: Date,
+        returndate: Date,
     },
     {
         airline: 'Air-A',
@@ -143,6 +217,8 @@ const availableFligths = [
         businessSeats: 5,
         ecoPrice: 1675.00,
         busPrice: 4375.00,
+        departdate: Date,
+        returndate: Date,
     },
     {
         airline: 'Air-A',
@@ -155,6 +231,120 @@ const availableFligths = [
         businessSeats: 5,
         ecoPrice: 1675.00,
         busPrice: 4375.00,
+        departdate: Date,
+        returndate: Date,
+    },
+    {
+        airline: 'PAL',
+        orig: 'MNL',
+        dest: 'CLK',
+        flight: 'PAL745A',
+        dep: '6:10',
+        arr: '7:40',
+        economySeats: 10,
+        businessSeats: 5,
+        ecoPrice: 1675.00,
+        busPrice: 4375.00,
+        departdate: Date,
+        returndate: Date,
+    },
+    {
+        airline: 'PAL',
+        orig: 'CLK',
+        dest: 'MNL',
+        flight: 'PAL745A',
+        dep: '8:10',
+        arr: '9:40',
+        economySeats: 10,
+        businessSeats: 5,
+        ecoPrice: 1675.00,
+        busPrice: 4375.00,
+        departdate: Date,
+        returndate: Date,
+    },
+    {
+        airline: 'PAL',
+        orig: 'MNL',
+        dest: 'CLK',
+        flight: 'PAL745B',
+        dep: '10:10',
+        arr: '11:30',
+        economySeats: 10,
+        businessSeats: 5,
+        ecoPrice: 1675.00,
+        busPrice: 4375.00,
+        departdate: Date,
+        returndate: Date,
+    },
+    {
+        airline: 'PAL',
+        orig: 'CLK',
+        dest: 'MNL',
+        flight: 'PAL745B',
+        dep: '12:00',
+        arr: '13:30',
+        economySeats: 10,
+        businessSeats: 5,
+        ecoPrice: 1675.00,
+        busPrice: 4375.00,
+        departdate: Date,
+        returndate: Date,
+    },
+    {
+        airline: 'CPAC',
+        orig: 'CEB',
+        dest: 'CLK',
+        flight: 'PAL845A',
+        dep: '10:10',
+        arr: '11:30',
+        economySeats: 10,
+        businessSeats: 5,
+        ecoPrice: 1675.00,
+        busPrice: 4375.00,
+        departdate: Date,
+        returndate: Date,
+    },
+    {
+        airline: 'PAL',
+        orig: 'CLK',
+        dest: 'CEB',
+        flight: 'PAL845B',
+        dep: '12:00',
+        arr: '13:30',
+        economySeats: 10,
+        businessSeats: 5,
+        ecoPrice: 1675.00,
+        busPrice: 4375.00,
+        departdate: Date,
+        returndate: Date,
+    },
+    {
+        airline: 'PAL',
+        orig: 'CLK',
+        dest: 'CEB',
+        flight: 'PAL845A',
+        dep: '12:10',
+        arr: '13:30',
+        economySeats: 10,
+        businessSeats: 5,
+        ecoPrice: 1675.00,
+        busPrice: 4375.00,
+        departdate: Date,
+        returndate: Date,
+    },
+    {
+        airline: 'PAL',
+        orig: 'CEB',
+        dest: 'CLK',
+        flight: 'PAL845B',
+        dep: '14:00',
+        arr: '15:40',
+        economySeats: 10,
+        businessSeats: 5,
+        ecoPrice: 1675.00,
+        busPrice: 4375.00,
+        departdate: Date,
+        returndate: Date,
     },
 ];
 
@@ -211,44 +401,45 @@ const getBookings = async (query, res) => {
             return;
         });
 };
-const login= async (body, res) => {
-   
-   
-    const adminLog = await Admin.findOne({ adminId: body.adminId })
-    .exec((err, adminlog)=>{
-        
-        if (!adminLog) {return res.status(401).send({ message: 'invalid email or password' })}
+const login = async (body, res) => {
+    await Client.findOne({ email: body.email, password: body.password })
+        .exec((err, clientlog) => {
+            if (err) {
+                res.status(500).send({ message: 'Internal server error' });
+                return;
+            }
 
-        bcrypt.compare(body.password, Admin.password, (err, isMatch) => {
-            if (!isMatch)
-            {
-            res.status(401).send({ message: 'pataka!' })
-            console.log("na wrong!");
-            return;
+            if (!clientlog) {
+                res.status(401).send({ message: 'invalid email or password' });
+                console.log("wrong");
+                return;
             }
-    
-    
-            var payload = user._id
-            var token = jwt.encode(payload, '1234')
-    
-            const response = {
-                id: user._id,
-                adminId: admin.adminId,
-                token
-            }
-    
-            res.status(200).send({ message: 'Login successful.', data: response })
+            else{
+            console.log(clientlog); 
+            return res.status(200).send({message: 'login successful', data: clientlog});
+                      
+        }
         });
-    });
-
-    // 
-
-    console.log(adminLog);
-} 
+    }
 
 const register= (body, res) => {
     
     const user = new Admin(body)
+  
+    user.save((err, result) => {
+
+        if (user === null) {
+            res.status(500).send({status: 500, message: 'Error occured during save.', err});
+            return
+        }else{
+        res.status(201).send({status: 201, message: 'Saved!', data: user});
+        return;}
+    })
+}
+
+const clientregister= (body, res) => {
+    
+    const user = new Client(body)
   
     user.save((err, result) => {
 
@@ -294,7 +485,18 @@ router.post('/adminregister', (req, res) => {
     return;
 });
 
-router.post('/adminlog', (req,res)=> {
+router.post('/clientregister', (req, res) => {
+    const { body } = req;
+    if (body) {
+        clientregister(body, res);
+        console.log(body);
+        return;
+    }  
+    res.status(403).send({status: 403, message: 'Invalid request!', data: 0 });
+    return;
+});
+
+router.post('/clientlogin', (req,res)=> {
 
     const { body } = req;
     if (body) {
@@ -307,3 +509,16 @@ router.post('/adminlog', (req,res)=> {
 });
 
 module.exports = router;
+ //inside the register
+ // bcrypt.compare(body.password, adminlog.password, (err, isMatch) => {
+
+            //     if (err) {
+            //         res.status(500).send({ message: 'Internal server error!' });
+            //         return;
+            //     }
+                
+            //     if (!isMatch) {
+            //         res.status(401).send({ message: 'Password did not matched!'});
+            //         console.log(adminlog.password);
+            //         return;
+                    
