@@ -1,6 +1,6 @@
 const ObjectId = require('mongodb').ObjectId;
 const router = require('express').Router();
-const moment= require ('moment');
+const moment = require('moment');
 // const bcrypt = require('bcrypt')
 // const jwt = require('jwt-simple')
 
@@ -9,7 +9,7 @@ const Admin = require('../models/admin');
 const Client = require('../models/client');
 
 const availableFligths = [
-    {   
+    {
         airline: 'PAL',
         orig: 'DVO',
         dest: 'MNL',
@@ -136,7 +136,7 @@ const availableFligths = [
         departdate: Date,
         returndate: Date,
     },
-    {   
+    {
         airline: 'CPAC',
         orig: 'CEB',
         dest: 'DVO',
@@ -359,18 +359,18 @@ const getFlights = (query, res) => {
             }
         });
 
-        res.status(200).send({status: 200, message: 'Success!', data: flights});
+        res.status(200).send({ status: 200, message: 'Success!', data: flights });
         return;
     }
-    
-    res.status(200).send({status: 200, message: 'Success!', data: availableFligths});
+
+    res.status(200).send({ status: 200, message: 'Success!', data: availableFligths });
     return;
 };
 
 // save booking function
 const saveBooking = (body, res) => {
     if (body._id) {
-        res.status(200).send({status: 200, message: 'Updated!', data: body});
+        res.status(200).send({ status: 200, message: 'Updated!', data: body });
         return;
     }
     const newBooking = new Book(body);
@@ -378,14 +378,14 @@ const saveBooking = (body, res) => {
     newBooking.bookTime = moment().utcOffset('+0800').format('HH:mm:ss');
     newBooking.save((err) => {
         if (err) {
-            res.status(500).send({status: 500, message: 'Error occured during save.', err});
+            res.status(500).send({ status: 500, message: 'Error occured during save.', err });
             return
         }
 
-        res.status(201).send({status: 201, message: 'Saved!', data: newBooking});
+        res.status(201).send({ status: 201, message: 'Saved!', data: newBooking });
         return;
     })
-    
+
 };
 
 // get booking function
@@ -394,14 +394,14 @@ const getBookings = async (query, res) => {
         .find(query)
         .exec((err, bookings) => {
             if (err) {
-                res.status(500).send({status: 500, message: 'Internal server error!', err });
+                res.status(500).send({ status: 500, message: 'Internal server error!', err });
                 return;
             }
-            res.status(200).send({status: 200, message: 'Success!', data: bookings });
+            res.status(200).send({ status: 200, message: 'Success!', data: bookings });
             return;
         });
 };
-const login = async (body, res) => {
+const clientlogin = async (body, res) => {
     await Client.findOne({ email: body.email, password: body.password })
         .exec((err, clientlog) => {
             if (err) {
@@ -414,41 +414,64 @@ const login = async (body, res) => {
                 console.log("wrong");
                 return;
             }
-            else{
-            console.log(clientlog); 
-            return res.status(200).send({message: 'login successful', data: clientlog});
-                      
-        }
-        });
-    }
+            else {
+                console.log(clientlog);
+                return res.status(200).send({ message: 'login successful', data: clientlog });
 
-const register= (body, res) => {
-    
+            }
+        });
+}
+const adminlogin = async (body, res) => {
+    await Admin.findOne({ adminId: body.adminId, password: body.password })
+        .exec((err, adminlog) => {
+            if (err) {
+                res.status(500).send({ message: 'Internal server error' });
+                return;
+            }
+
+            if (!adminlog) {
+                res.status(401).send({ message: 'invalid email or password' });
+                console.log("wrong");
+                return;
+            }
+            else {
+                console.log(adminlog);
+                return res.status(200).send({ message: 'login successful', data: adminlog });
+
+            }
+        });
+}
+
+const register = (body, res) => {
+
     const user = new Admin(body)
-  
+
     user.save((err, result) => {
 
         if (user === null) {
-            res.status(500).send({status: 500, message: 'Error occured during save.', err});
+            res.status(500).send({ status: 500, message: 'Error occured during save.', err });
             return
-        }else{
-        res.status(201).send({status: 201, message: 'Saved!', data: user});
-        return;}
+        } else {
+
+            res.status(201).send({ status: 201, message: 'Saved!', data: user });
+            return;
+        }
     })
 }
 
-const clientregister= (body, res) => {
-    
+const clientregister = (body, res) => {
+
     const user = new Client(body)
-  
+
     user.save((err, result) => {
 
         if (user === null) {
-            res.status(500).send({status: 500, message: 'Error occured during save.', err});
+            res.status(500).send({ status: 500, message: 'Error occured during save.', err });
             return
-        }else{
-        res.status(201).send({status: 201, message: 'Saved!', data: user});
-        return;}
+        } else {
+            res.status(201).send({ status: 201, message: 'Saved!', data: user });
+            return;
+        }
     })
 }
 
@@ -465,8 +488,8 @@ router.post('/book', (req, res) => {
         saveBooking(body, res);
         return;
     }
-    
-    res.status(403).send({status: 403, message: 'Invalid request!', data: 0 });
+
+    res.status(403).send({ status: 403, message: 'Invalid request!', data: 0 });
     return;
 });
 
@@ -480,8 +503,8 @@ router.post('/adminregister', (req, res) => {
     if (body) {
         register(body, res);
         return;
-    }  
-    res.status(403).send({status: 403, message: 'Invalid request!', data: 0 });
+    }
+    res.status(403).send({ status: 403, message: 'Invalid request!', data: 0 });
     return;
 });
 
@@ -491,19 +514,30 @@ router.post('/clientregister', (req, res) => {
         clientregister(body, res);
         console.log(body);
         return;
-    }  
-    res.status(403).send({status: 403, message: 'Invalid request!', data: 0 });
+    }
+    res.status(403).send({ status: 403, message: 'Invalid request!', data: 0 });
     return;
 });
 
-router.post('/clientlogin', (req,res)=> {
+router.post('/clientlogin', (req, res) => {
 
     const { body } = req;
     if (body) {
-      login(body, res);
+        clientlogin(body, res);
         return;
-    }  
-    res.status(403).send({status: 403, message: 'Invalid request!', data: 0 });
+    }
+    res.status(403).send({ status: 403, message: 'Invalid request!', data: 0 });
+    return;
+
+});
+router.post('/adminlogin', (req, res) => {
+
+    const { body } = req;
+    if (body) {
+        adminlogin(body, res);
+        return;
+    }
+    res.status(403).send({ status: 403, message: 'Invalid request!', data: 0 });
     return;
 
 });
@@ -516,9 +550,8 @@ module.exports = router;
             //         res.status(500).send({ message: 'Internal server error!' });
             //         return;
             //     }
-                
+
             //     if (!isMatch) {
             //         res.status(401).send({ message: 'Password did not matched!'});
             //         console.log(adminlog.password);
             //         return;
-                    

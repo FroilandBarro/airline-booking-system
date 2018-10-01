@@ -11,11 +11,21 @@ export class ApiService {
     private baseUrl = 'http://localhost:8080/api';
 
     registerClient(registerData) {
-        return this.http.post(`${this.baseUrl}/flights/clientregister`, registerData);
+        return this.http.post(`${this.baseUrl}/flights/clientregister`, registerData).subscribe(res => {
+            console.log(res);
+        });
     }
 
     clientLogin(loginData) {
-        return this.http.get(`${this.baseUrl}/flights/clientregister`, loginData);
+        return this.http.post(`${this.baseUrl}/flights/clientlogin`, loginData).subscribe(res => {
+            console.log(res);
+        });
+    }
+
+    adminLogin(adminData) {
+        return this.http.post(`${this.baseUrl}/flights/adminlogin`, adminData).subscribe(res => {
+            console.log(res);
+        });
     }
 
     getAllFlights() {
@@ -26,10 +36,7 @@ export class ApiService {
         return this.http.get(`${this.baseUrl}/book`);
     }
 
-    adminLogin(adminData) {
-        return this.http.get(`${this.baseUrl}/flights/adminlog`, adminData);
-    }
-
+    
     getAvailableFlights(query) {
         const { origin, destination } = query;
         return this.http.get(`${this.baseUrl}/flights?orig=${origin}&dest=${destination}`);

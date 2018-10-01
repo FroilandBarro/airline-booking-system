@@ -126,12 +126,11 @@ export class BookingComponent implements OnInit {
         console.log(err);
       });
   }
-  register(){
+  clientregister(){
     console.log(this.clientModel);
     this.api.registerClient(this.clientModel);
   }
-  login(){
-    console.log(this.clientModel);
+  clientlogin(){
     this.api.clientLogin(this.clientModel);
   }
   onSubmitDetails(form){

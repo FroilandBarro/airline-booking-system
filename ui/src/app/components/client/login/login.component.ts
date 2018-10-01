@@ -8,7 +8,15 @@ import { ApiService } from '../../../services/api.service';
 })
 export class LoginComponent implements OnInit {
   adminData: any = {
+    adminId: null,
+    password: null,
   }
+  clientModel: any = {
+    email : null,
+    password: null,
+  }
+ 
+  
 
   constructor(
     private api: ApiService,
@@ -17,14 +25,12 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
   }
-  login(){
-    this.api.adminLogin(this.adminData).subscribe((res: any)=> {
-      if(res){
-        console.log(res.json());
-        localStorage.setItem('admindata', JSON.stringify(res.json()))
-      }
-    })
-  
+  clientlogin(){
+    this.api.clientLogin(this.clientModel);
   }
+  adminlogin(){
+    this.api.adminLogin(this.adminData);
+  }
+
 
 }
