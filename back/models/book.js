@@ -18,12 +18,6 @@ const bookSchema = new mongoose.Schema({
     clientName: {
         type: String,
     },
-    contactNo: {
-        type: String,
-    },
-    email: {
-        type: String,
-    },
     adults: {
         type: Number,
     },
@@ -36,14 +30,6 @@ const bookSchema = new mongoose.Schema({
     flightDetails: {
         type: Object,
         default: {},
-    },
-    adultPassengers: {
-        type: Array,
-        default: [],
-    },
-    childPassengers: {
-        type: Array,
-        default: [],
     },
     fees: { 
         type: Object,
