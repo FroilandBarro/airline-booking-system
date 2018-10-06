@@ -15,7 +15,9 @@ export class ClientdashboardComponent implements OnInit {
     private shared: SharedDataService,
     private router: Router,
     ) {
-      this.userData=this.utils.retrieveItem('userData');
+      this.shared.currentUserData.subscribe((userData: any) => {
+      this.userData = userData;
+      });
      }
      click(){
        console.log(this.userData);

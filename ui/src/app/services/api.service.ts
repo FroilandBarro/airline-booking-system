@@ -20,6 +20,10 @@ export class ApiService {
         return this.http.post(`${this.baseUrl}/flights/clientlogin`, loginData)
     }
 
+    getLoggedUser(id) {
+        return this.http.post(`${this.baseUrl}/flights/clientprofile?id=${id}`, id)
+    }
+
     adminLogin(adminData) {
         return this.http.post(`${this.baseUrl}/flights/adminlogin`, adminData)
     }

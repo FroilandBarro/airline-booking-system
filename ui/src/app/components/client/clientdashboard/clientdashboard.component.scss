@@ -1,4 +1,7 @@
 .app-booking {
+    .card-over{
+        margin-top: 130px;
+    }
     .content {
         padding: 100px 30px 30px;
         min-height: stretch;
@@ -222,10 +225,13 @@
         padding: 0px 15px 10px 15px;
     }
     .color1{
-        background-color: #2196F3;
+        background-color: rgba(33, 149, 243, 0.905);
+    }
+
+    .color2{
+        background-color: rgba(32, 32, 32, 0.694);
     }
  
-    
     .fees-summary {
         padding: 7px;
         display: flex;
@@ -242,6 +248,9 @@
     .clickable {
         font-weight: 700;
         cursor: pointer;
+    }
+    .head-title{
+        color: white;
     }
   
 }
