@@ -8,6 +8,12 @@ const clientSchema= new mongoose.Schema ({
     password: {
         type: String,
     },
-
+    birthdate: {
+        type: String,
+    },
+    bookData: {
+        type: Array,
+        default: [],
+    }
 });
 module.exports = restful.model('Client', clientSchema);

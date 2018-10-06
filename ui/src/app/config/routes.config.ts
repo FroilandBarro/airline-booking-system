@@ -4,8 +4,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
 import { BookingComponent } from '../components/main-app/booking/booking.component';
 import { MainAppComponent } from '../components/main-app/main-app.component';
-import { LoginComponent } from '../components/client/login/login.component';
-import { AdminComponent } from '../components/admin/admin.component';
+
+import { AdminloginComponent } from '../components/login/adminlogin/adminlogin.component';
+import { ClientdashboardComponent } from '../components/client/clientdashboard/clientdashboard.component';
+import { ClientloginComponent } from '../components/login/clientlogin/clientlogin.component';
+
 
 
 const routes: Routes = [
@@ -19,8 +22,11 @@ const routes: Routes = [
     },
 
 
-    { path: 'clientlogin', component: LoginComponent },
-    { path: 'adminlogin', component: AdminComponent }
+   
+    { path: 'adminlogin', component: AdminloginComponent },
+    { path: 'clientlogin', component: ClientloginComponent },
+    { path: 'clientprofile', component: ClientdashboardComponent },
+    { path: 'adminprofile', component: ClientdashboardComponent },
 
 ];
 

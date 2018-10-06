@@ -1,0 +1,36 @@
+<div class="content">
+  <div class="container">
+    <div class="margined">
+
+      <div class="card-login">
+        <div class="card">
+          <div class="card-header">
+            <h5 class="title">Client Login</h5>
+          </div>
+          <div class="card-body">
+            <div class="form-group column">
+              <label for="clientemail">Email</label>
+              <input type="text"
+              class="form-control"
+              name="clientemail"
+              #clientemail="ngModel"
+              ngModel [(ngModel)]="clientModel.email"
+              placeholder="Email">
+            </div>
+            <div class="form-group column">
+              <label for="clientpassword">Password</label>
+              <input type="text"
+              class="form-control"
+              name="clientpassword"
+              #clientpassword="ngModel"
+              ngModel [(ngModel)]="clientModel.password"
+              placeholder="Password">
+            </div>
+          </div>  
+        </div>
+        <div class="form-group column">
+          <button type="submit" class="btn btn-success" (click)="clientlogin()">Login</button>
+          <p>Login for  <a class="clickable"  routerLink="/adminlogin">Admin</a></p>
+        </div>
+      </div>
+    </div>

@@ -107,7 +107,7 @@
                 </div>
                 <div class="form-control-container">
                   <label for="class">Class</label>
-                  <select class="app-select form-control" name="fligtClass" #flightClass="ngModel" ngModel ngModel="flight.flightClass"
+                  <select class="app-select form-control" name="fligtClass" #flightClass="ngModel" ngModel [(ngModel)]="flightModel.flightClass"
                     (change)="classChanged(flightClass.value)" required>
                     <option *ngFor="let class of classes; let x = index" value="{{class.value}}">{{class.label}}</option>
                   </select>
@@ -230,13 +230,14 @@
                     </div>
                   </div>
                   <div class="card-footer">
-                    <button type="submit" class="btn btn-success btn-reg" *ngIf="hasLoggedIn">
+                    <button type="submit" class="btn btn-success btn-reg" *ngIf="userData" [(disabled)]="passengerDetails.invalid">
                       <span>Confirm</span>
                     </button>
                   </div>
                 </div>
+                <!--form for register /-->
 
-                <div class="card" *ngIf="!hasLoggedIn">
+                <div class="card" *ngIf="!userData">
                   <div class="card-header">
                     <h6 class="title" *ngIf="isLoggingIn">Client Login</h6>
                     <h6 class="title" *ngIf="!isLoggingIn">Client Register</h6>
@@ -269,24 +270,28 @@
                       <div>
                         <div class="form-control-container">
                           <label>Email</label>
-                          <input type="text" class="form-control" name="loginemail" #loginemail="ngModel" ngModel [(ngModel)]="clientModel.email" placeholder="user name">
+                          <input type="text" class="form-control" name="loginemail" #loginemail="ngModel" ngModel
+                            [(ngModel)]="clientModel.email" placeholder="user name">
                         </div>
                       </div>
                       <div>
                         <div class="form-control-container">
                           <div class="form-group">
                             <label>Password</label>
-                            <input type="password" class="form-control" name="loginpassword" #loginpassword="ngModel" ngModel [(ngModel)]="clientModel.password" placeholder="password">
+                            <input type="password" class="form-control" name="loginpassword" #loginpassword="ngModel"
+                              ngModel [(ngModel)]="clientModel.password" placeholder="password">
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
                   <div class="card-footer">
-                    <button type="submit" class="btn btn-success btn-reg" *ngIf="!isLoggingIn" (click)="clientregister()" [disabled]="passengerDetails.invalid" (click)="hasLoggedIn = true">
+                    <button type="submit" class="btn btn-success btn-reg" *ngIf="!isLoggingIn" (click)="clientregister()"
+                      [disabled]="passengerDetails.invalid">
                       <span>Register</span>
                     </button>
-                    <button type="submit" class="btn btn-success btn-reg" *ngIf="isLoggingIn" (click)="clientlogin()" [disabled]="passengerDetails.invalid" (click)="hasLoggedIn = true">
+                    <button type="submit" class="btn btn-success btn-reg" *ngIf="isLoggingIn" (click)="clientlogin()"
+                      [disabled]="passengerDetails.invalid">
                       <span>Login</span>
                     </button>
                     <p *ngIf="!isLoggingIn">Already have an account? <a class="clickable" (click)="isLoggingIn = true">Login</a></p>

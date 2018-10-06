@@ -1,0 +1,38 @@
+<div class="content">
+  <div class="container">
+    <div class="margined">
+      
+      <div class="card-login">
+        <div class="card" *ngIf="!loginClient">
+          <div class="card-header">
+            <h5 class="title">Admin Login</h5>
+          </div>
+          <form>
+          <div class="card-body">
+            <div class="form-group column">
+              <label for="clientemail">Admin Id</label>
+              <input type="text"
+              class="form-control"
+              name="clientemail"
+              #clientemail="ngModel"
+              ngModel [(ngModel)]="adminData.adminId"
+              placeholder="ID">
+            </div>
+            <div class="form-group column">
+              <label for="clientpassword">Password</label>
+              <input type="text"
+              class="form-control"
+              name="clientpassword"
+              #clientpassword="ngModel"
+              ngModel [(ngModel)]="adminData.password"
+              placeholder="Password">
+            </div>
+          </div>  
+        </form>
+        </div>
+        <div class="form-group column">
+          <button type="submit" class="btn btn-success" (click)="adminlogin()">Login</button>
+          <p>Login for  <a class="clickable"  routerLink="/clientlogin">Client</a></p>
+        </div>
+      </div>
+    </div>

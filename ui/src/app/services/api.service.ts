@@ -17,15 +17,11 @@ export class ApiService {
     }
 
     clientLogin(loginData) {
-        return this.http.post(`${this.baseUrl}/flights/clientlogin`, loginData).subscribe(res => {
-            console.log(res);
-        });
+        return this.http.post(`${this.baseUrl}/flights/clientlogin`, loginData)
     }
 
     adminLogin(adminData) {
-        return this.http.post(`${this.baseUrl}/flights/adminlogin`, adminData).subscribe(res => {
-            console.log(res);
-        });
+        return this.http.post(`${this.baseUrl}/flights/adminlogin`, adminData)
     }
 
     getAllFlights() {

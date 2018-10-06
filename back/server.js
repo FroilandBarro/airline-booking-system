@@ -4,11 +4,10 @@ const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 
 const app = express()
-const User = require('./models/user.js')
-const Post = require('./models/post')
+
 const config = require('./config/config')
 
-mongoose.connect(config.mLabdb, { useNewUrlParser: true }, (err) => {
+mongoose.connect(config.db, { useNewUrlParser: true }, (err) => {
     if (err) {
         console.log(err);
     } else {

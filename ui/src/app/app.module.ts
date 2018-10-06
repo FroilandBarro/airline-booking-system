@@ -17,6 +17,9 @@ import { DashboardComponent } from './components/main-app/dashboard/dashboard.co
 import { BookingComponent } from './components/main-app/booking/booking.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { MainNavComponent } from './components/shared/main-nav/main-nav.component';
+import { ClientdashboardComponent } from './components/client/clientdashboard/clientdashboard.component';
+import { AdminloginComponent } from './components/login/adminlogin/adminlogin.component';
+import { ClientloginComponent } from './components/login/clientlogin/clientlogin.component';
 
 
 @NgModule({
@@ -28,6 +31,9 @@ import { MainNavComponent } from './components/shared/main-nav/main-nav.componen
     BookingComponent,
     AdminComponent,
     MainNavComponent,
+    ClientdashboardComponent,
+    AdminloginComponent,
+    ClientloginComponent,
    
   ],
   imports: [

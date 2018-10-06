@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SystemUtils } from '../../../services/system.utils.service';
 import { SharedDataService } from '../../../services/sharedData.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-main-nav',
@@ -13,13 +14,20 @@ export class MainNavComponent implements OnInit {
   constructor(
     private utils: SystemUtils,
     private shared: SharedDataService,
+    private router: Router,
   ) {
     this.shared.currentUserData.subscribe((userData: any) => {
-      this.userData = userData;
+    this.userData = userData;
     });
   }
 
   ngOnInit() {
+  }
+
+  logout(){
+    this.shared.setUserData(null);
+    this.utils.deleteKey('userData');
+    this.router.navigateByUrl('/clientlogin');
   }
 
 }

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../../services/api.service';
 import { isDate } from '@angular/common/src/i18n/format_date';
+import { SystemUtils } from '../../../services/system.utils.service';
+import { SharedDataService } from '../../../services/sharedData.service';
 
 @Component({
   selector: 'app-booking',
@@ -8,7 +10,7 @@ import { isDate } from '@angular/common/src/i18n/format_date';
   styleUrls: ['./booking.component.scss']
 })
 export class BookingComponent implements OnInit {
-
+  hasLoggedIn: boolean = false;
   flightSelected: any;
   hasFlightSelected: boolean = false;
   availableFlights: any = [];
@@ -27,6 +29,8 @@ export class BookingComponent implements OnInit {
   flightModel: any = {
     noOfAdults: 1,
     noOfChildren: 0,
+    flightClass: null,
+
   };
   clientModel: any = {
     email: null,
@@ -36,10 +40,16 @@ export class BookingComponent implements OnInit {
   tripModel: any = {
     type: null,
   }
-
+  userData: any;
   constructor(
     private api: ApiService,
-  ) { }
+    private utils: SystemUtils,
+    private shared: SharedDataService,
+  ) {
+    this.shared.currentUserData.subscribe((userData: any) => {
+      this.userData = userData;
+      });
+   }
 
   ngOnInit() {
   }
@@ -131,7 +141,7 @@ export class BookingComponent implements OnInit {
     this.api.registerClient(this.clientModel);
   }
   clientlogin(){
-    this.api.clientLogin(this.clientModel);
+    this.api.clientLogin(this.clientModel);  
   }
   onSubmitDetails(form){
 
