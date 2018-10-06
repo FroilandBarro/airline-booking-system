@@ -8,6 +8,8 @@ import { MainAppComponent } from '../components/main-app/main-app.component';
 import { AdminloginComponent } from '../components/login/adminlogin/adminlogin.component';
 import { ClientdashboardComponent } from '../components/client/clientdashboard/clientdashboard.component';
 import { ClientloginComponent } from '../components/login/clientlogin/clientlogin.component';
+import { AdminComponent } from '../components/admin/admin.component';
+import { DashboardComponent } from '../components/main-app/dashboard/dashboard.component';
 
 
 
@@ -21,12 +23,15 @@ const routes: Routes = [
         ]
     },
 
-
-   
     { path: 'adminlogin', component: AdminloginComponent },
     { path: 'clientlogin', component: ClientloginComponent },
     { path: 'clientprofile', component: ClientdashboardComponent },
-    { path: 'adminprofile', component: ClientdashboardComponent },
+    { path: 'admin', component: AdminComponent,
+        children: [
+            { path: '', redirectTo: 'dasboard', pathMatch: 'full' },
+            { path: 'dashboard', component: DashboardComponent },
+        ],
+    },
 
 ];
 
