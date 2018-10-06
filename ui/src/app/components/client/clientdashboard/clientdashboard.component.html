@@ -1,4 +1,71 @@
 <app-main-nav></app-main-nav>
 <div class="app-booking">
-  <div class="content"></div>
-</div>
+  <div class="content">
+    <div class="row">
+      <div class="col-md-1"></div>
+      <div class="col-md-10">
+        <div class="card">
+          <div class="card-header">
+            <h5 class="head-title">Client Dashboard</h5>
+          </div>
+          <div class="card-body">
+            <div class="flight-table">
+
+              <div class="separator-line"></div>
+              <div class="row-inline">
+                <div class="card color1">
+                  <div class="card-header">
+                    <h6 class="title">Booked Flight</h6>
+                  </div>
+                  <div class="card-body margined">
+                    <div class="card clickable">
+                      <div class="card-body">
+                        <h4>Booked 1</h4>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card color1">
+                  <div class="card-header">
+                    <h6 class="title">Client</h6>
+                  </div>
+                  <div class="card-body">
+                    <div class="fees-summary">
+                      <div class="col-md-6">
+                        <span>Name:</span>
+                      </div>
+                      <div class="col-md-6">
+                        <span class="right">{{userData.name}}</span>
+                      </div>
+                    </div>
+                    <div class="fees-summary">
+                      <div class="col-md-6">
+                        <span>Airline:</span>
+                      </div>
+                      <div class="col-md-6">
+                        <span class="right">{{userData.email}}</span>
+                      </div>
+                    </div>
+                    <div class="fees-summary">
+                      <div class="col-md-6">
+                        <span>Airline:</span>
+                      </div>
+                      <div class="col-md-6">
+                        <span class="right">12312312</span>
+                      </div>
+                    </div>
+                    
+                  </div>
+                  <button type="submit" class="btn btn-success btn-reg" *ngIf="!isLoggingIn" (click)="click()">
+                    <span>Register</span>
+                  </button>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

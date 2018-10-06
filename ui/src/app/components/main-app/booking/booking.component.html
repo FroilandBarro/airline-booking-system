@@ -246,6 +246,13 @@
                     <div class="reg-fields" *ngIf="!isLoggingIn">
                       <div>
                         <div class="form-control-container">
+                          <label for="clientname">Name</label>
+                          <input type="text" name="clientname" #clientname="ngModel" ngModel [(ngModel)]="clientModel.name"
+                            class="form-control" placeholder="full name">
+                         </div>
+                      </div>
+                      <div>
+                        <div class="form-control-container">
                           <label for="clientemail">Email</label>
                           <input type="text" name="clientemail" #clientemail="ngModel" ngModel [(ngModel)]="clientModel.email"
                             class="form-control" placeholder="Email">
@@ -303,6 +310,9 @@
           </div>
         </div>
       </div>
+      </div>
+    </div>
+  </div>
 
 
 

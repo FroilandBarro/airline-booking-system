@@ -2,6 +2,9 @@ var restful= require ('node-restful');
 var mongoose= require('mongoose');
 
 const clientSchema= new mongoose.Schema ({
+    name:{
+        type: String,
+    },
     email: {
         type: String,
     },

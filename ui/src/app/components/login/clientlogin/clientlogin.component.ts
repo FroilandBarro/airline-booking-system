@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../../services/api.service';
 import { Router } from '@angular/router';
+import { SharedDataService } from '../../../services/sharedData.service';
 
 @Component({
   selector: 'app-clientlogin',
@@ -17,6 +18,7 @@ export class ClientloginComponent implements OnInit {
   constructor(
     private api: ApiService,
      private router: Router,
+     private shared: SharedDataService,
   ) { }
 
   ngOnInit() {
@@ -25,6 +27,7 @@ export class ClientloginComponent implements OnInit {
     this.api.clientLogin(this.clientModel).subscribe((res: any) => {
       if(res){
       console.log(res);
+      this.shared.setUserData(res);
       localStorage.setItem('userData', JSON.stringify(res));
       this.router.navigateByUrl('/clientprofile');
     }

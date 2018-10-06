@@ -33,6 +33,7 @@ export class BookingComponent implements OnInit {
 
   };
   clientModel: any = {
+    name: null,
     email: null,
     password: null,
     birthdate: null,
