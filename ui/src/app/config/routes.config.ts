@@ -9,7 +9,7 @@ import { AdminloginComponent } from '../components/login/adminlogin/adminlogin.c
 import { ClientdashboardComponent } from '../components/client/clientdashboard/clientdashboard.component';
 import { ClientloginComponent } from '../components/login/clientlogin/clientlogin.component';
 import { AdminComponent } from '../components/admin/admin.component';
-import { DashboardComponent } from '../components/main-app/dashboard/dashboard.component';
+import { AdminDashboardComponent } from '../components/admin/dashboard/dashboard.component';
 
 
 
@@ -28,8 +28,8 @@ const routes: Routes = [
     { path: 'clientprofile', component: ClientdashboardComponent },
     { path: 'admin', component: AdminComponent,
         children: [
-            { path: '', redirectTo: 'dasboard', pathMatch: 'full' },
-            { path: 'dashboard', component: DashboardComponent },
+            { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+            { path: 'dashboard', component: AdminDashboardComponent },
         ],
     },
 

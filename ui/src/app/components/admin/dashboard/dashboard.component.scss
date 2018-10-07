@@ -1,0 +1,14 @@
+.admin-dashboard {
+  .content {
+    padding: 150px 30px 30px;
+    min-height: stretch;
+    margin-top: -30px;
+    background: url("../../../../assets/images/bg/booking-bg.jpg");
+  }
+
+  .widgets-row {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+  }
+}

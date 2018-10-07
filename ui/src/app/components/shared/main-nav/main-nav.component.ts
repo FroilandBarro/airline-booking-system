@@ -18,13 +18,14 @@ export class MainNavComponent implements OnInit {
   ) {
     this.shared.currentUserData.subscribe((userData: any) => {
     this.userData = userData;
+    console.log(this.userData);
     });
   }
 
   ngOnInit() {
   }
 
-  logout(){
+  logout() {
     this.shared.setUserData(null);
     this.utils.deleteKey('userData');
     this.router.navigateByUrl('/clientlogin');

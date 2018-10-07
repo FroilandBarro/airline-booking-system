@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../../services/api.service';
 import { Router } from '@angular/router';
 import { SharedDataService } from '../../../services/sharedData.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-adminlogin',
@@ -17,18 +18,19 @@ export class AdminloginComponent implements OnInit {
       private api: ApiService,
       private router: Router,
       private shared: SharedDataService,
+      private toaster: ToastrService,
       ) { }
 
   ngOnInit() {
   }
-  adminlogin(){
-    
+
+  adminlogin() {
     this.api.adminLogin(this.adminData).subscribe((res: any) => {
-      if(res){
-      console.log(res);
+      if (res && res.data) {
+        this.toaster.success('You have logged in successfully!', 'Welcome!');
       this.shared.setUserData(res);
-      localStorage.setItem('userData', JSON.stringify(res));
-      this.router.navigateByUrl('/adminprofile');
+      localStorage.setItem('userData', JSON.stringify(res.data));
+      this.router.navigateByUrl('/admin');
     }
   })
   }
