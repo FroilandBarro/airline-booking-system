@@ -74,6 +74,7 @@
             "karmaConfig": "src/karma.conf.js",
             "styles": [
               "src/app/assets/vendor/css/bootstrap.min.css",
+              "~bootstrap/dist/css/bootstrap.css",
               "src/app/assets/vendor/css/now-ui-dashboard.min.css",
               "src/styles.css"
             ],

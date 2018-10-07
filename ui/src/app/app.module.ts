@@ -27,6 +27,7 @@ import { ClientloginComponent } from './components/login/clientlogin/clientlogin
 import { ListTableComponent } from './components/shared/widgets/list-table/list-table.component';
 import { BookingsComponent } from './components/shared/bookings/bookings.component';
 import { AirlinesListComponent } from './components/shared/airlines-list/airlines-list.component';
+import { FlightsListComponent } from './components/shared/flights-list/flights-list.component';
 
 
 @NgModule({
@@ -45,6 +46,7 @@ import { AirlinesListComponent } from './components/shared/airlines-list/airline
     ListTableComponent,
     BookingsComponent,
     AirlinesListComponent,
+    FlightsListComponent,
   ],
   imports: [
     BrowserModule,

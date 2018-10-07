@@ -1,0 +1,17 @@
+<div class="flights-list">
+  <div class="card">
+    <div class="card-header">
+      <h5 class="card-title">Flights</h5>
+    </div>
+    <div class="card-body">
+      <div class="card-list">
+        <div class="card clickable" *ngFor="let flight of flights; let i = index;" >
+          <div class="details">
+            <div class="flight">{{flight.no}}</div>
+            <div class="nationality">{{flight.originCode}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
