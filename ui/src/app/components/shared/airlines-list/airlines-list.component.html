@@ -1,0 +1,20 @@
+<div class="airliners">
+  <div class="card">
+    <div class="card-header">
+      <h5 class="card-title">Airliners</h5>
+    </div>
+    <div class="card-body">
+      <div class="card-list">
+        <div class="card clickable" *ngFor="let airline of airliners; let i = index;">
+          <div class="logo">
+            <img src="../../../../assets/images/icon/{{airline.id}}.png" alt="">
+          </div>
+          <div class="details">
+            <div class="name">{{airline.name}}</div>
+            <div class="nationality">{{airline.nationality}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
