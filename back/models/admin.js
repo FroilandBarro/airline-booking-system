@@ -8,6 +8,10 @@ const adminSchema= new mongoose.Schema ({
     },
     password: {
         type: String,
+    },
+    isAdmin: {
+        type: Boolean,
+        default: true
     }
 });
 

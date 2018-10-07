@@ -26,6 +26,7 @@ import { AdminloginComponent } from './components/login/adminlogin/adminlogin.co
 import { ClientloginComponent } from './components/login/clientlogin/clientlogin.component';
 import { ListTableComponent } from './components/shared/widgets/list-table/list-table.component';
 import { BookingsComponent } from './components/shared/bookings/bookings.component';
+import { AirlinesListComponent } from './components/shared/airlines-list/airlines-list.component';
 
 
 @NgModule({
@@ -43,6 +44,7 @@ import { BookingsComponent } from './components/shared/bookings/bookings.compone
     AdminDashboardComponent,
     ListTableComponent,
     BookingsComponent,
+    AirlinesListComponent,
   ],
   imports: [
     BrowserModule,
