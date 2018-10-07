@@ -5,9 +5,9 @@
     </div>
     <div class="card-body">
       <div class="card-list">
-        <div class="card clickable" *ngFor="let airline of airliners; let i = index;">
+        <div class="card clickable" *ngFor="let airline of airliners; let i = index;" (click)="onSelect(airline)" >
           <div class="logo">
-            <img src="../../../../assets/images/icon/{{airline.id}}.png" alt="">
+            <img src="../../../../assets/images/icon/{{airline.code}}.png" alt="">
           </div>
           <div class="details">
             <div class="name">{{airline.name}}</div>
