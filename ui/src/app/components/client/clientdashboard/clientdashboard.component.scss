@@ -1,6 +1,6 @@
 .app-booking {
     .card-over{
-        margin-top: 130px;
+        margin-top: 80px;
     }
     .content {
         padding: 100px 30px 30px;
@@ -231,6 +231,9 @@
     .color2{
         background-color: rgba(32, 32, 32, 0.694);
     }
+    .color3{
+        background-color: rgba(255, 255, 255, 0.782);
+    }
  
     .fees-summary {
         padding: 7px;
@@ -251,6 +254,7 @@
     }
     .head-title{
         color: white;
+        align-self: auto;
     }
   
 }
