@@ -32,8 +32,10 @@ export class ApiService {
         return this.http.get(`${this.baseUrl}/flights`);
     }
 
-    saveclientDetails() {
-        return this.http.get(`${this.baseUrl}/book`);
+    saveclientDetails(clientDetails) {
+        return this.http.post(`${this.baseUrl}/flights/book`,clientDetails ).subscribe(res=> {
+            console.log(res);
+        });
     }
 
     

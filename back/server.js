@@ -45,10 +45,10 @@ app.use(bodyParser.json())
 
 // load routes
 const flights = require('./routes/flights');
+
 const auth = require("./auth");
 
 app.use('/api/flights', flights);
-
 
 
 app.listen(port, () => {

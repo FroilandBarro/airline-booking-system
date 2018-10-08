@@ -19,19 +19,28 @@ export class BookingComponent implements OnInit {
   origins: any = [ {value: null, label: 'Select origin:'}, ...this.getPorts() ];
   destinations: any = [ {value: null, label: 'Select destination:'}, ...this.getPorts() ];
   classes: any = [ {value: null, label: 'Select class'}, ...this.getClass() ];
-  formModel: any = {
-    origin: null,
-    destination: null,
-    classes: null,
-    departdate: null,
-    returndate: null,
-  };
   flightModel: any = {
     noOfAdults: 1,
     noOfChildren: 0,
     flightClass: null,
 
   };
+  formModel: any = {
+    origin: null,
+    destination: null,
+    departdate: null,
+    returndate: null,
+    clientName: 'froiland barro',
+    flightDetails: this.flightSelected,
+    noOfAdults: this.flightModel.noOfAdults,
+    noOfChildren: this.flightModel.noOfChildren,
+    flightClass: this.flightModel.flightClass,
+  };
+  
+  clientDetails: any = [
+    this.flightSelected,
+    this.formModel,
+  ]
   clientModel: any = {
     name: null,
     email: null,
@@ -145,6 +154,8 @@ export class BookingComponent implements OnInit {
     this.api.clientLogin(this.clientModel);  
   }
   onSubmitDetails(form){
-
+    form = this.flightSelected + this.formModel
+    console.log(form);
+    this.api.saveclientDetails(form);
   }
 }

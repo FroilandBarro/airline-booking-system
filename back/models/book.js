@@ -18,14 +18,14 @@ const bookSchema = new mongoose.Schema({
     clientName: {
         type: String,
     },
+    flightClass: {
+        type: String,
+    },
     adults: {
         type: Number,
     },
     child: {
         type: Number,
-    },
-    class: {
-        type: String,
     },
     flightDetails: {
         type: Object,
