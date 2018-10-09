@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SystemUtils } from '../../../services/system.utils.service';
 import { SharedDataService } from '../../../services/sharedData.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-clientdashboard',
@@ -14,6 +14,7 @@ export class ClientdashboardComponent implements OnInit {
     private utils: SystemUtils,
     private shared: SharedDataService,
     private router: Router,
+    private route: ActivatedRoute
     ) {
       this.shared.currentUserData.subscribe((userData: any) => {
       this.userData = userData;
@@ -24,6 +25,9 @@ export class ClientdashboardComponent implements OnInit {
      }
 
   ngOnInit() {
+    var id = this.route.snapshot.params.id
+    const userData = JSON.parse(localStorage.getItem('userData'))
+    this.userData = userData.data;
   }
 
 }

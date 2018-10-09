@@ -14,21 +14,21 @@
             <div class="sidebar-wrapper">
               <ul class="nav">
                 <li>
-                  <a href="./dashboard.html">
-                    <i class="now-ui-icons design_app"></i>
-                    <p>Client fullname</p>
+                  <a (click)="click()">
+                    <i class="now-ui-icons design_app" ></i>
+                    <p>{{userData.name}}</p>
                   </a>
                 </li>
-                <li class="active ">
-                  <a href="./icons.html">
+                <li>
+                  <a >
                     <i class="now-ui-icons education_atom"></i>
-                    <p>Birthdate--</p>
+                    <p>{{userData.birthdate}}</p>
                   </a>
                 </li>
                 <li>
                   <a href="./map.html">
                     <i class="now-ui-icons location_map-big"></i>
-                    <p>Maps</p>
+                    <p>Nothings</p>
                   </a>
                 </li>
               </ul>

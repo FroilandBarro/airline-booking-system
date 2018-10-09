@@ -19,28 +19,28 @@ export class BookingComponent implements OnInit {
   origins: any = [ {value: null, label: 'Select origin:'}, ...this.getPorts() ];
   destinations: any = [ {value: null, label: 'Select destination:'}, ...this.getPorts() ];
   classes: any = [ {value: null, label: 'Select class'}, ...this.getClass() ];
-  flightModel: any = {
-    noOfAdults: 1,
-    noOfChildren: 0,
-    flightClass: null,
+  
 
-  };
+  
   formModel: any = {
-    origin: null,
-    destination: null,
     departdate: null,
     returndate: null,
     clientName: 'froiland barro',
-    flightDetails: this.flightSelected,
-    noOfAdults: this.flightModel.noOfAdults,
-    noOfChildren: this.flightModel.noOfChildren,
-    flightClass: this.flightModel.flightClass,
+    flightSelected: null,
+    fees: {
+      adultsCost: null,
+      childrenCost: null,
+      totalCost: null,
+    },
+    noOfAdults: 1,
+    noOfChildren: 0,
+    flightClass: null,
   };
   
-  clientDetails: any = [
-    this.flightSelected,
-    this.formModel,
-  ]
+  // clientDetails: any = [
+  //   this.flightSelected,
+  //   this.formModel,
+  // ]
   clientModel: any = {
     name: null,
     email: null,
@@ -111,25 +111,28 @@ export class BookingComponent implements OnInit {
 
   selectflight(flight){
     this.flightSelected = flight;
-    this.flightSelected.departdate = this.formModel.departdate;
+    this.formModel.flightSelected = flight;
+    this.formModel.flightSelected.departdate = this.formModel.departdate;
     this.hasFlightSelected = true;
-    console.log(this.formModel, this.flightSelected);
+    console.log(this.formModel);
   }
 
+  //for the discounted price
   countChange() {
-    this.flightModel.adultsCost = this.flightModel.noOfAdults * this.flightModel.price;
-    const rawCostChild = (this.flightModel.noOfChildren * this.flightModel.price);
-    this.flightModel.childrenCost = rawCostChild - (rawCostChild * .25);
-    this.flightModel.totalCost = this.flightModel.adultsCost + this.flightModel.childrenCost;
+    this.formModel.fees.adultsCost = this.formModel.noOfAdults * this.formModel.price;
+    const rawCostChild = (this.formModel.noOfChildren * this.formModel.price);
+    this.formModel.fees.childrenCost = rawCostChild - (rawCostChild * .25);
+    this.formModel.fees.totalCost = this.formModel.fees.adultsCost + this.formModel.fees.childrenCost;
   }
 
+  //for the price
   classChanged(flightClass) {
     switch(flightClass) {
       case 'ECO':
-        this.flightModel.price = this.flightSelected.ecoPrice;
+        this.formModel.price = this.formModel.flightSelected.ecoPrice;
         break;
       case 'BUS':
-        this.flightModel.price = this.flightSelected.busPrice;
+        this.formModel.price = this.formModel.flightSelected.busPrice;
         break;
     }
     this.countChange();
@@ -154,7 +157,7 @@ export class BookingComponent implements OnInit {
     this.api.clientLogin(this.clientModel);  
   }
   onSubmitDetails(form){
-    form = this.flightSelected + this.formModel
+    form = this.formModel
     console.log(form);
     this.api.saveclientDetails(form);
   }

@@ -1,6 +1,6 @@
 // const bcrypt = require('bcrypt')
 // const jwt = require('jwt-simple')
-const User = require('./models/user.js');
+
 const book = require('./models/book.js');
 
 

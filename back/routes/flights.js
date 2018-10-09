@@ -390,17 +390,21 @@ const saveBooking = (body, res) => {
 
 // get booking function
 const getBookings = async (query, res) => {
-    await Book
-        .find(query)
-        .exec((err, bookings) => {
-            if (err) {
-                res.status(500).send({ status: 500, message: 'Internal server error!', err });
-                return;
+    const { name } = query;
+    if( name ){
+        const booked = [];
+        Book.map((n) =>{
+            if(n.name === name){
+                booked.push(n);
             }
-            res.status(200).send({ status: 200, message: 'Success!', data: bookings });
-            return;
         });
+        res.status(200).send({status: 200, msg: "success!", data: booked});
+        return
+    }
+    res.status(200).send({status: 200, msg:"invalid", data:Book});
+    return
 };
+
 const clientlogin = async (body, res) => {
     await Client.findOne({ email: body.email, password: body.password })
         .exec((err, clientlog) => {
@@ -494,8 +498,9 @@ router.post('/book', (req, res) => {
 });
 
 router.get('/book', (req, res) => {
-    const { query } = req;
+    const { query: { name } } = req;
     getBookings(query, res);
+    return;
 });
 
 router.post('/adminregister', (req, res) => {

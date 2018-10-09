@@ -98,16 +98,16 @@
                 <div class="form-control-container">
                   <label for="adult">Adult</label>
                   <input type="number" class="form-control" placeholder="adults" ngModel name="noOfAdults" #noOfAdults="ngModel"
-                    [(ngModel)]="flightModel.noOfAdults" (change)="countChange()" required>
+                    [(ngModel)]="formModel.noOfAdults" (change)="countChange()" required>
                 </div>
                 <div class="form-control-container">
                   <label for="child">Child</label>
                   <input type="number" class="form-control" placeholder="child" ngModel name="noOfChildren"
-                    #noOfChildren="ngModel" [(ngModel)]="flightModel.noOfChildren" (change)="countChange()">
+                    #noOfChildren="ngModel" [(ngModel)]="formModel.noOfChildren" (change)="countChange()">
                 </div>
                 <div class="form-control-container">
                   <label for="class">Class</label>
-                  <select class="app-select form-control" name="fligtClass" #flightClass="ngModel" ngModel [(ngModel)]="flightModel.flightClass"
+                  <select class="app-select form-control" name="fligtClass" #flightClass="ngModel" ngModel [(ngModel)]="formModel.flightClass"
                     (change)="classChanged(flightClass.value)" required>
                     <option *ngFor="let class of classes; let x = index" value="{{class.value}}">{{class.label}}</option>
                   </select>
@@ -176,15 +176,15 @@
                         <span>Adults:</span>
                       </div>
                       <div class="col-md-6">
-                        <span class="right">{{flightModel.noOfAdults | number}}</span>
+                        <span class="right">{{formModel.noOfAdults | number}}</span>
                       </div>
                     </div>
-                    <div class="fees-summary" *ngIf="flightModel.noOfChildren">
+                    <div class="fees-summary" *ngIf="formModel.noOfChildren">
                       <div class="col-md-6">
                         <span>Child:</span>
                       </div>
                       <div class="col-md-6">
-                        <span class="right">{{flightModel.noOfChildren | number}}</span>
+                        <span class="right">{{formModel.noOfChildren | number}}</span>
                       </div>
                     </div>
                     <div class="fees-summary">
@@ -192,7 +192,7 @@
                         <span>Price:</span>
                       </div>
                       <div class="col-md-6">
-                        <span class="right">{{flightModel.price | number}}</span>
+                        <span class="right">{{formModel.price | number}}</span>
                       </div>
                     </div>
                   </div>
@@ -208,15 +208,15 @@
                         <span>Adult:</span>
                       </div>
                       <div class="col-md-6">
-                        <span class="right">{{flightModel.adultsCost | number}}</span>
+                        <span class="right">{{formModel.fees.adultsCost | number}}</span>
                       </div>
                     </div>
-                    <div class="fees-summary" *ngIf="flightModel.noOfChildren">
+                    <div class="fees-summary" *ngIf="formModel.noOfChildren">
                       <div class="col-md-6">
                         <span>Child:</span>
                       </div>
                       <div class="col-md-6">
-                        <span class="right">{{flightModel.childrenCost | number}}</span>
+                        <span class="right">{{formModel.fees.childrenCost | number}}</span>
                       </div>
                     </div>
                     <div class="separator-line"></div>
@@ -225,7 +225,7 @@
                         <span>Total:</span>
                       </div>
                       <div class="col-md-6">
-                        <span class="right">{{flightModel.totalCost | number}}</span>
+                        <span class="right">{{formModel.fees.totalCost | number}}</span>
                       </div>
                     </div>
                   </div>

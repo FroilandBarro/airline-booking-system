@@ -21,13 +21,13 @@ const bookSchema = new mongoose.Schema({
     flightClass: {
         type: String,
     },
-    adults: {
+    noOfAdults: {
         type: Number,
     },
-    child: {
+    noOfChildren: {
         type: Number,
     },
-    flightDetails: {
+    flightSelected: {
         type: Object,
         default: {},
     },
