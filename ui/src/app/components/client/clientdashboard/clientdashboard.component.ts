@@ -11,7 +11,8 @@ import { ApiService } from '../../../services/api.service';
 })
 export class ClientdashboardComponent implements OnInit {
   userData: any;
-  name: "Lucky Jeanelle Zamora";
+  bookedflights: any = [];
+  bookSelected: any;
   constructor(
     private utils: SystemUtils,
     private shared: SharedDataService,
@@ -26,16 +27,20 @@ export class ClientdashboardComponent implements OnInit {
      
      
      ngOnInit() {
-      var id = this.route.snapshot.params.id;
-      var name = this.route.snapshot.params.name;
+      var id = this.route.snapshot.params.id
       const userData = JSON.parse(localStorage.getItem('userData'))
       this.userData = userData.data;
-      console.log(userData.data);
-      this.api.specificBooks(this.name);
+      this.api.specificBooks(this.userData).subscribe((res: any) =>{
+        if(res && res.data){
+          this.bookedflights= res.data;
+          console.log(this.bookedflights);
+        }
+      })
     }
 
-     click(){
-       console.log(this.userData.name);
+     click(form){
+       this.bookSelected = form;
+       console.log(this.bookSelected);
      }
 
  

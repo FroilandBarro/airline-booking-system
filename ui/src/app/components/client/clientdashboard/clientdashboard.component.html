@@ -34,7 +34,7 @@
               </ul>
             </div>
           </div>
-      <div class="col-md-3"></div>
+      <div class="col-md-2"></div>
       <div class="col-md-4">
         <div class="card color2 card-over">
           <div class="card-header">
@@ -43,12 +43,12 @@
           <div class="card-body">
             <div class="flight-table">
               <div class="separator-line"></div>
-              <div class="row-inline">
-                <div class="card color1">
+              <div class="row-inline" *ngFor="let book of bookedflights; let k = index" (click)="click(book)">
+                <div class="card color1" >
                   <div class="card-header">
                   </div>
                   <div class="card-body" >
-                        <h5 class="head-title" >Booked 1</h5>         
+                        <span>Flight: <span class="right-margin">{{book.flightSelected.flight}}</span></span>         
                   </div>
                 </div> 
               </div>
@@ -56,38 +56,88 @@
           </div>
         </div>
       </div>
-      <div class="col-md-4">
-          <div class="card color2 card-over">
-            <div class="card-header">
-              <h5 class="head-title">Client Dashboard</h5>
+      <div class="col-md-3">
+      <div class="row-inline">
+        <div class="card card-over color2">
+          <div class="card-header">
+            <h6 class="title">Flight Details</h6>
+          </div>
+          <div class="card-body" *ngIf="bookSelected">
+            <div class="fees-summary">
+              <div class="col-md-6">
+                <span>Airline:</span>
+              </div>
+              <div class="col-md-6">
+                <span class="right">{{bookSelected.flightSelected.airline}}</span>
+              </div>
             </div>
-            <div class="card-body">
-              <div class="flight-table">
-                <div class="separator-line"></div>
-                <div class="row-inline">
-                  <div class="card color1">
-                    <div class="card-header">
-                      <h6 class="title">Booked Flight</h6>
-                    </div>
-                    <div class="card-body">
-                      <div class="card clickable">
-                        <div class="card-body">
-                          <h4>Booked 1</h4>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="card-body margined">
-                      <div class="card clickable">
-                        <div class="card-body">
-                          <h4>Booked 2</h4>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+            <div class="fees-summary">
+              <div class="col-md-6">
+                <span>Date:</span>
+              </div>
+              <div class="col-md-6">
+                <span class="right">{{bookSelected.flightSelected.departdate}}</span>
+              </div>
+            </div>
+            <div class="fees-summary">
+              <div class="col-md-6">
+                <span>Origin:</span>
+              </div>
+              <div class="col-md-6">
+                <span class="right">{{bookSelected.flightSelected.orig}}</span>
+              </div>
+            </div>
+            <div class="fees-summary">
+              <div class="col-md-6">
+                <span>Destination:</span>
+              </div>
+              <div class="col-md-6">
+                <span class="right">{{bookSelected.flightSelected.dest}}</span>
+              </div>
+            </div>
+            <div class="fees-summary">
+              <div class="col-md-6">
+                <span>Departure:</span>
+              </div>
+              <div class="col-md-6">
+                <span class="right">{{bookSelected.flightSelected.dep}}</span>
+              </div>
+            </div>
+            <div class="fees-summary">
+              <div class="col-md-6">
+                <span>Arrival:</span>
+              </div>
+              <div class="col-md-6">
+                <span class="right">{{bookSelected.flightSelected.arr}}</span>
+              </div>
+            </div>
+            <div class="fees-summary">
+              <div class="col-md-6">
+                <span>Adults:</span>
+              </div>
+              <div class="col-md-6">
+                <span class="right">{{bookSelected.noOfAdults}}</span>
+              </div>
+            </div>
+            <div class="fees-summary">
+              <div class="col-md-6">
+                <span>Child:</span>
+              </div>
+              <div class="col-md-6">
+                <span class="right">{{bookSelected.noOfChildren}}</span>
+              </div>
+            </div>
+            <div class="fees-summary">
+              <div class="col-md-6">
+                <span>Price:</span>
+              </div>
+              <div class="col-md-6">
+                <span class="right">{{bookSelected.fees.totalCost}}.00</span>
               </div>
             </div>
           </div>
         </div>
+
     </div>
+  </div>
   </div>

@@ -28,6 +28,7 @@ import { ListTableComponent } from './components/shared/widgets/list-table/list-
 import { BookingsComponent } from './components/shared/bookings/bookings.component';
 import { AirlinesListComponent } from './components/shared/airlines-list/airlines-list.component';
 import { FlightsListComponent } from './components/shared/flights-list/flights-list.component';
+import { ViewBookComponent } from './components/client/view-book/view-book.component';
 
 
 
@@ -48,6 +49,7 @@ import { FlightsListComponent } from './components/shared/flights-list/flights-l
     BookingsComponent,
     AirlinesListComponent,
     FlightsListComponent,
+    ViewBookComponent,
   ],
   imports: [
     BrowserModule,
