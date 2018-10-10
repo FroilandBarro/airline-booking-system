@@ -425,6 +425,26 @@ const clientlogin = async (body, res) => {
             }
         });
 }
+const specificBook = async (body, res) => {
+    await Book.find({ clientName: body.name })
+        .exec((err, bookedlog) => {
+            if (err) {
+                res.status(500).send({ message: 'Internal server error' });
+                return;
+            }
+
+            if (!bookedlog) {
+                res.status(401).send({ message: 'no booked flights existing' });
+                console.log("wrong");
+                return;
+            }
+            else {
+                console.log(bookedlog);
+                return res.status(200).send({ message: 'There is a list of booked flights', data: bookedlog});
+
+            }
+        });
+}
 const adminlogin = async (body, res) => {
     await Admin.findOne({ adminId: body.adminId, password: body.password })
         .exec((err, adminlog) => {
@@ -534,6 +554,15 @@ router.post('/clientlogin', (req, res) => {
     res.status(403).send({ status: 403, message: 'Invalid request!', data: 0 });
     return;
 
+});
+router.post("/specificbooks", (req, res) => {
+    const { body } = req;
+    if (body) {
+        specificBook(body, res);
+        return
+    }
+    res.status(403).send({ status: 403, message: 'Invalid request!', data: 0 });
+    return;
 });
 router.post('/adminlogin', (req, res) => {
 

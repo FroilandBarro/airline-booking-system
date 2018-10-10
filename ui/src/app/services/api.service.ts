@@ -33,7 +33,13 @@ export class ApiService {
     }
 
     saveclientDetails(clientDetails) {
-        return this.http.post(`${this.baseUrl}/flights/book`,clientDetails ).subscribe(res=> {
+        return this.http.post(`${this.baseUrl}/flights/book`, clientDetails ).subscribe(res=> {
+            console.log(res);
+        });
+    }
+
+    specificBooks(bookedFlights) {
+        return this.http.post(`${this.baseUrl}/flights/specificbooks`, bookedFlights ).subscribe(res=> {
             console.log(res);
         });
     }

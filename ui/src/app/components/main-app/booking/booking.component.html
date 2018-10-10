@@ -48,7 +48,7 @@
                 </div>
                 <div class="form-control-container">
                   <label class="empty-label"></label>
-                  <button type="submit" class="btn btn-success btn-xs" [disabled]="selectFlights.invalid">Search</button>
+                  <button type="submit" class="btn btn-success btn-xs" [disabled]="selectFlights.invalid" (click)="click()">Search</button>
                 </div>
               </div>
             </form>
@@ -293,11 +293,11 @@
                     </div>
                   </div>
                   <div class="card-footer">
-                    <button type="submit" class="btn btn-success btn-reg" *ngIf="!isLoggingIn" (click)="clientregister()"
+                    <button class="btn btn-success btn-reg" *ngIf="!isLoggingIn" (click)="clientregister()"
                       [disabled]="passengerDetails.invalid">
                       <span>Register</span>
                     </button>
-                    <button type="submit" class="btn btn-success btn-reg" *ngIf="isLoggingIn" (click)="clientlogin()"
+                    <button class="btn btn-success btn-reg" *ngIf="isLoggingIn" (click)="clientlogin()"
                       [disabled]="passengerDetails.invalid">
                       <span>Login</span>
                     </button>

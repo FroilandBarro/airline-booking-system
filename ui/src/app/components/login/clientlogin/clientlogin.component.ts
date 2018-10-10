@@ -22,6 +22,7 @@ export class ClientloginComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    
   }
   clientlogin(){
     this.api.clientLogin(this.clientModel).subscribe((res: any) => {

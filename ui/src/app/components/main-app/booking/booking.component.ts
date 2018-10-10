@@ -3,6 +3,7 @@ import { ApiService } from '../../../services/api.service';
 import { isDate } from '@angular/common/src/i18n/format_date';
 import { SystemUtils } from '../../../services/system.utils.service';
 import { SharedDataService } from '../../../services/sharedData.service';
+import { RouterLink, Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-booking',
@@ -25,7 +26,7 @@ export class BookingComponent implements OnInit {
   formModel: any = {
     departdate: null,
     returndate: null,
-    clientName: 'froiland barro',
+    clientName: null,
     flightSelected: null,
     fees: {
       adultsCost: null,
@@ -55,14 +56,21 @@ export class BookingComponent implements OnInit {
     private api: ApiService,
     private utils: SystemUtils,
     private shared: SharedDataService,
+    private router: Router,
+    private route: ActivatedRoute,
   ) {
     this.shared.currentUserData.subscribe((userData: any) => {
       this.userData = userData;
       });
    }
 
-  ngOnInit() {
+   ngOnInit() {
+     if(this.userData){
+    var id = this.route.snapshot.params.id
+    const userData = JSON.parse(localStorage.getItem('userData'))
+    this.userData = userData.data;
   }
+}
   
   tripDate(){
    
@@ -119,10 +127,20 @@ export class BookingComponent implements OnInit {
 
   //for the discounted price
   countChange() {
+   if(this.tripModel.type === "ONE WAY")
+    {
     this.formModel.fees.adultsCost = this.formModel.noOfAdults * this.formModel.price;
     const rawCostChild = (this.formModel.noOfChildren * this.formModel.price);
     this.formModel.fees.childrenCost = rawCostChild - (rawCostChild * .25);
     this.formModel.fees.totalCost = this.formModel.fees.adultsCost + this.formModel.fees.childrenCost;
+    }
+    if(this.tripModel.type === "ROUND")
+    {
+    this.formModel.fees.adultsCost = this.formModel.noOfAdults * this.formModel.price * 2;
+    const rawCostChild = (this.formModel.noOfChildren * this.formModel.price);
+    this.formModel.fees.childrenCost = (rawCostChild - (rawCostChild * .25)) * 2;
+    this.formModel.fees.totalCost = this.formModel.fees.adultsCost + this.formModel.fees.childrenCost;
+    }
   }
 
   //for the price
@@ -152,11 +170,29 @@ export class BookingComponent implements OnInit {
   clientregister(){
     console.log(this.clientModel);
     this.api.registerClient(this.clientModel);
+    this.api.clientLogin(this.clientModel).subscribe((res: any) => {
+      if(res){
+      console.log(res);
+      this.shared.setUserData(res);
+      localStorage.setItem('userData', JSON.stringify(res)); 
+    }
+    });
   }
   clientlogin(){
-    this.api.clientLogin(this.clientModel);  
+    this.api.clientLogin(this.clientModel).subscribe((res: any) => {
+      if(res){
+      console.log(res);
+      this.shared.setUserData(res);
+      localStorage.setItem('userData', JSON.stringify(res));
+      
+    }
+    });
+  }
+  click(){
+    console.log(this.tripModel.type);
   }
   onSubmitDetails(form){
+    this.formModel.clientName = this.userData.name;
     form = this.formModel
     console.log(form);
     this.api.saveclientDetails(form);
