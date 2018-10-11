@@ -48,4 +48,9 @@ export class ApiService {
         const { origin, destination } = query;
         return this.http.get(`${this.baseUrl}/flights?orig=${origin}&dest=${destination}`);
     }
+
+    getReturnFlights(query) {
+        const { origin, destination } = query;
+        return this.http.get(`${this.baseUrl}/flights/returnbooks?orig=${origin}&dest=${destination}`);
+    }
 }

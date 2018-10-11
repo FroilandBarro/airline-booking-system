@@ -7,7 +7,7 @@ const app = express()
 
 const config = require('./config/config')
 
-mongoose.connect(config.mLabdb, { useNewUrlParser: true }, (err) => {
+mongoose.connect(config.db, { useNewUrlParser: true }, (err) => {
     if (err) {
         console.log(err);
     } else {

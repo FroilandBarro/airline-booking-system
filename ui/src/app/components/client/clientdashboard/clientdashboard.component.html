@@ -1,41 +1,215 @@
 <app-main-nav></app-main-nav>
-
 <div class="app-booking">
   <div class="content">
-    
+
     <div class="row">
-        <div class="sidebar" data-color="orange">
-            <!--
+      <div class="sidebar" data-color="orange">
+        <!--
               Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
           -->
-            <div class="logo">
-              <h4 class="head-title">Client Dashboard</h4>
-            </div>
-            <div class="sidebar-wrapper">
-              <ul class="nav">
-                <li>
-                  <a (click)="click()">
-                    <i class="now-ui-icons design_app" ></i>
-                    <p>{{userData.name}}</p>
-                  </a>
-                </li>
-                <li>
-                  <a >
-                    <i class="now-ui-icons education_atom"></i>
-                    <p>{{userData.birthdate}}</p>
-                  </a>
-                </li>
-                <li>
-                  <a href="./map.html">
-                    <i class="now-ui-icons location_map-big"></i>
-                    <p>Nothings</p>
-                  </a>
-                </li>
-              </ul>
+        <div class="logo">
+          <h4 class="head-title">Client Dashboard</h4>
+        </div>
+        <div class="sidebar-wrapper">
+          <ul class="nav">
+            <li>
+              <a (click)="click()">
+                <i class="now-ui-icons design_app"></i>
+                <p>Book Flight</p>
+              </a>
+            </li>
+            <li>
+              <a>
+                <i class="now-ui-icons education_atom"></i>
+                <p>Cancel Flight
+                </p>
+              </a>
+            </li>
+            <li>
+              <a href="./map.html">
+                <i class="now-ui-icons location_map-big"></i>
+                <p>Nothings</p>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-3"></div>
+      <div class="col-md-8">
+        <div class="card color2">
+          <div class="card-header">
+            <h5 class="title">One Way</h5>
+          </div>
+          <div class="card-body">
+            <!--this is for the passenger-->
+            <div class="separator-line"></div>
+            <div class="row-inline">
+              <div class="card">
+                <div class="card-header">
+                  <h6>Flights</h6>
+                </div>
+                <div class="card-body">
+                  <div class="card card-inside padded color1" *ngFor="let book of bookedflights; let k= index" (click)="click(book)">           
+                      <span class="right-margin">{{book.flightSelected.airline}} : {{book.flightSelected.flight}}</span>
+                  </div>
+                </div>
+              </div>
+            
+              <div class="card" >
+                <div class="card-header">
+                  <h6>Flight Details</h6>
+                </div>
+                <div class="card-body">
+                  <div class="fees-summary">
+                    <div class="col-md-6">
+                      <span>Airline:</span>
+                    </div>
+                    <div class="col-md-6">
+                      <span class="right" *ngIf="bookSelected">{{bookSelected.flightSelected.airline}}</span>
+                    </div>
+                  </div>
+                  <div class="fees-summary">
+                    <div class="col-md-6">
+                      <span>Date:</span>
+                    </div>
+                    <div class="col-md-6">
+                      <span class="right" *ngIf="bookSelected">{{bookSelected.flightSelected.departdate}}</span>
+                    </div>
+                  </div>
+                  <div class="fees-summary">
+                    <div class="col-md-6">
+                      <span>Origin:</span>
+                    </div>
+                    <div class="col-md-6">
+                      <span class="right" *ngIf="bookSelected">{{bookSelected.flightSelected.orig}}</span>
+                    </div>
+                  </div>
+                  <div class="fees-summary">
+                    <div class="col-md-6">
+                      <span>Destination:</span>
+                    </div>
+                    <div class="col-md-6">
+                      <span class="right" *ngIf="bookSelected">{{bookSelected.flightSelected.dest}}</span>
+                    </div>
+                  </div>
+                  <div class="fees-summary">
+                    <div class="col-md-6">
+                      <span>Departure:</span>
+                    </div>
+                    <div class="col-md-6">
+                      <span class="right" *ngIf="bookSelected">{{bookSelected.flightSelected.dep}}</span>
+                    </div>
+                  </div>
+                  <div class="fees-summary">
+                    <div class="col-md-6">
+                      <span>Arrival:</span>
+                    </div>
+                    <div class="col-md-6">
+                      <span class="right" *ngIf="bookSelected">{{bookSelected.flightSelected.arr}}</span>
+                    </div>
+                  </div>
+                  <div class="fees-summary">
+                    <div class="col-md-6">
+                      <span>Adults:</span>
+                    </div>
+                    <div class="col-md-6">
+                      <span class="right" *ngIf="bookSelected">{{bookSelected.noOfAdults}}</span>
+                    </div>
+                  </div>
+                  <div class="fees-summary">
+                      <div class="col-md-6">
+                        <span>Child:</span>
+                      </div>
+                      <div class="col-md-6">
+                        <span class="right" *ngIf="bookSelected">{{bookSelected.noOfChildren}}</span>
+                      </div>
+                    </div>
+                  <div class="fees-summary">
+                    <div class="col-md-6">
+                      <span>Price:</span>
+                    </div>
+                    <div class="col-md-6">
+                      <span class="right" *ngIf="bookSelected">{{bookSelected.fees.totalCost}}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-footer">
+                </div>
+              </div>
+              <!--form for register /-->
+
             </div>
           </div>
-      <div class="col-md-2"></div>
-      <div class="col-md-4">
+        </div>
+      </div>
+      <div class="col-md-3"></div>
+      <div class="col-md-8">
+        <div class="card color2">
+          <div class="card-header">
+            <h5 class="title">Round Trip</h5>
+          </div>
+          <div class="card-body">
+            <!--this is for the passenger-->
+            <div class="separator-line"></div>
+            <div class="row-inline">
+              <div class="card">
+                <div class="card-header">
+                  <h6>Flights</h6>
+                </div>
+                <div class="card-body">
+                  <div class="fees-summary" *ngFor="let book of bookedflights; let k= index" (click)="click(book)">
+                    <div class="col-md-6">
+                      <span>Flight:</span>
+                    </div>
+                    <div class="col-md-6">
+                      <span class="right">{{book.flightSelected.flight}}</span>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-header">
+                  <h6>Flight Details</h6>
+                </div>
+                <div class="card-body">
+                  <div class="fees-summary">
+                    <div class="col-md-6">
+                      <span>Adult:</span>
+                    </div>
+                    <div class="col-md-6">
+                      <span class="right"></span>
+                    </div>
+                  </div>
+                  <div class="fees-summary">
+                    <div class="col-md-6">
+                      <span>Child:</span>
+                    </div>
+                    <div class="col-md-6">
+                      <span class="right"></span>
+                    </div>
+                  </div>
+                  <div class="fees-summary">
+                    <div class="col-md-6">
+                      <span>Total:</span>
+                    </div>
+                    <div class="col-md-6">
+                      <span class="right"></span>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+              <!--form for register /-->
+
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="col-md-4">
         <div class="card color2 card-over">
           <div class="card-header">
             <h5 class="head-title">Booked Flights</h5>
@@ -139,5 +313,5 @@
         </div>
 
     </div>
-  </div>
+  </div> -->
   </div>

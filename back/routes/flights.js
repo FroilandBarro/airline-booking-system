@@ -446,6 +446,24 @@ const specificBook = async (body, res) => {
             }
         });
 }
+const returnFlights = (query, res) => {
+    var x =Math.ceil(Math.random() * 2 ) - 1;
+    const { orig, dest } = query;
+    if (orig && dest) {
+        const flights = [];
+        availableFligths.map((f) => {
+            if (f.orig === orig && f.dest === dest) { 
+                flights.push(f);
+            }
+        });
+
+        res.status(200).send({ status: 200, message: 'Success!', data: flights[x] });
+        return;
+    }
+
+    res.status(200).send({ status: 200, message: 'Success!', data: availableFligths });
+    return;
+};
 
 const adminlogin = async (body, res) => {
     await Admin.findOne({ adminId: body.adminId, password: body.password })
@@ -566,6 +584,15 @@ router.post("/specificbooks", (req, res) => {
     res.status(403).send({ status: 403, message: 'Invalid request!', data: 0 });
     return;
 })
+
+router.get("/returnbooks", (req, res) => {
+    const {query, query : { orig, dest }} = req;
+    if (query) {
+        returnFlights(query, res);
+        return;
+    }
+})
+
 router.post('/adminlogin', (req, res) => {
 
     const { body } = req;

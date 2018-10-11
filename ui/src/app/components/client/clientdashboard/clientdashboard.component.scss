@@ -1,10 +1,23 @@
 .app-booking {
+    .card-inside{
+        margin-bottom: 10px;
+        text-align: center;
+    }
+    .padded{
+        padding-top: 20px;
+        padding-bottom: 20px;
+        span{
+            margin-right: 5px;
+        }
+    }
     .right-margin{
-        margin-left: 150px;
         font-weight: bold;
     }
-    span{
-        color: white;
+    p{
+        font-weight: bold;
+    }
+    .title{
+        text-align: center;
     }
     .card-over{
         margin-top: 80px;
@@ -225,6 +238,7 @@
         .card {
             &:not(:last-child) {
                 margin-right: 10px; 
+                
             }      
         }
     }
@@ -239,7 +253,7 @@
         background-color: rgba(32, 32, 32, 0.694);
     }
     .color3{
-        background-color: rgba(255, 255, 255, 0.782);
+       color: #eee;
     }
  
     .fees-summary {

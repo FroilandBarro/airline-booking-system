@@ -14,9 +14,6 @@ const clientSchema= new mongoose.Schema ({
     birthdate: {
         type: String,
     },
-    bookData: {
-        type: Array,
-        default: [],
-    }
+  
 });
 module.exports = restful.model('Client', clientSchema);
