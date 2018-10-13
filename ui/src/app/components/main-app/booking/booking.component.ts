@@ -13,26 +13,32 @@ import { RouterLink, Router, ActivatedRoute } from '@angular/router';
 export class BookingComponent implements OnInit {
   hasLoggedIn: boolean = false;
   flightSelected: any;
-  returnFlight: any;
+  returnFlightSelected: any;
+  returnAvailableFlights: any;
   hasFlightSelected: boolean = false;
   availableFlights: any = [];
   trip: null;
   registerData: any = [];
-  origins: any = [{ value: null, label: 'Select origin:' }, ...this.getPorts()];
-  destinations: any = [{ value: null, label: 'Select destination:' }, ...this.getPorts()];
-  classes: any = [{ value: null, label: 'Select class' }, ...this.getClass()];
+  origins: any = [ {value: null, label: 'Select origin:'}, ...this.getPorts() ];
+  destinations: any = [ {value: null, label: 'Select destination:'}, ...this.getPorts() ];
+  classes: any = [ {value: null, label: 'Select class'}, ...this.getClass() ];
+  
+  forRound: boolean;
+  roundselect: boolean;
+  confirmed: boolean;
 
-  forReturn: any = {
-    origin: null,
-    destination: null,
+  getReturn: any= {
+    origin: "DVO",
+    destination: "CEB",
   }
 
+  
   formModel: any = {
-    departdate: null,
-    returndate: null,
+    departdate: Date,
+    returndate: Date,
     clientName: null,
+    returnFlightSelected: null,
     flightSelected: null,
-    returnFlight: null,
     fees: {
       adultsCost: null,
       childrenCost: null,
@@ -42,7 +48,7 @@ export class BookingComponent implements OnInit {
     noOfChildren: 0,
     flightClass: null,
   };
-
+  
   // clientDetails: any = [
   //   this.flightSelected,
   //   this.formModel,
@@ -66,38 +72,31 @@ export class BookingComponent implements OnInit {
   ) {
     this.shared.currentUserData.subscribe((userData: any) => {
       this.userData = userData;
-    });
+      });
+   }
+
+   ngOnInit() {
+     if(this.userData){
+    var id = this.route.snapshot.params.id
+    const userData = JSON.parse(localStorage.getItem('userData'))
+    this.userData = userData.data;
   }
-
-  ngOnInit() {
-    if (this.userData) {
-      var id = this.route.snapshot.params.id
-      const userData = JSON.parse(localStorage.getItem('userData'))
-      this.userData = userData.data;
-
-
-    }
-  }
-
-  setReturnFlight() {
-    if (this.formModel.returndate) {
-
-      // this.api.getReturnFlights()
-    }
-  }
+}
 
   selectTrip(value) {
     this.trip = value;
-    switch (value) {
-      case 0:
+    switch(value){
+      case 0 : 
         this.tripModel.type = "ONE WAY";
+        this.roundselect = false;
         break;
       case 1:
         this.tripModel.type = "ROUND";
+        this.roundselect = true;
         break;
     }
   }
-
+  
 
   originChange(value, type) {
     switch (type) {
@@ -124,36 +123,64 @@ export class BookingComponent implements OnInit {
     return [
       { value: 'ECO', label: 'ECO - Economy' },
       { value: 'BUS', label: 'BUS - Business' },
-    ];
-  }
+      ];
+    }
+  
+  selectflight(flight){
+    this.forRound = true;
 
-  selectflight(flight) {
+    this.getReturn.origin = flight.dest;
+    this.getReturn.destination = flight.orig;
+
+    this.api.getAvailableFlights(this.getReturn)
+    .subscribe((response: any) => {
+      if (response && response.data) {
+        this.returnAvailableFlights = response.data;
+        console.log(this.returnAvailableFlights);
+
+      }
+    }, (err) => {
+      console.log(err);
+    });
+
     this.flightSelected = flight;
     this.formModel.flightSelected = flight;
     this.formModel.flightSelected.departdate = this.formModel.departdate;
     this.hasFlightSelected = true;
 
+    if(this.tripModel.type === "ROUND"){
+      this.forRound = true;
+    }
+ 
+  }
+  selectreturnflight(flight){
+    this.returnFlightSelected = flight;
+    this.formModel.returnFlightSelected = this.returnFlightSelected;
+    
+    console.log("FormModel Return: ",this.formModel.returnFlightSelected);
   }
 
   //for the discounted price
   countChange() {
-    if (this.tripModel.type === "ONE WAY") {
-      this.formModel.fees.adultsCost = this.formModel.noOfAdults * this.formModel.price;
-      const rawCostChild = (this.formModel.noOfChildren * this.formModel.price);
-      this.formModel.fees.childrenCost = rawCostChild - (rawCostChild * .25);
-      this.formModel.fees.totalCost = this.formModel.fees.adultsCost + this.formModel.fees.childrenCost;
+   if(this.tripModel.type === "ONE WAY")
+    {
+    this.formModel.fees.adultsCost = this.formModel.noOfAdults * this.formModel.price;
+    const rawCostChild = (this.formModel.noOfChildren * this.formModel.price);
+    this.formModel.fees.childrenCost = rawCostChild - (rawCostChild * .25);
+    this.formModel.fees.totalCost = this.formModel.fees.adultsCost + this.formModel.fees.childrenCost;
     }
-    if (this.tripModel.type === "ROUND") {
-      this.formModel.fees.adultsCost = this.formModel.noOfAdults * this.formModel.price * 2;
-      const rawCostChild = (this.formModel.noOfChildren * this.formModel.price);
-      this.formModel.fees.childrenCost = (rawCostChild - (rawCostChild * .25)) * 2;
-      this.formModel.fees.totalCost = this.formModel.fees.adultsCost + this.formModel.fees.childrenCost;
+    if(this.tripModel.type === "ROUND")
+    {
+    this.formModel.fees.adultsCost = this.formModel.noOfAdults * this.formModel.price * 2;
+    const rawCostChild = (this.formModel.noOfChildren * this.formModel.price);
+    this.formModel.fees.childrenCost = (rawCostChild - (rawCostChild * .25)) * 2;
+    this.formModel.fees.totalCost = this.formModel.fees.adultsCost + this.formModel.fees.childrenCost;
     }
   }
 
   //for the price
   classChanged(flightClass) {
-    switch (flightClass) {
+    switch(flightClass) {
       case 'ECO':
         this.formModel.price = this.formModel.flightSelected.ecoPrice;
         break;
@@ -165,61 +192,48 @@ export class BookingComponent implements OnInit {
   }
 
   onSubmit(form) {
+    console.log(form);
     this.api.getAvailableFlights(form)
-            .subscribe((response: any) => {
-              if (response && response.data) {
-                this.availableFlights = response.data;
-              }
-            }, (err) => {
-              console.log(err);
-            });
-
-    if (form.returnDate) {
-      this.forReturn.origin = form.destination;
-      this.forReturn.destination =form.origin;
-      console.log(this.forReturn);
-      this.api.getReturnFlights(this.forReturn).subscribe((res: any) => {
-        if (res & res.data) {
-          this.returnFlight = res.data;
-          console.log(this.returnFlight);
+      .subscribe((response: any) => {
+        if (response && response.data) {
+          this.availableFlights = response.data;
         }
-           
+      }, (err) => {
+        console.log(err);
       });
-
-    }
-
-
   }
-  clientregister() {
+  clientregister(){
     console.log(this.clientModel);
     this.api.registerClient(this.clientModel);
     this.api.clientLogin(this.clientModel).subscribe((res: any) => {
-      if (res) {
-        console.log(res);
-        this.shared.setUserData(res);
-        localStorage.setItem('userData', JSON.stringify(res));
-      }
+      if(res){
+      console.log(res);
+      this.shared.setUserData(res);
+      localStorage.setItem('userData', JSON.stringify(res)); 
+    }
     });
   }
-  clientlogin() {
+  clientlogin(){
     this.api.clientLogin(this.clientModel).subscribe((res: any) => {
-      if (res) {
-        console.log(res);
-        this.shared.setUserData(res);
-        localStorage.setItem('userData', JSON.stringify(res));
-
-      }
+      if(res){
+      console.log(res);
+      this.shared.setUserData(res);
+      localStorage.setItem('userData', JSON.stringify(res));
+      
+    }
     });
   }
-  click() {
+  click(){
     console.log(this.tripModel.type);
   }
-  onSubmitDetails(form) {
+  onSubmitDetails(form){
     this.formModel.clientName = this.userData.name;
-    form = this.formModel;
-    console.log(this.formModel);
-
-
-
+    
+    form = this.formModel
+    console.log(form);
+    this.api.saveclientDetails(form).subscribe(res=> {
+      console.log(res);
+      this.confirmed = true;
+  });;
   }
 }

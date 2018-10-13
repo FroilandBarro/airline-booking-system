@@ -33,10 +33,7 @@ export class ApiService {
     }
 
     saveclientDetails(clientDetails) {
-        return this.http.post(`${this.baseUrl}/flights/book`, clientDetails ).subscribe(res=> {
-            console.log(res);
-       
-        });
+        return this.http.post(`${this.baseUrl}/flights/book`, clientDetails )
     }
     specificBooks(datas) {
         return this.http.post(`${this.baseUrl}/flights/specificbooks`, datas)
@@ -47,10 +44,5 @@ export class ApiService {
     getAvailableFlights(query) {
         const { origin, destination } = query;
         return this.http.get(`${this.baseUrl}/flights?orig=${origin}&dest=${destination}`);
-    }
-
-    getReturnFlights(query) {
-        const { origin, destination } = query;
-        return this.http.get(`${this.baseUrl}/flights/returnbooks?orig=${origin}&dest=${destination}`);
     }
 }
