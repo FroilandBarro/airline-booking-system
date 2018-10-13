@@ -9,6 +9,20 @@
   .widgets-row {
     width: 100%;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: flex-start;
+
+    .row-contents {
+      &:not(:last-child) {
+        margin-right: 20px;
+      }
+
+      &.airlines {
+        width: 25%;
+      }
+
+      &.flights {
+        width: 75%;
+      }
+    }
   }
 }

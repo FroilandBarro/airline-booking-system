@@ -1,7 +1,36 @@
 .flights-list {
-  width: 600px;
+  width: 100%;
+
   .card-list {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+
+    .details {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+
+      .item-card {
+        display: flex;
+        flex-direction: column;
+
+        &:not(:last-child) {
+          margin-right: 20px;
+        }
+
+        .card {
+          margin-bottom: 0;
+
+          .card-body {
+            font-size: 16px;
+            font-weight: 700
+          }
+
+          .card-footer {
+            border-top: 1px solid;
+          }
+        }
+      }
+    }
   }
 }
