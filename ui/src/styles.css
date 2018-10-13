@@ -1,3 +1,55 @@
 /* You can add global styles to this file, and also import other style files */
 /* @import "~bootstrap/dist/css/bootstrap.css"; */
 @import "~font-awesome/css/font-awesome.css";
+
+
+.clickable {
+  cursor: pointer;
+}
+
+/* Grid System */
+.cgrid-1 {
+  width: 6.666666666666667%;
+}
+.cgrid-2 {
+  width: 13.333333333333333%;
+}
+.cgrid-3 {
+  width: 20%;
+}
+.cgrid-4 {
+  width: 26.666666666666667%;
+}
+.cgrid-5 {
+  width: 33.333333333333333%;
+}
+.cgrid-6 {
+  width: 40%;
+}
+.cgrid-7 {
+  width: 46.666666666666667%;
+}
+.cgrid-8 {
+  width: 53.333333333333333%;
+}
+.cgrid-9 {
+  width: 60%;
+}
+.cgrid-10 {
+  width: 66.666666666666667%;
+}
+.cgrid-11 {
+  width: 73.333333333333333%;
+}
+.cgrid-12 {
+  width: 80%;
+}
+.cgrid-13 {
+  width: 86.666666666666667%;
+}
+.cgrid-14 {
+  width: 93.333333333333333%;
+}
+.cgrid-15 {
+  width: 100%;
+}

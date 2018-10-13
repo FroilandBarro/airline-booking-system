@@ -5,10 +5,58 @@
     </div>
     <div class="card-body">
       <div class="card-list">
-        <div class="card clickable" *ngFor="let flight of flights; let i = index;" >
+        <div class="clickable" *ngFor="let flight of flights; let i = index;" >
           <div class="details">
-            <div class="flight">{{flight.no}}</div>
-            <div class="nationality">{{flight.originCode}}</div>
+            <div class="item-card cgrid-3">
+              <div class="card">
+                <div class="card-body">
+                  {{flight.no}}
+                </div>
+                <div class="card-footer">
+                  Flight
+                </div>
+              </div>
+            </div>
+            <div class="item-card cgrid-3">
+              <div class="card">
+                <div class="card-body">
+                  {{flight.origin}}
+                </div>
+                <div class="card-footer">
+                  Origin
+                </div>
+              </div>
+            </div>
+            <div class="item-card cgrid-3">
+              <div class="card">
+                <div class="card-body">
+                  {{flight.destination}}
+                </div>
+                <div class="card-footer">
+                  Desitination
+                </div>
+              </div>
+            </div>
+            <div class="item-card cgrid-4">
+              <div class="card">
+                <div class="card-body">
+                  {{flight.date}}/{{flight.time}}
+                </div>
+                <div class="card-footer">
+                  Schedule
+                </div>
+              </div>
+            </div>
+            <div class="item-card cgrid-2">
+              <div class="card">
+                <div class="card-body">
+                    {{flight.available}} / {{flight.capacity}}
+                </div>
+                <div class="card-footer">
+                  Booked
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
