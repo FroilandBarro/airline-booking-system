@@ -6,7 +6,7 @@ const bookSchema = new mongoose.Schema({
     departdate: {
         type: Date
     },
-    returdate: {
+    returndate: {
         type: Date
     },
     bookDate: {

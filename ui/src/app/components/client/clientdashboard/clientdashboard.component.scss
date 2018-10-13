@@ -246,7 +246,11 @@
         padding: 0px 15px 10px 15px;
     }
     .color1{
+        cursor: pointer;
         background-color: rgba(33, 149, 243, 0.905);
+        &:hover{
+            background-color: rgba(8, 111, 196, 0.905);
+        }
     }
 
     .color2{
@@ -254,6 +258,10 @@
     }
     .color3{
        color: #eee;
+    }
+    .color4{
+        background-color: rgba(122, 19, 19, 0);
+       
     }
  
     .fees-summary {
@@ -280,5 +288,11 @@
     p{
         font-size: 10px;
     }
-  
+    .scrollable{
+        .card-body {
+            overflow-y: scroll;
+            overflow-x: hidden;
+            max-height: 350px;
+        }
+    }
 }
