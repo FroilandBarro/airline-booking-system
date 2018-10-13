@@ -4,6 +4,8 @@ import { SharedDataService } from '../../../services/sharedData.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../../services/api.service';
 
+import * as moment from 'moment';
+
 @Component({
   selector: 'app-clientdashboard',
   templateUrl: './clientdashboard.component.html',
@@ -11,9 +13,12 @@ import { ApiService } from '../../../services/api.service';
 })
 export class ClientdashboardComponent implements OnInit {
   userData: any;
-  bookedflights: any = [];
-  bookSelected: any;
+  oneWay: any = [];
+  roundTrip: any = [];
+  returnbookSelected: any;
+  onewaySelected: any;
   withReturn: any = [];
+  bookFlights: any =[];
   constructor(
     private utils: SystemUtils,
     private shared: SharedDataService,
@@ -26,7 +31,6 @@ export class ClientdashboardComponent implements OnInit {
       });
      }
      
-     
      ngOnInit() {
       var id = this.route.snapshot.params.id
       const userData = JSON.parse(localStorage.getItem('userData'))
@@ -34,19 +38,31 @@ export class ClientdashboardComponent implements OnInit {
       console.log(userData.data);
       this.api.specificBooks(this.userData).subscribe((res: any) =>{
         if(res && res.data){
-          this.bookedflights= res.data;
-          console.log(this.bookedflights);
-         
+          this.flightMapping(res.data);
         }
       });
 
      
     }
+    flightMapping(data){
+      data.map(o => {
+        if(o.returnFlightSelected){
+          this.roundTrip.push(o);
+        }
+        if(!o.returnFlightSelected){
+          this.oneWay.push(o);
+        }
+      })
+    }
 
-     click(form){
-       this.bookSelected = form;
-       console.log(this.bookedflights.lenght);
+     returnClick(form){
+       this.returnbookSelected = form;
+       console.log(this.returnbookSelected.returndate);  
      }
+     onewayClick(form){
+      this.onewaySelected = form;
+     
+    }
 
  
 

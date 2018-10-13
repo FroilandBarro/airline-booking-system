@@ -5,12 +5,16 @@ import { SystemUtils } from '../../../services/system.utils.service';
 import { SharedDataService } from '../../../services/sharedData.service';
 import { RouterLink, Router, ActivatedRoute } from '@angular/router';
 
+import * as moment from 'moment';
+
 @Component({
   selector: 'app-booking',
   templateUrl: './booking.component.html',
   styleUrls: ['./booking.component.scss']
 })
 export class BookingComponent implements OnInit {
+  today: any;
+  nextDay: Date;
   hasLoggedIn: boolean = false;
   flightSelected: any;
   returnFlightSelected: any;
@@ -33,9 +37,10 @@ export class BookingComponent implements OnInit {
   }
 
   
+  
   formModel: any = {
-    departdate: Date,
-    returndate: Date,
+    departdate: null,
+    returndate: null,
     clientName: null,
     returnFlightSelected: null,
     flightSelected: null,
@@ -49,10 +54,6 @@ export class BookingComponent implements OnInit {
     flightClass: null,
   };
   
-  // clientDetails: any = [
-  //   this.flightSelected,
-  //   this.formModel,
-  // ]
   clientModel: any = {
     name: null,
     email: null,
@@ -72,16 +73,23 @@ export class BookingComponent implements OnInit {
   ) {
     this.shared.currentUserData.subscribe((userData: any) => {
       this.userData = userData;
-      });
+    });
+
+    this.today = moment().format('YYYY-MM-DD');
+    this.formModel.departdate = this.today;
    }
 
-   ngOnInit() {
-     if(this.userData){
-    var id = this.route.snapshot.params.id
-    const userData = JSON.parse(localStorage.getItem('userData'))
-    this.userData = userData.data;
+  ngOnInit() {
+     if (this.userData) {
+      var id = this.route.snapshot.params.id
+      const userData = JSON.parse(localStorage.getItem('userData'))
+      this.userData = userData.data;
+    }
   }
-}
+
+  returnSched(date) {
+    
+  }
 
   selectTrip(value) {
     this.trip = value;
@@ -154,10 +162,8 @@ export class BookingComponent implements OnInit {
  
   }
   selectreturnflight(flight){
-    this.returnFlightSelected = flight;
-    this.formModel.returnFlightSelected = this.returnFlightSelected;
-    
-    console.log("FormModel Return: ",this.formModel.returnFlightSelected);
+    this.formModel.returnFlightSelected = flight;
+    console.log("FormModel Return: ",this.formModel);
   }
 
   //for the discounted price
@@ -202,6 +208,7 @@ export class BookingComponent implements OnInit {
         console.log(err);
       });
   }
+
   clientregister(){
     console.log(this.clientModel);
     this.api.registerClient(this.clientModel);
@@ -227,8 +234,12 @@ export class BookingComponent implements OnInit {
     console.log(this.tripModel.type);
   }
   onSubmitDetails(form){
+    // const newDate = new Date(this.formModel.returndate);
+    // console.log(newDate)
+    // this.formModel.returndate = moment(this.formModel.returndate).format('DD-MM-YYYY');
+    // this.formModel.returndate = moment(this.formModel.departdate).format('DD-MM-YYYY');
+
     this.formModel.clientName = this.userData.name;
-    
     form = this.formModel
     console.log(form);
     this.api.saveclientDetails(form).subscribe(res=> {

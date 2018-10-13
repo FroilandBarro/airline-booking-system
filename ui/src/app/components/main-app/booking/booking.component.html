@@ -38,12 +38,12 @@
                 </div>
                 <div class="form-control-container">
                   <label for="departDate">Departure Date</label>
-                  <input type="date" class="form-control" name="departdate" #departdate="ngModel" ngModel [(ngModel)]="formModel.departdate"
+                  <input type="date" class="form-control" name="departdate" [min]="today" #departdate="ngModel" ngModel (change)="returnSched(formModel.departdate)" [(ngModel)]="formModel.departdate"
                     name="departdate">
                 </div>
                 <div class="form-control-container">
                   <label for="returnDate">Return Date</label>
-                  <input type="date" class="form-control" min="formMode.departdate" #returndate="ngModel" ngModel [(ngModel)]="formModel.returndate"
+                  <input type="date" class="form-control" min="formMode.departdate" [min]="formModel.departdate" #returndate="ngModel" ngModel [(ngModel)]="formModel.returndate"
                     name="returnDate" [disabled]="trip !== 1">
                 </div>
                 <div class="form-control-container">
@@ -164,11 +164,11 @@
               <div class="row-inline">
                 <div class="card">
                   <div class="card-header">
-                    <h6 class="title" *ngIf="!returnflight">Flight Details</h6>
-                    <h6 class="title" *ngIf="returnflight">Return Flight Details</h6>
+                    <h6 class="title" *ngIf="!returnFlightSelected">Flight Details</h6>
+                    <h6 class="title" *ngIf="returnFlightSelected">Return Flight Details</h6>
                   </div>
                   <!--for from flight details-->
-                  <div class="card-body" *ngIf="flightSelected  && !returnflight">
+                  <div class="card-body" *ngIf="flightSelected  && !returnFlightSelected">
                     <div class="fees-summary">
                       <div class="col-md-6">
                         <span>Airline:</span>
@@ -243,13 +243,13 @@
                     </div>
                   </div>
                   <!--for return flight details-->
-                  <div class="card-body" *ngIf="returnFlightSelected && returnflight">
+                  <div class="card-body" *ngIf="returnFlightSelected && returnFlightSelected">
                       <div class="fees-summary">
                         <div class="col-md-6">
                           <span>Airline:</span>
                         </div>
                         <div class="col-md-6">
-                          <span class="right">{{returnFlightSelected.airline}}</span>
+                          <span class="right">{{formModel.returnFlightSelected.airline}}</span>
                         </div>
                       </div>
                       <div class="fees-summary">
@@ -265,7 +265,7 @@
                           <span>Origin:</span>
                         </div>
                         <div class="col-md-6">
-                          <span class="right">{{returnFlightSelected.orig}}</span>
+                          <span class="right">{{formModel.returnFlightSelected.orig}}</span>
                         </div>
                       </div>
                       <div class="fees-summary">
@@ -273,7 +273,7 @@
                           <span>Destination:</span>
                         </div>
                         <div class="col-md-6">
-                          <span class="right">{{returnFlightSelected.dest}}</span>
+                          <span class="right">{{formModel.returnFlightSelected.dest}}</span>
                         </div>
                       </div>
                       <div class="fees-summary">
@@ -281,7 +281,7 @@
                           <span>Departure:</span>
                         </div>
                         <div class="col-md-6">
-                          <span class="right">{{returnFlightSelected.dep}}</span>
+                          <span class="right">{{formModel.returnFlightSelected.dep}}</span>
                         </div>
                       </div>
                       <div class="fees-summary">
@@ -289,7 +289,7 @@
                           <span>Arrival:</span>
                         </div>
                         <div class="col-md-6">
-                          <span class="right">{{returnFlightSelected.arr}}</span>
+                          <span class="right">{{formModel.returnFlightSelected.arr}}</span>
                         </div>
                       </div>
                       <div class="fees-summary">
@@ -318,10 +318,10 @@
                       </div>
                     </div>
                   <div class="card-footer">
-                        <button class="btn btn-success btn-reg" (click)="returnflight = true" *ngIf="tripModel.type === 'ROUND' && !returnflight" [disabled]="! returnFlightSelected" >
+                        <button class="btn btn-success btn-reg" (click)="returnFlightSelected = true" *ngIf="tripModel.type === 'ROUND' && !returnFlightSelected" [disabled]="!formModel.returnFlightSelected" >
                         <span>Return Flight Details</span>
                         </button>
-                      <button class="btn btn-success btn-reg" (click)="returnflight = false" *ngIf="tripModel.type === 'ROUND' && returnflight">
+                      <button class="btn btn-success btn-reg" (click)="returnFlightSelected = false" *ngIf="tripModel.type === 'ROUND' && returnFlightSelected">
                         <span>Flight Details</span>
                       </button>
                     </div>
@@ -366,7 +366,7 @@
                     <button type="submit" class="btn btn-success btn-reg" *ngIf="userData && !confirmed" [(disabled)]="passengerDetails.invalid">
                       <span>Confirm</span>
                     </button>
-                      <span *ngIf="confirmed" >Book again? <a>Book</a></span>
+                      <span *ngIf="confirmed" >Book again? <a href="#">Yes</a></span>
                   </div>
                 
                 </div>

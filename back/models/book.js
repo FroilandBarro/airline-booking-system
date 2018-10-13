@@ -27,7 +27,7 @@ const bookSchema = new mongoose.Schema({
     noOfChildren: {
         type: Number,
     },
-    returnFlight: {
+    returnFlightSelected: {
         type: Object,
         default: {},
     },
