@@ -9,19 +9,26 @@ import { SharedDataService } from '../../../services/sharedData.service';
 export class AirlinesListComponent implements OnInit {
 
   airliners: any = [
-    { code: 'pal', name: 'Philippines Airlines', nationality: 'Philippines' },
-    { code: 'cpac', name: 'Cebu Pacific', nationality: 'Philippines' },
-    { code: 'aasa', name: 'Air Asia', nationality: 'Singapore' },
+    { code: 'pal', name: 'Philippines Airlines', nationality: 'Philippines', isSelected: true },
+    { code: 'cpac', name: 'Cebu Pacific', nationality: 'Philippines', isSelected: false },
+    { code: 'aasa', name: 'Air Asia', nationality: 'Singapore', isSelected: false },
   ];
 
   constructor(
     private sharedData: SharedDataService,
-  ) { }
+  ) {
+    this.onSelect(this.airliners[0], 0);
+  }
 
   ngOnInit() {
   }
 
-  onSelect(airline) {
+  onSelect(airline, idx) {
+    this.airliners.map((o, index) => {
+      if (o.isSelected && index !== idx) {
+        o.isSelected = false;
+      }
+    });
     this.sharedData.setFlights(this.getFlights(airline.code));
   }
 

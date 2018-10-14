@@ -8,15 +8,13 @@ import { SharedDataService } from '../../../services/sharedData.service';
 })
 export class FlightsListComponent implements OnInit {
 
+  hasSelected: boolean;
   flights: any;
   constructor(
     private sharedData: SharedDataService,
   ) {
     this.sharedData.flights.subscribe((flights: any) => {
-      if (flights && flights.length) {
-        this.flights = flights;
-        console.log(flights);
-      }
+      this.flights = flights;
     });
   }
 

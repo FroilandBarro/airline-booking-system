@@ -1,10 +1,24 @@
 <div class="flights-list">
   <div class="card">
     <div class="card-header">
-      <h5 class="card-title">Flights</h5>
+      <div>
+        <h5 class="card-title">Flights</h5>
+      </div>
+      <div class="btn-list">
+        <div>
+          <a class="btn btn-warning">
+            <i class="fa fa-plus"></i>
+          </a>
+        </div>
+        <div *ngIf="hasSelected">
+          <a class="btn btn-transparent">
+            <i class="fa fa-times"></i>
+          </a>
+        </div>
+      </div>
     </div>
     <div class="card-body">
-      <div class="card-list">
+      <div class="card-list" *ngIf="flights.length">
         <div class="clickable" *ngFor="let flight of flights; let i = index;" >
           <div class="details">
             <div class="item-card cgrid-3">
@@ -59,6 +73,9 @@
             </div>
           </div>
         </div>
+      </div>
+      <div class="no-flight" *ngIf="!flights.length" >
+          <div>No flights found...</div>
       </div>
     </div>
   </div>

@@ -602,15 +602,3 @@ router.post('/adminlogin', (req, res) => {
 });
 
 module.exports = router;
- //inside the register
- // bcrypt.compare(body.password, adminlog.password, (err, isMatch) => {
-
-            //     if (err) {
-            //         res.status(500).send({ message: 'Internal server error!' });
-            //         return;
-            //     }
-
-            //     if (!isMatch) {
-            //         res.status(401).send({ message: 'Password did not matched!'});
-            //         console.log(adminlog.password);
-            //         return;
