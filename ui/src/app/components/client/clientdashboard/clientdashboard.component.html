@@ -41,6 +41,7 @@
               <div class="card color4 scrollable">
                 <div class="card-header">
                   <h6 class="color3">Flights</h6>
+                  <a><span class="color color3 btn-cancel" *ngIf="onewaySelected"  (click)="oncancel()">Cancel Selected Flight</span></a>
                 </div>
                 <div class="card-body">
                   <div class="card card-inside padded color1" *ngFor="let book of oneWay; let k= index" (click)="onewayClick(book)">           
@@ -147,7 +148,8 @@
             <div class="row-inline">
               <div class="card color4 scrollable">
                 <div class="card-header">
-                  <h6 class="color color3">Flights</h6>
+                  <h6 class="color color3 ">Flights</h6>
+                  <a><span class="color color3 btn-cancel" *ngIf="returnbookSelected"  (click)="oncancelReturn()">Cancel Selected Flight</span></a>
                 </div>
                 <div class="card-body">
                   <div class="card card-inside padded color1" *ngFor="let book of roundTrip; let k= index" (click)="returnClick(book)">           

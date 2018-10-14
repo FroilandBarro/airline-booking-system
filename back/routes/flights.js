@@ -514,7 +514,18 @@ const clientregister = (body, res) => {
         }
     })
 }
-
+const cancelFlights = async (body, res) => {
+    console.log("body in function: ", body._id);
+    const { _id } = body;
+    await Book.findOneAndUpdate({ _id }, { $set: { isCanceled: true } }, { new: true }, (err, data) => {
+        if(err){
+            res.status(500).send({message: 'Internal server error', err });
+            return;
+        }
+        res.status(200).send({message: 'Flight cancelled.', data });
+        return;
+    });
+}
 
 //routers
 router.get('/', (req, res) => {
@@ -581,13 +592,13 @@ router.post("/specificbooks", (req, res) => {
     return;
 })
 
-// router.get("/returnbooks", (req, res) => {
-//     const {query, query : { orig, dest }} = req;
-//     if (query) {
-//         returnFlights(query, res);
-//         return;
-//     }
-// })
+router.post("/cancelflight", (req, res) => {
+    const {body} = req;
+    if (body) {
+        cancelFlights(body, res);
+        return;
+    }res.status(403).send({status: 403, msg: "invalid request", data: 0});
+})
 
 router.post('/adminlogin', (req, res) => {
 
