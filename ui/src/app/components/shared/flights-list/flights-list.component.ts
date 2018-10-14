@@ -23,9 +23,15 @@ export class FlightsListComponent implements OnInit {
   ngOnInit() {
   }
 
+  showDetails(flight) {
+    flight.pop = true;
+    this.entryForm.updateFormData(flight);
+  }
+
   openModalEntry() {
     const formData = {
       pop: true,
+      new: true,
     };
 
     this.entryForm.updateFormData(formData);

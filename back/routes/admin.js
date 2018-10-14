@@ -5,6 +5,15 @@ const moment = require('moment');
 // models
 const Flights = require('../models/flights.model');
 
+// constants
+const locations = [
+  { code: 'DVO', name: 'DAVAO' },
+  { code: 'MNL', name: 'MANILA' },
+  { code: 'CEB', name: 'CEBU' },
+  { code: 'CLK', name: 'CLARK' },
+  { code: 'BHL', name: 'BOHOL' },
+  { code: 'PWN', name: 'PALAWAN' },
+];
 // controllers 
 const convertDate = (date) => {
   const fd = new Date(date);
@@ -16,7 +25,6 @@ const getFlights = async (res) => {
   const { airliner } = this;
   if (airliner) {
     query.airliner = airliner;
-    console.log(query);
   }
   await Flights.find(query, (err, flights) => {
     if (err) {
@@ -28,20 +36,35 @@ const getFlights = async (res) => {
   });
 };
 
+const getPlace = (code) => {
+  let selected = '';
+  locations.map(o => {
+    if (o.code === code) {
+      selected = o.name;
+    }
+  });
+  return selected;
+}
+
 const updateFlight = async (body, res) => {
   const { _id } = body;
   const flightDate = convertDate(body.flightDate);
+  const origin = getPlace(body.originCode);
+  const destination = getPlace(body.destCode);
+
   await Flights.findOneAndUpdate(
     { _id }, 
     { $set: {
       airliner: body.airliner,
       no: body.no,
       originCode: body.originCode,
-      origin: body.origin,
+      origin: origin,
       destCode: body.destCode,
-      destination: body.destination,
+      destination: destination,
       flightDate: flightDate,
       departureTime: body.departureTime,
+      ecoPrice: body.ecoPrice,
+      busPrice: body.busPrice,
       capacity: body.capacity,
     }},
     { new: true },
@@ -58,8 +81,13 @@ const updateFlight = async (body, res) => {
 // Methods
 router.post('/save-flights', async (req, res) => {
   const { body, body: { _id, flightDate } } = req;
+
   body.flightDate = convertDate(flightDate);
-  
+  body.origin = getPlace(body.originCode);
+  body.destination = getPlace(body.destCode);
+
+  console.log('body: ', body);
+
   if (!_id) {
     const newFlight = new Flights(body);
     await newFlight.save((err) => {

@@ -14,4 +14,8 @@ export class AdminApiService {
       const { airliner } = query;
       return this.http.get(`${this.baseUrl}/flights?airliner=${airliner}`);
     }
+
+    setFlights(data) {
+        return this.http.post(`${this.baseUrl}/save-flights`, data);
+    }
 }

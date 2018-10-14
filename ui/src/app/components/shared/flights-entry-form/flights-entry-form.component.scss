@@ -38,10 +38,20 @@
     display: flex;
   }
 
-  .row-spread {
+  .row-spread, .equal-row-spread {
     display: flex;
     justify-content: space-between;
     align-items: center;
+  }
+
+  .equal-row-spread {
+    div {
+      width: 100%;
+      &:not(:last-child) {
+        margin-right: 10px;
+      }
+    }
+
   }
 
   .btn-transparent {

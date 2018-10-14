@@ -10,6 +10,8 @@ const flightSchema = new mongoose.Schema({
     destination: { type: String },
     flightDate: { type: Date },
     departureTime: { type: String },
+    ecoPrice: { type: Number },
+    busPrice: { type: Number },
     capacity: { type: Number},
     isDeleted: { 
         type: Boolean,

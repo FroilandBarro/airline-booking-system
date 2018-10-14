@@ -18,10 +18,10 @@
         </div>
       </div>
     </div>
-    <div class="card-body">
+    <div class="card-body scrollable">
       <div class="card-list" *ngIf="flights && flights.length">
         <div class="clickable" *ngFor="let flight of flights; let i = index;" >
-          <div class="details">
+          <div class="details" (click)="showDetails(flight)" >
             <div class="item-card cgrid-3">
               <div class="card">
                 <div class="card-body">

@@ -22,35 +22,59 @@
                 [(ngModel)] = "formData.no"
               >
             </div>
-            <div class="form-group">
-              <label for="origin">Origin</label>
-              <select name="origin" class="form-control" [(ngModel)]="formData.originCode" >
-                <option *ngFor="let option of formModuleData.origin; let i = index;" [value]="option.code">{{option.name}}</option>
-              </select>
+            <div class="equal-row-spread">
+              <div class="form-group">
+                <label for="origin">Origin</label>
+                <select name="origin" class="form-control" [(ngModel)]="formData.originCode" >
+                  <option *ngFor="let option of formModuleData.origin; let i = index;" [value]="option.code">{{option.name}}</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="destination">Destination</label>
+                <select name class="form-control" [(ngModel)]="formData.destCode" >
+                  <option *ngFor="let option of formModuleData.origin; let i = index;" [value]="option.code">{{option.name}}</option>
+                </select>
+              </div>
             </div>
-            <div class="form-group">
-              <label for="destination">Destination</label>
-              <select name class="form-control" [(ngModel)]="formData.destCode" >
-                <option *ngFor="let option of formModuleData.origin; let i = index;" [value]="option.code">{{option.name}}</option>
-              </select>
+            <div class="row-spead">
+              <div class="form-group">
+                <label for="departure-date">Departure Date</label>
+                <input type="date"
+                  name="departure-date"
+                  class="form-control"
+                  placeholder="Flight date"
+                  [(ngModel)] = "formData.flightDate"
+                >
+              </div>
+              <div class="form-group">
+                <label for="departure-time">Departure Time</label>
+                <input type="text"
+                  name="departure-time"
+                  class="form-control"
+                  placeholder="Departure time"
+                  [(ngModel)] = "formData.departureTime"
+                >
+              </div>
             </div>
-            <div class="form-group">
-              <label for="departure-date">Departure Date</label>
-              <input type="date"
-                name="departure-date"
-                class="form-control"
-                placeholder="Flight date"
-                [(ngModel)] = "formData.flightDate"
-              >
-            </div>
-            <div class="form-group">
-              <label for="departure-time">Departure Time</label>
-              <input type="text"
-                name="departure-time"
-                class="form-control"
-                placeholder="Departure time"
-                [(ngModel)] = "formData.departureTime"
-              >
+            <div class="equal-row-spread">
+              <div class="form-group">
+                <label for="economy-price">Economy Price</label>
+                <input type="text"
+                  name="economy-price"
+                  class="form-control"
+                  placeholder="Economy price"
+                  [(ngModel)] = "formData.ecoPrice"
+                >
+              </div>
+              <div class="form-group">
+                <label for="business-price">Business Price</label>
+                <input type="text"
+                  name="business-price"
+                  class="form-control"
+                  placeholder="Business price"
+                  [(ngModel)] = "formData.busPrice"
+                >
+              </div>
             </div>
             <div class="form-group">
               <label for="capacity">Capacity</label>
@@ -64,7 +88,7 @@
         </div>
       </div>
       <div class="card-footer">
-        <button class="btn btn-success cgrid-5" (click)="save()">Save</button>
+        <button class="btn btn-success cgrid-5" (click)="save()"><strong>Save</strong></button>
       </div>
     </div>
   </div>

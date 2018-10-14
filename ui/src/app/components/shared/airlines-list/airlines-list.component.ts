@@ -30,7 +30,13 @@ export class AirlinesListComponent implements OnInit {
       if (o.isSelected && index !== idx) {
         o.isSelected = false;
       }
+
+      if (o.code === airline.code) {
+        o.isSelected = true;
+      }
     });
+
+    this.getFlights(airline);
   }
 
   getFlights(selected) {
