@@ -1,6 +1,5 @@
 var restful= require ('node-restful');
 var mongoose= require('mongoose');
-var moment= require ('moment');
 
 const flightSchema = new mongoose.Schema({
     no: {
