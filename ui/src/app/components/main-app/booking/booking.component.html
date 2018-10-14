@@ -363,7 +363,7 @@
                   </div>
                 
                   <div class="card-footer">
-                    <button type="submit" class="btn btn-success btn-reg" *ngIf="userData && !confirmed" [(disabled)]="passengerDetails.invalid">
+                    <button type="submit" class="btn btn-success btn-reg" *ngIf="userData && !confirmed" [(disabled)]="passengerDetails.invalid && !formModel.returnFlightSelected">
                       <span>Confirm</span>
                     </button>
                       <span *ngIf="confirmed" >Book again? <a href="#">Yes</a></span>

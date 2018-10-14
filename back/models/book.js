@@ -4,10 +4,10 @@ var moment= require ('moment');
 
 const bookSchema = new mongoose.Schema({
     departdate: {
-        type: Date
+        type: String
     },
     returndate: {
-        type: Date
+        type: String
     },
     bookDate: {
         type: Date

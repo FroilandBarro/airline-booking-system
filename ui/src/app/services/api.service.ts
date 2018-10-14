@@ -38,7 +38,9 @@ export class ApiService {
     specificBooks(datas) {
         return this.http.post(`${this.baseUrl}/flights/specificbooks`, datas)
     }
-   
+    cancelFlight(datas) {
+        return this.http.post(`${this.baseUrl}/flights/cancelflight`, datas)
+    }
 
     
     getAvailableFlights(query) {

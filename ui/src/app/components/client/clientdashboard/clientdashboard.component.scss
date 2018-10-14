@@ -295,4 +295,14 @@
             max-height: 350px;
         }
     }
+    .card-header{
+        display: flex;
+        justify-content: space-between;
+            .btn-cancel{
+                cursor: pointer;
+                &:hover{
+                    color: rgb(245, 49, 23);
+                }
+            }
+    }
 }
