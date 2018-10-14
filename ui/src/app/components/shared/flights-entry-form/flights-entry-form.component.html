@@ -1,0 +1,71 @@
+<div class="entry-form" [ngClass]="{'open': showForm, 'hidden': !showForm}">
+  <div class="form-content">
+    <div class="card">
+      <div class="card-header row-spread">
+        <div class="header-title">
+            Enter New Flight
+        </div>
+        <div>
+          <a class="btn btn-transparent" (click)="close()">
+            <i class="fa fa-times"></i>
+          </a>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="body-content">
+            <div class="form-group">
+              <label for="flightNo">Flight</label>
+              <input type="text"
+                name="flightNo"
+                class="form-control"
+                placeholder="Flight code"
+                [(ngModel)] = "formData.no"
+              >
+            </div>
+            <div class="form-group">
+              <label for="origin">Origin</label>
+              <select name="origin" class="form-control" [(ngModel)]="formData.originCode" >
+                <option *ngFor="let option of formModuleData.origin; let i = index;" [value]="option.code">{{option.name}}</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="destination">Destination</label>
+              <select name class="form-control" [(ngModel)]="formData.destCode" >
+                <option *ngFor="let option of formModuleData.origin; let i = index;" [value]="option.code">{{option.name}}</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="departure-date">Departure Date</label>
+              <input type="date"
+                name="departure-date"
+                class="form-control"
+                placeholder="Flight date"
+                [(ngModel)] = "formData.flightDate"
+              >
+            </div>
+            <div class="form-group">
+              <label for="departure-time">Departure Time</label>
+              <input type="text"
+                name="departure-time"
+                class="form-control"
+                placeholder="Departure time"
+                [(ngModel)] = "formData.departureTime"
+              >
+            </div>
+            <div class="form-group">
+              <label for="capacity">Capacity</label>
+              <input type="text"
+                name="capacity"
+                class="form-control"
+                placeholder="Capacity"
+                [(ngModel)] = "formData.capacity"
+              >
+            </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <button class="btn btn-success cgrid-5" (click)="save()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>

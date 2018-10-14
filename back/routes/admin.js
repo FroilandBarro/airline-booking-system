@@ -12,7 +12,13 @@ const convertDate = (date) => {
 };
 
 const getFlights = async (res) => {
-  await Flights.find({}, (err, flights) => {
+  const query = {};
+  const { airliner } = this;
+  if (airliner) {
+    query.airliner = airliner;
+    console.log(query);
+  }
+  await Flights.find(query, (err, flights) => {
     if (err) {
       res.status(500).send({message: 'Failed to get flights!', err});
       return;
@@ -25,10 +31,10 @@ const getFlights = async (res) => {
 const updateFlight = async (body, res) => {
   const { _id } = body;
   const flightDate = convertDate(body.flightDate);
-  console.log(flightDate);
   await Flights.findOneAndUpdate(
     { _id }, 
     { $set: {
+      airliner: body.airliner,
       no: body.no,
       originCode: body.originCode,
       origin: body.origin,
@@ -67,6 +73,16 @@ router.post('/save-flights', async (req, res) => {
   } else {
     updateFlight(body, res);
   }
+});
+
+router.get('/flights', (req, res) => {
+  const { query } = req;
+
+  if (query && query.airliner) {
+    const { airliner } = query;
+    this.airliner = airliner;    
+  }
+  getFlights(res);
 });
 
 module.exports = router;
