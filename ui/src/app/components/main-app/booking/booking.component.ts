@@ -60,7 +60,8 @@ export class BookingComponent implements OnInit {
   };
   tripModel: any = {
     type: null,
-  }
+  };
+
   userData: any;
   constructor(
     private api: ApiService,
@@ -119,20 +120,23 @@ export class BookingComponent implements OnInit {
 
   getPorts() {
     return [
-      { value: 'DVO', label: 'DVO - Davao' },
-      { value: 'CEB', label: 'CEB - Cebu' },
-      { value: 'CLK', label: 'CLK - Clark' },
-      { value: 'MNL', label: 'MNL - Manila' },
+      { value: 'DVO', label: 'DAVAO' },
+      { value: 'MNL', label: 'MANILA' },
+      { value: 'CEB', label: 'CEBU' },
+      { value: 'CLK', label: 'CLARK' },
+      { value: 'BHL', label: 'BOHOL' },
+      { value: 'PWN', label: 'PALAWAN' },
     ];
   }
+
   getClass() {
     return [
       { value: 'ECO', label: 'ECO - Economy' },
       { value: 'BUS', label: 'BUS - Business' },
       ];
     }
-  
-  selectflight(flight){
+
+  selectflight(flight) {
     this.forRound = true;
 
     this.getReturn.origin = flight.dest;

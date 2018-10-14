@@ -7,6 +7,7 @@ const moment = require('moment');
 const Book = require('../models/book');
 const Admin = require('../models/admin');
 const Client = require('../models/client');
+const Flights = require('../models/flights.model');
 
 const availableFligths = [
     {
@@ -26,16 +27,19 @@ const availableFligths = [
 ];
 
 //getflights function
-const getFlights = (query, res) => {
+const getFlights = async (query, res) => {
     const { orig, dest } = query;
     if (orig && dest) {
-        const flights = [];
-        availableFligths.map((f) => {
-            if (f.orig === orig && f.dest === dest) {
-                flights.push(f);
-            }
-        });
+        const originCode = orig;
+        const destCode = dest;
 
+        const flights = await Flights.find({ originCode, destCode });
+
+        flights.map(o => {
+            const date = new Date(o.flightDate);
+            o.flightDate = moment(date).format('YYYY-MM-DD');
+        });
+        
         res.status(200).send({ status: 200, message: 'Success!', data: flights });
         return;
     }
