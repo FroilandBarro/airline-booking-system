@@ -10,8 +10,10 @@ import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './config/routes.config';
 
 import { ApiService } from './services/api.service';
+import { AdminApiService } from './services/admin.api.service';
 import { SystemUtils } from './services/system.utils.service';
 import { SharedDataService } from './services/sharedData.service';
+import { FlightsEntryFormService } from './components/shared/flights-entry-form/flights-entry-form.service';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/client/login/login.component';
@@ -29,6 +31,7 @@ import { BookingsComponent } from './components/shared/bookings/bookings.compone
 import { AirlinesListComponent } from './components/shared/airlines-list/airlines-list.component';
 import { FlightsListComponent } from './components/shared/flights-list/flights-list.component';
 import { ViewBookComponent } from './components/client/view-book/view-book.component';
+import { FlightsEntryFormComponent } from './components/shared/flights-entry-form/flights-entry-form.component';
 
 
 
@@ -50,6 +53,7 @@ import { ViewBookComponent } from './components/client/view-book/view-book.compo
     AirlinesListComponent,
     FlightsListComponent,
     ViewBookComponent,
+    FlightsEntryFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -62,8 +66,10 @@ import { ViewBookComponent } from './components/client/view-book/view-book.compo
   ],
   providers: [
     ApiService,
+    AdminApiService,
     SystemUtils,
     SharedDataService,
+    FlightsEntryFormService,
   ],
   bootstrap: [AppComponent]
 })

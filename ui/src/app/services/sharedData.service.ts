@@ -17,11 +17,25 @@ export class SharedDataService {
     private _flights = new BehaviorSubject<object>({});
     flights = this._flights.asObservable();
 
+    private _selectedAirliner = new BehaviorSubject<object>({});
+    airliner = this._selectedAirliner.asObservable();
+
+    private _selectedFlight = new BehaviorSubject<object>({});
+    selectedFlight = this._selectedFlight.asObservable();
+
     setUserData(userData: object) {
         return this.userData.next(userData);
     }
 
     setFlights(flights: object) {
         return this._flights.next(flights);
+    }
+
+    setActiveAirliner(airliner: object) {
+        return this._selectedAirliner.next(airliner);
+    }
+
+    setSelectedFlight(flight: object) {
+        return this._selectedFlight.next(flight);
     }
 }

@@ -1,12 +1,27 @@
+<app-flights-entry-form></app-flights-entry-form>
 <div class="flights-list">
   <div class="card">
     <div class="card-header">
-      <h5 class="card-title">Flights</h5>
+      <div>
+        <h5 class="card-title">Flights</h5>
+      </div>
+      <div class="btn-list">
+        <div>
+          <a class="btn btn-warning" (click)="openModalEntry()">
+            <i class="fa fa-plus"></i>
+          </a>
+        </div>
+        <div *ngIf="hasSelected">
+          <a class="btn btn-transparent">
+            <i class="fa fa-times"></i>
+          </a>
+        </div>
+      </div>
     </div>
-    <div class="card-body">
-      <div class="card-list">
+    <div class="card-body scrollable">
+      <div class="card-list" *ngIf="flights && flights.length">
         <div class="clickable" *ngFor="let flight of flights; let i = index;" >
-          <div class="details">
+          <div class="details" (click)="showDetails(flight)" >
             <div class="item-card cgrid-3">
               <div class="card">
                 <div class="card-body">
@@ -40,7 +55,7 @@
             <div class="item-card cgrid-4">
               <div class="card">
                 <div class="card-body">
-                  {{flight.date}}/{{flight.time}}
+                  {{flight.flightDate | date}} / {{flight.departureTime}}
                 </div>
                 <div class="card-footer">
                   Schedule
@@ -50,7 +65,7 @@
             <div class="item-card cgrid-2">
               <div class="card">
                 <div class="card-body">
-                    {{flight.available}} / {{flight.capacity}}
+                    {{flight.booked}} / {{flight.capacity}}
                 </div>
                 <div class="card-footer">
                   Booked
@@ -59,6 +74,9 @@
             </div>
           </div>
         </div>
+      </div>
+      <div class="no-flight" *ngIf="!flights.length" >
+          <div>No flights found...</div>
       </div>
     </div>
   </div>

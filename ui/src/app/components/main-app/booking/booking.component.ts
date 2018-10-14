@@ -15,29 +15,27 @@ import * as moment from 'moment';
 export class BookingComponent implements OnInit {
   today: any;
   nextDay: Date;
-  hasLoggedIn: boolean = false;
+  hasLoggedIn: boolean;
   flightSelected: any;
   returnFlightSelected: any;
   returnAvailableFlights: any;
-  hasFlightSelected: boolean = false;
+  hasFlightSelected: boolean;
   availableFlights: any = [];
   trip: null;
   registerData: any = [];
   origins: any = [ {value: null, label: 'Select origin:'}, ...this.getPorts() ];
   destinations: any = [ {value: null, label: 'Select destination:'}, ...this.getPorts() ];
   classes: any = [ {value: null, label: 'Select class'}, ...this.getClass() ];
-  
+
   forRound: boolean;
   roundselect: boolean;
   confirmed: boolean;
 
-  getReturn: any= {
-    origin: "DVO",
-    destination: "CEB",
-  }
+  getReturn: any = {
+    origin: 'DVO',
+    destination: 'CEB',
+  };
 
-  
-  
   formModel: any = {
     departdate: null,
     returndate: null,
@@ -53,7 +51,7 @@ export class BookingComponent implements OnInit {
     noOfChildren: 0,
     flightClass: null,
   };
-  
+
   clientModel: any = {
     name: null,
     email: null,
@@ -62,7 +60,8 @@ export class BookingComponent implements OnInit {
   };
   tripModel: any = {
     type: null,
-  }
+  };
+
   userData: any;
   constructor(
     private api: ApiService,
@@ -121,20 +120,23 @@ export class BookingComponent implements OnInit {
 
   getPorts() {
     return [
-      { value: 'DVO', label: 'DVO - Davao' },
-      { value: 'CEB', label: 'CEB - Cebu' },
-      { value: 'CLK', label: 'CLK - Clark' },
-      { value: 'MNL', label: 'MNL - Manila' },
+      { value: 'DVO', label: 'DAVAO' },
+      { value: 'MNL', label: 'MANILA' },
+      { value: 'CEB', label: 'CEBU' },
+      { value: 'CLK', label: 'CLARK' },
+      { value: 'BHL', label: 'BOHOL' },
+      { value: 'PWN', label: 'PALAWAN' },
     ];
   }
+
   getClass() {
     return [
       { value: 'ECO', label: 'ECO - Economy' },
       { value: 'BUS', label: 'BUS - Business' },
       ];
     }
-  
-  selectflight(flight){
+
+  selectflight(flight) {
     this.forRound = true;
 
     this.getReturn.origin = flight.dest;

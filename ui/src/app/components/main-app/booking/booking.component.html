@@ -67,13 +67,13 @@
                 </thead>
                 <tbody>
                   <tr *ngFor="let flight of availableFlights; let k = index;" (click)="selectflight(flight)">
-                    <td>{{flight.airline}}</td>
-                    <td>{{flight.dep}}</td>
-                    <td>{{flight.arr}}</td>
+                    <td>{{flight.airliner}}</td>
+                    <td>{{flight.flightDate | date}} - {{flight.departureTime}}</td>
+                    <td>TODO: find out arrival</td>
                     <td>
                       <div class="spread">
                         <div class="circle-corners">
-                          <i class="now-ui-icons users_single-02"></i>{{flight.economySeats}}
+                          <i class="now-ui-icons users_single-02"></i>{{flight.capacity}}
                         </div>
                         <div class="circle-corners">
                           <i class="now-ui-icons business_money-coins"></i> P {{flight.ecoPrice | number}}
@@ -83,7 +83,7 @@
                     <td>
                       <div class="spread">
                         <div class="circle-corners">
-                          <i class="now-ui-icons users_single-02"></i>{{flight.businessSeats}}
+                          <i class="now-ui-icons users_single-02"></i>{{flight.capacity}}
                         </div>
                         <div class="circle-corners">
                           <i class="now-ui-icons business_money-coins"></i> P {{flight.busPrice | number}}

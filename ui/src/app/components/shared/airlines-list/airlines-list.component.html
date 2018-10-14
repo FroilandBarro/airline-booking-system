@@ -5,7 +5,7 @@
     </div>
     <div class="card-body">
       <div class="card-list">
-        <div class="card clickable" *ngFor="let airline of airliners; let i = index;" (click)="onSelect(airline)" >
+        <div class="card clickable" *ngFor="let airline of airliners; let i = index;" (click)="onSelect(airline, i)" [ngClass]="{'selected': airline.isSelected}" >
           <div class="logo">
             <img src="../../../../assets/images/icon/{{airline.code}}.png" alt="">
           </div>

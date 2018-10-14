@@ -10,18 +10,22 @@
     width: 100%;
     display: flex;
     justify-content: flex-start;
+    height: 400px;
 
     .row-contents {
+
       &:not(:last-child) {
         margin-right: 20px;
       }
-
+      
       &.airlines {
         width: 25%;
+        height: 100%;
       }
 
       &.flights {
         width: 75%;
+        height: 100%;
       }
     }
   }
