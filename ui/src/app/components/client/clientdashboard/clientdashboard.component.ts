@@ -53,10 +53,12 @@ export class ClientdashboardComponent implements OnInit {
   }
   returnClick(form) {
     this.returnbookSelected = form;
+    this.onewaySelected = null;
     console.log(this.returnbookSelected);
   }
   onewayClick(form) {
     this.onewaySelected = form;
+    this.returnbookSelected = null;
   }
   oncancelReturn() {
     if (this.returnbookSelected) {
