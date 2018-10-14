@@ -3,45 +3,29 @@ var mongoose= require('mongoose');
 var moment= require ('moment');
 
 const flightSchema = new mongoose.Schema({
-    departdate: {
-        type: Date
-    },
-    returndate: {
-        type: Date
-    },
-    bookDate: {
-        type: Date
-    },
-    bookTime: {
+    no: {
         type: String,
     },
-    clientName: {
+    originCode: {
         type: String,
     },
-    flightClass: {
+    origin: {
         type: String,
     },
-    noOfAdults: {
-        type: Number,
+    destCode: {
+        type: String,
     },
-    noOfChildren: {
-        type: Number,
+    destination: {
+        type: String,
     },
-    returnFlightSelected: {
-        type: Object,
-        default: {},
+    flightDate: {
+        type: Date,
     },
-    flightSelected: {
-        type: Object,
-        default: {},
+    departureTime: {
+        type: String,
     },
-    fees: { 
-        type: Object,
-        default: {},
-    },
-    isCanceled: { 
-        type: Boolean,
-        default: false,
+    capacity: {
+        type: Number
     },
     isDeleted: { 
         type: Boolean,
