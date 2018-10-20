@@ -9,25 +9,43 @@ const Admin = require('../models/admin');
 const Client = require('../models/client');
 const Flights = require('../models/flights.model');
 
-const availableFligths = [
-    {
-        airline: 'PAL',
-        orig: 'DVO',
-        dest: 'MNL',
-        flight: 'PAL316A',
-        dep: '13:15',
-        arr: '14:45',
-        economySeats: 10,
-        businessSeats: 5,
-        ecoPrice: 1675.00,
-        busPrice: 4375.00,
-        departdate: Date,
-        returndate: Date,
-    },
-];
+// const availableFligths = [
+//     {
+//         airline: 'PAL',
+//         orig: 'DVO',
+//         dest: 'MNL',
+//         flight: 'PAL316A',
+//         dep: '13:15',
+//         arr: '14:45',
+//         economySeats: 10,
+//         businessSeats: 5,
+//         ecoPrice: 1675.00,
+//         busPrice: 4375.00,
+//         departdate: Date,
+//         returndate: Date,
+//     },
+// ];
 
 //getflights function
 const getFlights = async (query, res) => {
+    const { orig, dest } = query;
+    if (orig && dest) {
+        const originCode = orig;
+        const destCode = dest;
+
+        const flights = await Flights.find({ originCode, destCode });
+
+        flights.map(o => {
+            const date = new Date(o.flightDate);
+            o.flightDate = moment(date).format('YYYY-MM-DD');
+        });
+        
+        res.status(200).send({ status: 200, message: 'Success!', data: flights });
+        return;
+    }
+};
+
+const getreturnFlights = async (query, res) => {
     const { orig, dest } = query;
     if (orig && dest) {
         const originCode = orig;
@@ -86,6 +104,7 @@ const getBookings = async (query, res) => {
     return
 };
 
+
 const clientlogin = async (body, res) => {
     await Client.findOne({ email: body.email, password: body.password })
         .exec((err, clientlog) => {
@@ -127,20 +146,7 @@ const specificBook = async (body, res) => {
             }
         });
 }
-// const returnFlights = (query, res) => {
-//     const { orig, dest } = query;
-//     if (orig && dest) {
-//         const flights = [];
-//         availableFligths.map((f) => {
-//             if (f.orig === orig && f.dest === dest) { 
-//                 flights.push(f);
-//             }
-//         });
 
-//         res.status(200).send({ status: 200, message: 'Success!', data: flights });
-//         return;
-//     }
-// };
 
 const adminlogin = async (body, res) => {
     await Admin.findOne({ adminId: body.adminId, password: body.password })
@@ -229,6 +235,11 @@ router.get('/book', (req, res) => {
     getBookings(query, res);
     return;
 });
+
+router.get('/returnflights-available', (req, res) =>{
+    const { query, query: { orig, dest } } = req;
+        getFlights(query, res);    
+})
 
 router.post('/adminregister', (req, res) => {
     const { body } = req;

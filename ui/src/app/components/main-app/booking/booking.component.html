@@ -107,10 +107,10 @@
                   <th>Business</th>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let flight of returnAvailableFlights; let k = index;" (click)="selectreturnflight(flight)">
-                    <td>{{flight.airline}}</td>
-                    <td>{{flight.dep}}</td>
-                    <td>{{flight.arr}}</td>
+                  <tr *ngFor="let flight of returnAvailableFlights let k = index;" (click)="selectreturnflight(flight)">
+                    <td>{{flight.airliner}}</td>
+                    <td>{{flight.flightDate | date}} - {{flight.departureTime}}</td>
+                    <td>TODO: find out arrival</td>
                     <td>
                       <div class="spread">
                         <div class="circle-corners">
@@ -174,7 +174,7 @@
                         <span>Airline:</span>
                       </div>
                       <div class="col-md-6">
-                        <span class="right">{{flightSelected.airline}}</span>
+                        <span class="right">{{flightSelected.airliner}}</span>
                       </div>
                     </div>
                     <div class="fees-summary">
@@ -190,7 +190,7 @@
                         <span>Origin:</span>
                       </div>
                       <div class="col-md-6">
-                        <span class="right">{{flightSelected.orig}}</span>
+                        <span class="right">{{flightSelected.originCode}}</span>
                       </div>
                     </div>
                     <div class="fees-summary">
@@ -198,7 +198,7 @@
                         <span>Destination:</span>
                       </div>
                       <div class="col-md-6">
-                        <span class="right">{{flightSelected.dest}}</span>
+                        <span class="right">{{flightSelected.destCode}}</span>
                       </div>
                     </div>
                     <div class="fees-summary">
@@ -206,7 +206,7 @@
                         <span>Departure:</span>
                       </div>
                       <div class="col-md-6">
-                        <span class="right">{{flightSelected.dep}}</span>
+                        <span class="right">{{flightSelected.departureTime}}</span>
                       </div>
                     </div>
                     <div class="fees-summary">
@@ -214,7 +214,7 @@
                         <span>Arrival:</span>
                       </div>
                       <div class="col-md-6">
-                        <span class="right">{{flightSelected.arr}}</span>
+                        <span class="right">Find out arrival</span>
                       </div>
                     </div>
                     <div class="fees-summary">
@@ -249,7 +249,7 @@
                           <span>Airline:</span>
                         </div>
                         <div class="col-md-6">
-                          <span class="right">{{formModel.returnFlightSelected.airline}}</span>
+                          <span class="right">{{formModel.returnFlightSelected.airliner}}</span>
                         </div>
                       </div>
                       <div class="fees-summary">
@@ -265,7 +265,7 @@
                           <span>Origin:</span>
                         </div>
                         <div class="col-md-6">
-                          <span class="right">{{formModel.returnFlightSelected.orig}}</span>
+                          <span class="right">{{formModel.returnFlightSelected.originCode}}</span>
                         </div>
                       </div>
                       <div class="fees-summary">
@@ -273,7 +273,7 @@
                           <span>Destination:</span>
                         </div>
                         <div class="col-md-6">
-                          <span class="right">{{formModel.returnFlightSelected.dest}}</span>
+                          <span class="right">{{formModel.returnFlightSelected.destCode}}</span>
                         </div>
                       </div>
                       <div class="fees-summary">
@@ -281,7 +281,7 @@
                           <span>Departure:</span>
                         </div>
                         <div class="col-md-6">
-                          <span class="right">{{formModel.returnFlightSelected.dep}}</span>
+                          <span class="right">{{formModel.returnFlightSelected.departureTime}}</span>
                         </div>
                       </div>
                       <div class="fees-summary">
@@ -289,7 +289,7 @@
                           <span>Arrival:</span>
                         </div>
                         <div class="col-md-6">
-                          <span class="right">{{formModel.returnFlightSelected.arr}}</span>
+                          <span class="right">Find out arrival</span>
                         </div>
                       </div>
                       <div class="fees-summary">

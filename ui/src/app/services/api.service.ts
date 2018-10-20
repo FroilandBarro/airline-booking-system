@@ -42,9 +42,12 @@ export class ApiService {
         return this.http.post(`${this.baseUrl}/flights/cancelflight`, datas)
     }
 
-    
     getAvailableFlights(query) {
         const { origin, destination } = query;
         return this.http.get(`${this.baseUrl}/flights?orig=${origin}&dest=${destination}`);
+    }
+    getReturnAvailableFlights(query) {
+        const { orig, dest } = query;
+        return this.http.get(`${this.baseUrl}/flights/returnflights-available?origin=${orig}&destination=${dest}`);
     }
 }

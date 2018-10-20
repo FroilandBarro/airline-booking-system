@@ -18,7 +18,7 @@ export class BookingComponent implements OnInit {
   hasLoggedIn: boolean;
   flightSelected: any;
   returnFlightSelected: any;
-  returnAvailableFlights: any;
+  returnAvailableFlights: any = [];
   hasFlightSelected: boolean;
   availableFlights: any = [];
   trip: null;
@@ -32,14 +32,14 @@ export class BookingComponent implements OnInit {
   confirmed: boolean;
 
   getReturn: any = {
-    origin: 'DVO',
-    destination: 'CEB',
+    orig: null,
+    dest: null,
   };
 
   formModel: any = {
     departdate: null,
     returndate: null,
-    clientName: null,
+    clientId: null,
     returnFlightSelected: null,
     flightSelected: null,
     fees: {
@@ -137,18 +137,12 @@ export class BookingComponent implements OnInit {
     }
 
   selectflight(flight) {
-    this.forRound = true;
-
-    this.getReturn.origin = flight.dest;
-    this.getReturn.destination = flight.orig;
-
+    this.getReturn.destination = flight.originCode;
+    this.getReturn.origin = flight.destCode;
     this.api.getAvailableFlights(this.getReturn)
     .subscribe((response: any) => {
-      if (response && response.data) {
-        this.returnAvailableFlights = response.data;
-        console.log(this.returnAvailableFlights);
-
-      }
+      this.returnAvailableFlights = response.data;
+      console.log("return", this.returnAvailableFlights);
     }, (err) => {
       console.log(err);
     });
@@ -241,12 +235,14 @@ export class BookingComponent implements OnInit {
     // this.formModel.returndate = moment(this.formModel.returndate).format('DD-MM-YYYY');
     // this.formModel.returndate = moment(this.formModel.departdate).format('DD-MM-YYYY');
 
+
     this.formModel.clientName = this.userData.name;
+    this.formModel.clientId = this.userData._id
     form = this.formModel
     console.log(form);
-    this.api.saveclientDetails(form).subscribe(res=> {
-      console.log(res);
-      this.confirmed = true;
-  });;
+    // this.api.saveclientDetails(form).subscribe(res=> {
+    //   console.log(res);
+    //   this.confirmed = true;
+  // });;
   }
 }

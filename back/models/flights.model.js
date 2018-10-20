@@ -2,6 +2,7 @@ var restful= require ('node-restful');
 var mongoose= require('mongoose');
 
 const flightSchema = new mongoose.Schema({
+    clientId: { type: String },
     airliner: { type: String },
     no: { type: String },
     originCode: { type: String },
