@@ -45,7 +45,7 @@ export class ClientdashboardComponent implements OnInit {
       if (o.returnFlightSelected && !o.isCanceled) {
         this.roundTrip.push(o);
       }
-      if (o.flightSelected && !o.isCanceled) {
+      else if (o.flightSelected && !o.isCanceled) {
         this.oneWay.push(o);
         console.log(this.oneWay);
       }

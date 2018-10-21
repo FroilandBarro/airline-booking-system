@@ -206,6 +206,7 @@ export class BookingComponent implements OnInit {
       .subscribe((response: any) => {
         if (response && response.data) {
           this.availableFlights = response.data;
+          console.log(this.availableFlights);
         }
       }, (err) => {
         console.log(err);
@@ -236,6 +237,16 @@ export class BookingComponent implements OnInit {
   click(){
     console.log(this.tripModel.type);
   }
+
+  flightSeatMapping() {
+    const flights = this.allFlights
+    flights.map(o => {
+      if (flights === this.formModel.flightSelected) {
+          console.log(flights._id);
+      }
+    })
+  }
+
   onSubmitDetails(form){
     // const newDate = new Date(this.formModel.returndate);
     // console.log(newDate)
@@ -245,11 +256,13 @@ export class BookingComponent implements OnInit {
 
     this.formModel.clientName = this.userData.name;
     this.formModel.clientId = this.userData._id
-    form = this.formModel
-    console.log(form);
-    // this.api.saveclientDetails(form).subscribe(res=> {
-    //   console.log(res);
-    //   this.confirmed = true;
+    form = this.formModel;
+    this.flightSeatMapping();
+
+    // console.log(form);
+  //   this.api.saveclientDetails(form).subscribe(res=> {
+  //     console.log(res);
+  //     this.confirmed = true;
   // });;
   }
 }

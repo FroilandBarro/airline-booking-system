@@ -153,7 +153,7 @@
                 </div>
                 <div class="card-body">
                   <div class="card card-inside padded color1" *ngFor="let book of roundTrip; let k= index" (click)="returnClick(book)">           
-                      <span class="right-margin" *ngIf="book" >{{book.flightSelected.airline}} : {{book.flightSelected.flight}}</span>
+                      <span class="right-margin" *ngIf="book" >{{book.flightSelected.airliner}} : {{book.flightSelected.no}}</span>
                   </div>
                 </div>
               </div>
@@ -169,7 +169,7 @@
                       <span>Airline:</span>
                     </div>
                     <div class="col-md-6">
-                      <span class="right" *ngIf="returnbookSelected">{{returnbookSelected.flightSelected.airline}}</span>
+                      <span class="right" *ngIf="returnbookSelected">{{returnbookSelected.flightSelected.airliner}}</span>
                     </div>
                   </div>
                   <div class="fees-summary">
@@ -177,7 +177,7 @@
                       <span>Date:</span>
                     </div>
                     <div class="col-md-6">
-                      <span class="right" *ngIf="returnbookSelected">{{returnbookSelected.flightSelected.departdate}}</span>
+                      <span class="right" *ngIf="returnbookSelected">{{returnbookSelected.flightSelected.flightDate}}</span>
                     </div>
                   </div>
                   <div class="fees-summary">
@@ -185,7 +185,7 @@
                       <span>Origin:</span>
                     </div>
                     <div class="col-md-6">
-                      <span class="right" *ngIf="returnbookSelected">{{returnbookSelected.flightSelected.orig}}</span>
+                      <span class="right" *ngIf="returnbookSelected">{{returnbookSelected.flightSelected.origin}}</span>
                     </div>
                   </div>
                   <div class="fees-summary">
@@ -193,7 +193,7 @@
                       <span>Destination:</span>
                     </div>
                     <div class="col-md-6">
-                      <span class="right" *ngIf="returnbookSelected">{{returnbookSelected.flightSelected.dest}}</span>
+                      <span class="right" *ngIf="returnbookSelected">{{returnbookSelected.flightSelected.destination}}</span>
                     </div>
                   </div>
                   <div class="fees-summary">
@@ -201,7 +201,7 @@
                       <span>Departure:</span>
                     </div>
                     <div class="col-md-6">
-                      <span class="right" *ngIf="returnbookSelected">{{returnbookSelected.flightSelected.dep}}</span>
+                      <span class="right" *ngIf="returnbookSelected">{{returnbookSelected.flightSelected.departureTime}}</span>
                     </div>
                   </div>
                   <div class="fees-summary">
@@ -209,7 +209,7 @@
                       <span>Arrival:</span>
                     </div>
                     <div class="col-md-6">
-                      <span class="right" *ngIf="returnbookSelected">{{returnbookSelected.flightSelected.arr}}</span>
+                      <span class="right" *ngIf="returnbookSelected">find out arrival</span>
                     </div>
                   </div>
                   <div class="fees-summary">
@@ -244,7 +244,7 @@
                       <span>Airline:</span>
                     </div>
                     <div class="col-md-6">
-                      <span class="right" *ngIf="returnbookSelected">{{returnbookSelected.returnFlightSelected.airline}}</span>
+                      <span class="right" *ngIf="returnbookSelected">{{returnbookSelected.returnFlightSelected.airliner}}</span>
                     </div>
                   </div>
                   <div class="fees-summary">
@@ -260,7 +260,7 @@
                       <span>Origin:</span>
                     </div>
                     <div class="col-md-6">
-                      <span class="right" *ngIf="returnbookSelected">{{returnbookSelected.returnFlightSelected.orig}}</span>
+                      <span class="right" *ngIf="returnbookSelected">{{returnbookSelected.returnFlightSelected.origin}}</span>
                     </div>
                   </div>
                   <div class="fees-summary">
@@ -268,7 +268,7 @@
                       <span>Destination:</span>
                     </div>
                     <div class="col-md-6">
-                      <span class="right" *ngIf="returnbookSelected">{{returnbookSelected.returnFlightSelected.dest}}</span>
+                      <span class="right" *ngIf="returnbookSelected">{{returnbookSelected.returnFlightSelected.destination}}</span>
                     </div>
                   </div>
                   <div class="fees-summary">
@@ -276,7 +276,7 @@
                       <span>Departure:</span>
                     </div>
                     <div class="col-md-6">
-                      <span class="right" *ngIf="returnbookSelected">{{returnbookSelected.returnFlightSelected.dep}}</span>
+                      <span class="right" *ngIf="returnbookSelected">{{returnbookSelected.returnFlightSelected.departureTime}}</span>
                     </div>
                   </div>
                   <div class="fees-summary">
@@ -284,7 +284,7 @@
                       <span>Arrival:</span>
                     </div>
                     <div class="col-md-6">
-                      <span class="right" *ngIf="returnbookSelected">{{returnbookSelected.returnFlightSelected.arr}}</span>
+                      <span class="right" *ngIf="returnbookSelected">find out arrival</span>
                     </div>
                   </div>
                   <div class="fees-summary">
