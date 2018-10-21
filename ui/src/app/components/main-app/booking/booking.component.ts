@@ -63,6 +63,7 @@ export class BookingComponent implements OnInit {
   };
 
   userData: any;
+  allFlights : any = [];
   constructor(
     private api: ApiService,
     private utils: SystemUtils,
@@ -74,16 +75,22 @@ export class BookingComponent implements OnInit {
       this.userData = userData;
     });
 
+    
     this.today = moment().format('YYYY-MM-DD');
     this.formModel.departdate = this.today;
    }
 
   ngOnInit() {
      if (this.userData) {
-      var id = this.route.snapshot.params.id
-      const userData = JSON.parse(localStorage.getItem('userData'))
+      var id = this.route.snapshot.params.id;
+      const userData = JSON.parse(localStorage.getItem('userData'));
       this.userData = userData.data;
     }
+
+    this.api.getAllFlights().subscribe((res: any) => {
+      this.allFlights = res.data;
+      this.utils.storeLocal('allFlights', this.allFlights);
+    })
   }
 
   returnSched(date) {

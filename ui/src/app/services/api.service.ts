@@ -28,10 +28,6 @@ export class ApiService {
         return this.http.post(`${this.baseUrl}/flights/adminlogin`, adminData)
     }
 
-    getAllFlights() {
-        return this.http.get(`${this.baseUrl}/flights`);
-    }
-
     saveclientDetails(clientDetails) {
         return this.http.post(`${this.baseUrl}/flights/book`, clientDetails )
     }
@@ -49,5 +45,8 @@ export class ApiService {
     getReturnAvailableFlights(query) {
         const { orig, dest } = query;
         return this.http.get(`${this.baseUrl}/flights/returnflights-available?origin=${orig}&destination=${dest}`);
+    }
+    getAllFlights() {
+        return this.http.get(`${this.baseUrl}/flights/getallflight`);
     }
 }

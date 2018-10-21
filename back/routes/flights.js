@@ -44,6 +44,12 @@ const getFlights = async (query, res) => {
         return;
     }
 };
+const getAllFlights = async (res) => {
+        const flights = await Flights.find({ });
+
+        res.status(200).send({ status: 200, message: 'Success!', data: flights });
+        return;
+};
 
 const getreturnFlights = async (query, res) => {
     const { orig, dest } = query;
@@ -217,6 +223,10 @@ const cancelFlights = async (body, res) => {
 router.get('/', (req, res) => {
     const { query, query: { orig, dest } } = req;
     getFlights(query, res);
+});
+
+router.get('/getallflight', (req, res) => {
+   getAllFlights(res);
 });
 
 router.post('/book', (req, res) => {
