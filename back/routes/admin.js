@@ -65,7 +65,8 @@ const updateFlight = async (body, res) => {
       departureTime: body.departureTime,
       ecoPrice: body.ecoPrice,
       busPrice: body.busPrice,
-      capacity: body.capacity,
+      ecoSeats: body.ecoSeats,
+      busSeats: body.busSeats,
     }},
     { new: true },
     (err) => {
@@ -73,6 +74,7 @@ const updateFlight = async (body, res) => {
         res.status(500).send({message: 'Failed to update flights!', err});
         return;
       }
+      this.airliner = body.airliner;
       getFlights(res);
     }
   );
@@ -86,8 +88,6 @@ router.post('/save-flights', async (req, res) => {
   body.origin = getPlace(body.originCode);
   body.destination = getPlace(body.destCode);
 
-  console.log('body: ', body);
-
   if (!_id) {
     const newFlight = new Flights(body);
     await newFlight.save((err) => {
@@ -95,7 +95,7 @@ router.post('/save-flights', async (req, res) => {
         res.status(500).send({message: 'Internal server error!', err});
         return;
       }
-
+      this.airliner = body.airliner;
       getFlights(res);
     });
   } else {
