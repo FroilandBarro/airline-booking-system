@@ -187,12 +187,6 @@
         }
         tbody > tr > td {
             padding: 5px;
-            &.flex-start {
-                display: flex;
-                justify-content: space-evenly;
-                border: none;
-                align-items: center;
-            }
         }
     }
 
