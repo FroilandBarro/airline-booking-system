@@ -13,7 +13,8 @@ const flightSchema = new mongoose.Schema({
     departureTime: { type: String },
     ecoPrice: { type: Number },
     busPrice: { type: Number },
-    capacity: { type: Number},
+    ecoSeats: { type: Number},
+    busSeats: { type: Number},
     isDeleted: { 
         type: Boolean,
         default: false,
