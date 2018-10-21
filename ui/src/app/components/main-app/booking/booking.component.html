@@ -61,19 +61,26 @@
                 <thead class=" text-primary thead-light">
                   <th>Airline</th>
                   <th>Departure</th>
-                  <th>Arrival</th>
+                  <!-- <th>Arrival</th> -->
                   <th>Economy</th>
                   <th>Business</th>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let flight of availableFlights; let k = index;" (click)="selectflight(flight)">
-                    <td>{{flight.airliner}}</td>
+                  <tr *ngFor="let flight of availableFlights; let k = index;" (click)="selectflight(flight, k)">
+                    <td class="flex-start">
+                      <div class="select-status" *ngIf="selectedDepart === k">
+                        <i class="fa fa-check"></i>
+                      </div>
+                      <div class="airliner">
+                        {{flight.airliner}}
+                      </div>
+                    </td>
                     <td>{{flight.flightDate | date}} - {{flight.departureTime}}</td>
-                    <td>TODO: find out arrival</td>
+                    <!-- <td>TODO: find out arrival</td> -->
                     <td>
                       <div class="spread">
                         <div class="circle-corners">
-                          <i class="now-ui-icons users_single-02"></i>{{flight.capacity}}
+                          <i class="now-ui-icons users_single-02"></i>{{getAvailableSeats(flight, 'ECO')}}
                         </div>
                         <div class="circle-corners">
                           <i class="now-ui-icons business_money-coins"></i> P {{flight.ecoPrice | number}}
@@ -83,7 +90,7 @@
                     <td>
                       <div class="spread">
                         <div class="circle-corners">
-                          <i class="now-ui-icons users_single-02"></i>{{flight.capacity}}
+                          <i class="now-ui-icons users_single-02"></i>{{getAvailableSeats(flight, 'BUS')}}
                         </div>
                         <div class="circle-corners">
                           <i class="now-ui-icons business_money-coins"></i> P {{flight.busPrice | number}}
@@ -102,19 +109,25 @@
                 <thead class=" text-primary thead-light">
                   <th>Airline</th>
                   <th>Departure</th>
-                  <th>Arrival</th>
+                  <!-- <th>Arrival</th> -->
                   <th>Economy</th>
                   <th>Business</th>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let flight of returnAvailableFlights let k = index;" (click)="selectreturnflight(flight)">
-                    <td>{{flight.airliner}}</td>
+                  <tr *ngFor="let flight of returnAvailableFlights let l = index;" (click)="selectreturnflight(flight, l)">
+                    <td class="flex-start">
+                      <div class="select-status" *ngIf="selectedReturn === l">
+                        <i class="fa fa-check"></i>
+                      </div>
+                      <div class="airliner">
+                        {{flight.airliner}}
+                      </div>
+                    </td>
                     <td>{{flight.flightDate | date}} - {{flight.departureTime}}</td>
-                    <td>TODO: find out arrival</td>
                     <td>
                       <div class="spread">
                         <div class="circle-corners">
-                          <i class="now-ui-icons users_single-02"></i>{{flight.economySeats}}
+                          <i class="now-ui-icons users_single-02"></i>{{getAvailableSeats(flight, 'ECO')}}
                         </div>
                         <div class="circle-corners">
                           <i class="now-ui-icons business_money-coins"></i> P {{flight.ecoPrice | number}}
@@ -124,7 +137,7 @@
                     <td>
                       <div class="spread">
                         <div class="circle-corners">
-                          <i class="now-ui-icons users_single-02"></i>{{flight.businessSeats}}
+                          <i class="now-ui-icons users_single-02"></i>{{getAvailableSeats(flight, 'BUS')}}
                         </div>
                         <div class="circle-corners">
                           <i class="now-ui-icons business_money-coins"></i> P {{flight.busPrice | number}}
@@ -142,16 +155,16 @@
                 <div class="form-control-container">
                   <label for="adult">Adult</label>
                   <input type="number" class="form-control" placeholder="adults" min="1" max="5" ngModel name="noOfAdults" #noOfAdults="ngModel"
-                    [(ngModel)]="formModel.noOfAdults" (change)="countChange()" required>
+                    [(ngModel)]="formModel.noOfAdults" (change)="countChange()" [disabled]="confirmed" required>
                 </div>
                 <div class="form-control-container">
                   <label for="child">Child</label>
                   <input type="number" class="form-control" placeholder="child" min="0" max="5" ngModel name="noOfChildren"
-                    #noOfChildren="ngModel" [(ngModel)]="formModel.noOfChildren" (change)="countChange()">
+                    #noOfChildren="ngModel" [(ngModel)]="formModel.noOfChildren" (change)="countChange()" [disabled]="confirmed">
                 </div>
                 <div class="form-control-container">
                   <label for="class">Class</label>
-                  <select class="app-select form-control" name="fligtClass" #flightClass="ngModel" ngModel [(ngModel)]="formModel.flightClass"
+                  <select class="app-select form-control" name="fligtClass" #flightClass="ngModel" ngModel [(ngModel)]="formModel.flightClass" [disabled]="confirmed"
                     (change)="classChanged(flightClass.value)" required>
                     <option *ngFor="let class of classes; let x = index" value="{{class.value}}">{{class.label}}</option>
                   </select>
@@ -446,45 +459,3 @@
     </div>
   </div>
 </div>
-
-
-
-<!-- second card -->
-<!--<div class="col-md-8">
-    <div class="card card-user">
-      <div class="image">
-       
-      </div>
-      <div class="card-body">
-        <div class="author">
-          <a href="#">
-       
-            <h5 class="title">Mike Andrew</h5>
-          </a>
-          <p class="description">
-            michael24
-          </p>
-        </div>
-        <p class="description text-center">
-          "Lamborghini Mercy
-          <br> Your chick she so thirsty
-          <br> I'm in that two seat Lambo"
-        </p>
-      </div>
-      <hr>
-      <div class="button-container">
-        <button href="#" class="btn btn-neutral btn-icon btn-round btn-lg">
-          <i class="fab fa-facebook-f"></i>
-        </button>
-        <button href="#" class="btn btn-neutral btn-icon btn-round btn-lg">
-          <i class="fab fa-twitter"></i>
-        </button>
-        <button href="#" class="btn btn-neutral btn-icon btn-round btn-lg">
-          <i class="fab fa-google-plus-g"></i>
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
-</div>-->

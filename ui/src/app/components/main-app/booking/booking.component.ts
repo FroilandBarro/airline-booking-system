@@ -21,6 +21,9 @@ export class BookingComponent implements OnInit {
   returnAvailableFlights: any = [];
   hasFlightSelected: boolean;
   availableFlights: any = [];
+  bookedSeats = [];
+  selectedDepart: any = null;
+  selectedReturn: any = null;
   trip: null;
   registerData: any = [];
   origins: any = [ {value: null, label: 'Select origin:'}, ...this.getPorts() ];
@@ -75,14 +78,13 @@ export class BookingComponent implements OnInit {
       this.userData = userData;
     });
 
-    
     this.today = moment().format('YYYY-MM-DD');
     this.formModel.departdate = this.today;
    }
 
   ngOnInit() {
      if (this.userData) {
-      var id = this.route.snapshot.params.id;
+      const id = this.route.snapshot.params.id;
       const userData = JSON.parse(localStorage.getItem('userData'));
       this.userData = userData.data;
     }
@@ -90,18 +92,17 @@ export class BookingComponent implements OnInit {
     this.api.getAllFlights().subscribe((res: any) => {
       this.allFlights = res.data;
       this.utils.storeLocal('allFlights', this.allFlights);
-    })
+    });
   }
 
   returnSched(date) {
-    
   }
 
   selectTrip(value) {
     this.trip = value;
-    switch(value){
-      case 0 : 
-        this.tripModel.type = "ONE WAY";
+    switch (value) {
+      case 0:
+        this.tripModel.type = 'ONE WAY';
         this.roundselect = false;
         break;
       case 1:
@@ -110,7 +111,6 @@ export class BookingComponent implements OnInit {
         break;
     }
   }
-  
 
   originChange(value, type) {
     switch (type) {
@@ -143,13 +143,14 @@ export class BookingComponent implements OnInit {
       ];
     }
 
-  selectflight(flight) {
+  selectflight(flight, idx) {
+    this.selectedDepart = idx;
     this.getReturn.destination = flight.originCode;
     this.getReturn.origin = flight.destCode;
+
     this.api.getAvailableFlights(this.getReturn)
     .subscribe((response: any) => {
       this.returnAvailableFlights = response.data;
-      console.log("return", this.returnAvailableFlights);
     }, (err) => {
       console.log(err);
     });
@@ -164,7 +165,8 @@ export class BookingComponent implements OnInit {
     }
  
   }
-  selectreturnflight(flight){
+  selectreturnflight(flight, idx) {
+    this.selectedReturn = idx;
     this.formModel.returnFlightSelected = flight;
     console.log("FormModel Return: ",this.formModel);
   }
@@ -201,16 +203,34 @@ export class BookingComponent implements OnInit {
   }
 
   onSubmit(form) {
-    console.log(form);
     this.api.getAvailableFlights(form)
       .subscribe((response: any) => {
         if (response && response.data) {
           this.availableFlights = response.data;
-          console.log(this.availableFlights);
         }
       }, (err) => {
         console.log(err);
       });
+  }
+
+  getAvailableSeats(flight, classType) {
+    const bookedSeats = this.utils.retrieveItem('bookedSeats');
+    let seats = 0;
+    if (bookedSeats && bookedSeats.length) {
+      const foundSeat = bookedSeats.filter(o => {
+        return o.flightId === flight._id;
+      });
+
+      if (foundSeat[0]) {
+        const seatFound = foundSeat[0];
+        seats = classType === 'ECO' ? (flight.ecoSeats - seatFound.ecoSeats) : (flight.busSeats - seatFound.busSeats);
+      } else {
+        seats = classType === 'ECO' ? flight.ecoSeats : flight.busSeats;
+      }
+    } else {
+      seats = classType === 'ECO' ? flight.ecoSeats : flight.busSeats;
+    }
+    return seats;
   }
 
   clientregister(){
@@ -226,43 +246,67 @@ export class BookingComponent implements OnInit {
   }
   clientlogin(){
     this.api.clientLogin(this.clientModel).subscribe((res: any) => {
-      if(res){
+      if (res) {
       console.log(res);
       this.shared.setUserData(res);
       localStorage.setItem('userData', JSON.stringify(res));
-      
     }
     });
   }
-  click(){
-    console.log(this.tripModel.type);
+
+  click() {
+    return true;
   }
 
-  flightSeatMapping() {
-    const flights = this.allFlights
-    flights.map(o => {
-      if (flights === this.formModel.flightSelected) {
-          console.log(flights._id);
+  onSubmitDetails(form) {
+    const newDate = new Date(this.formModel.returndate);
+    this.formModel.returndate = moment(this.formModel.returndate).format('DD-MM-YYYY');
+    this.formModel.returndate = moment(this.formModel.departdate).format('DD-MM-YYYY');
+
+    this.api.saveclientDetails(form).subscribe(res => {
+      this.confirmed = true;
+      this.updateFlightSeat(form, this.flightSelected);
+      if (this.formModel.returnFlightSelected) {
+        this.updateFlightSeat(form, this.formModel.returnFlightSelected);
       }
-    })
+    });
   }
 
-  onSubmitDetails(form){
-    // const newDate = new Date(this.formModel.returndate);
-    // console.log(newDate)
-    // this.formModel.returndate = moment(this.formModel.returndate).format('DD-MM-YYYY');
-    // this.formModel.returndate = moment(this.formModel.departdate).format('DD-MM-YYYY');
+  updateFlightSeat(form, data) {
+    console.log(form, data);
+    let bookedSeats = this.utils.retrieveItem('bookedSeats');
 
+    const noOfPassenger = form.noOfAdults + form.noOfChildren;
+    let ecoSeats = 0;
+    let busSeats = 0;
 
-    this.formModel.clientName = this.userData.name;
-    this.formModel.clientId = this.userData._id
-    form = this.formModel;
-    this.flightSeatMapping();
-
-    // console.log(form);
-  //   this.api.saveclientDetails(form).subscribe(res=> {
-  //     console.log(res);
-  //     this.confirmed = true;
-  // });;
+    if (bookedSeats && bookedSeats.length) {
+      bookedSeats.map(o => {
+        if (o.flightId === data._id) {
+          o.ecoSeats = o.ecoSeats + (form.fligtClass === 'ECO' ? noOfPassenger : 0);
+          o.busSeats = o.busSeats + (form.fligtClass === 'BUS' ? noOfPassenger : 0);
+        } else {
+          ecoSeats = form.fligtClass === 'ECO' ? noOfPassenger : 0;
+          busSeats = form.fligtClass === 'BUS' ? noOfPassenger : 0;
+          const booked = {
+            flightId: data._id,
+            ecoSeats: ecoSeats,
+            busSeats: busSeats,
+          };
+          bookedSeats.push(booked);
+        }
+      });
+    } else {
+      ecoSeats = form.fligtClass === 'ECO' ? noOfPassenger : 0;
+      busSeats = form.fligtClass === 'BUS' ? noOfPassenger : 0;
+      const booked = {
+        flightId: data._id,
+        ecoSeats: ecoSeats,
+        busSeats: busSeats,
+      };
+      bookedSeats = [];
+      bookedSeats.push(booked);
+    }
+    this.utils.storeLocal('bookedSeats', bookedSeats);
   }
 }

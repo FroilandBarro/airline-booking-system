@@ -45,5 +45,4 @@ export class SharedDataService {
     setSelectedFlight(flight: object) {
         return this._selectedFlight.next(flight);
     }
-    setall
 }
