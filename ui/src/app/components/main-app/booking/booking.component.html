@@ -68,12 +68,12 @@
                 <tbody>
                   <tr *ngFor="let flight of availableFlights; let k = index;" (click)="selectflight(flight, k)">
                     <td class="flex-start">
-                      <div class="select-status" *ngIf="selectedDepart === k">
+                      <span class="select-status" *ngIf="selectedDepart === k">
                         <i class="fa fa-check"></i>
-                      </div>
-                      <div class="airliner">
+                      </span>
+                      <span class="airliner">
                         {{flight.airliner}}
-                      </div>
+                      </span>
                     </td>
                     <td>{{flight.flightDate | date}} - {{flight.departureTime}}</td>
                     <!-- <td>TODO: find out arrival</td> -->
@@ -116,12 +116,12 @@
                 <tbody>
                   <tr *ngFor="let flight of returnAvailableFlights let l = index;" (click)="selectreturnflight(flight, l)">
                     <td class="flex-start">
-                      <div class="select-status" *ngIf="selectedReturn === l">
+                      <span class="select-status" *ngIf="selectedReturn === l">
                         <i class="fa fa-check"></i>
-                      </div>
-                      <div class="airliner">
+                      </span>
+                      <span class="airliner">
                         {{flight.airliner}}
-                      </div>
+                      </span>
                     </td>
                     <td>{{flight.flightDate | date}} - {{flight.departureTime}}</td>
                     <td>
