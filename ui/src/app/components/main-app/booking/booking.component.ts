@@ -144,11 +144,16 @@ export class BookingComponent implements OnInit {
     }
 
   selectflight(flight, idx) {
+    const { departdate, returndate } = this.formModel;
     this.selectedDepart = idx;
     this.getReturn.destination = flight.originCode;
+    this.getReturn.destCode = flight.destCode;
     this.getReturn.origin = flight.destCode;
+    this.getReturn.originCode = flight.originCode;
+    this.getReturn.departDate = departdate;
+    this.getReturn.returnDate = returndate;
 
-    this.api.getAvailableFlights(this.getReturn)
+    this.api.getReturnAvailableFlights(this.getReturn)
     .subscribe((response: any) => {
       this.returnAvailableFlights = response.data;
     }, (err) => {
@@ -163,7 +168,6 @@ export class BookingComponent implements OnInit {
     if(this.tripModel.type === "ROUND"){
       this.forRound = true;
     }
- 
   }
   selectreturnflight(flight, idx) {
     this.selectedReturn = idx;
@@ -273,7 +277,6 @@ export class BookingComponent implements OnInit {
   }
 
   updateFlightSeat(form, data) {
-    console.log(form, data);
     let bookedSeats = this.utils.retrieveItem('bookedSeats');
 
     const noOfPassenger = form.noOfAdults + form.noOfChildren;

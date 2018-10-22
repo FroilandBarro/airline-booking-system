@@ -39,13 +39,19 @@ export class ApiService {
     }
 
     getAvailableFlights(query) {
-        const { origin, destination } = query;
-        return this.http.get(`${this.baseUrl}/flights?orig=${origin}&dest=${destination}`);
+        const { origin, destination, departdate } = query;
+        const departDateQuery = departdate ? `&departDate=${departdate}` : '';
+        return this.http.get(`${this.baseUrl}/flights?originCode=${origin}&destCode=${destination}${departDateQuery}`);
     }
+
     getReturnAvailableFlights(query) {
-        const { orig, dest } = query;
-        return this.http.get(`${this.baseUrl}/flights/returnflights-available?origin=${orig}&destination=${dest}`);
+        const { originCode, destCode, departDate, returnDate } = query;
+        const departDateQuery = departDate ? `&departDate=${departDate}` : '';
+        const returnDateQuery = returnDate ? `&returnDate=${returnDate}` : '';
+        // tslint:disable-next-line:max-line-length
+        return this.http.get(`${this.baseUrl}/flights/returnflights-available?originCode=${destCode}&destCode=${originCode}${departDateQuery}${returnDateQuery}`);
     }
+
     getAllFlights() {
         return this.http.get(`${this.baseUrl}/flights/getallflight`);
     }

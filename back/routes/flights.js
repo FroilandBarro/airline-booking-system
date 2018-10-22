@@ -9,41 +9,36 @@ const Admin = require('../models/admin');
 const Client = require('../models/client');
 const Flights = require('../models/flights.model');
 
-// const availableFligths = [
-//     {
-//         airline: 'PAL',
-//         orig: 'DVO',
-//         dest: 'MNL',
-//         flight: 'PAL316A',
-//         dep: '13:15',
-//         arr: '14:45',
-//         economySeats: 10,
-//         businessSeats: 5,
-//         ecoPrice: 1675.00,
-//         busPrice: 4375.00,
-//         departdate: Date,
-//         returndate: Date,
-//     },
-// ];
-
 //getflights function
 const getFlights = async (query, res) => {
-    const { orig, dest } = query;
-    if (orig && dest) {
-        const originCode = orig;
-        const destCode = dest;
+    const { originCode, destCode, departDate } = query;
+    let ddate = new Date(departDate);
+    ddate.setDate(ddate.getDate() - 1);
 
-        const flights = await Flights.find({ originCode, destCode });
+    const dateQuery = {
+        $gte: ddate
+    };
 
-        flights.map(o => {
-            const date = new Date(o.flightDate);
-            o.flightDate = moment(date).format('YYYY-MM-DD');
-        });
-        
-        res.status(200).send({ status: 200, message: 'Success!', data: flights });
-        return;
-    }
+    await Flights.aggregate(
+        [
+            { $match: { originCode, destCode , flightDate: dateQuery }}
+        ],
+        (err, flights) => {
+            if (err) {
+                res.status(500).send({ message: 'Internal server error', err });
+                return;
+            }
+            flights.map(o => {
+                const date = new Date(o.flightDate);
+                o.flightDate = moment(date).format('YYYY-MM-DD');
+            });
+            
+            res.status(200).send({ status: 200, message: 'Success!', data: flights });
+            return;
+        }
+    );
 };
+
 const getAllFlights = async (res) => {
         const flights = await Flights.find({ });
 
@@ -52,24 +47,36 @@ const getAllFlights = async (res) => {
 };
 
 const getreturnFlights = async (query, res) => {
-    const { orig, dest } = query;
-    if (orig && dest) {
-        const originCode = orig;
-        const destCode = dest;
+    const { originCode, destCode, departDate, returnDate } = query;
+    let ddate = new Date(departDate);
+    let rdate = new Date(returnDate);
+    
+    ddate.setDate(ddate.getDate() - 1);
+    rdate.setDate(rdate.getDate() + 1);
 
-        const flights = await Flights.find({ originCode, destCode });
+    const dateQuery = {
+        $gte: ddate,
+        $lte: rdate
+    };
 
-        flights.map(o => {
-            const date = new Date(o.flightDate);
-            o.flightDate = moment(date).format('YYYY-MM-DD');
-        });
-        
-        res.status(200).send({ status: 200, message: 'Success!', data: flights });
-        return;
-    }
-
-    res.status(200).send({ status: 200, message: 'Success!', data: availableFligths });
-    return;
+    await Flights.aggregate(
+        [
+            { $match: { originCode, destCode , flightDate: dateQuery }}
+        ],
+        (err, flights) => {
+            if (err) {
+                res.status(500).send({ message: 'Internal server error', err });
+                return;
+            }
+            flights.map(o => {
+                const date = new Date(o.flightDate);
+                o.flightDate = moment(date).format('YYYY-MM-DD');
+            });
+            
+            res.status(200).send({ status: 200, message: 'Success!', data: flights });
+            return;
+        }
+    );
 };
 
 // save booking function
@@ -247,8 +254,8 @@ router.get('/book', (req, res) => {
 });
 
 router.get('/returnflights-available', (req, res) =>{
-    const { query, query: { orig, dest } } = req;
-        getFlights(query, res);    
+    const { query } = req;
+    getreturnFlights(query, res);
 })
 
 router.post('/adminregister', (req, res) => {
